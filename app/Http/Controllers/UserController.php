@@ -21,4 +21,22 @@ class UserController extends Controller
     {
         return Inertia::render('User/Create');
     }
+
+    public function store(Request $request)
+    {
+    $request->validate([
+        'name' => 'required',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|min:8',
+        'password_confirmation' => 'required|same:password'
+    ]);
+
+    User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => bcrypt($request->password)
+    ]);
+
+    return redirect()->route('users');
+    }
 }

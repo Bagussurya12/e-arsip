@@ -29,7 +29,7 @@
 
                             <form
                                 @submit.prevent="
-                                    form.patch(route('profile.update'))
+                                    form.post(route('users.store'))
                                 "
                                 class="mt-6 space-y-6"
                             >
@@ -39,7 +39,6 @@
                                         value="Nama Lengkap"
                                         class="mb-2"
                                     />
-
                                     <TextInput
                                         id="name"
                                         type="text"
@@ -50,7 +49,6 @@
                                         placeholder="Masukan Nama Lengkap"
                                         autocomplete="name"
                                     />
-
                                     <InputError
                                         class="mt-2"
                                         :message="form.errors.name"
@@ -59,7 +57,6 @@
 
                                 <div>
                                     <InputLabel for="email" value="Email" />
-
                                     <TextInput
                                         id="email"
                                         type="email"
@@ -69,49 +66,57 @@
                                         autocomplete="username"
                                         placeholder="Masukan Email"
                                     />
-
                                     <InputError
                                         class="mt-2"
                                         :message="form.errors.email"
                                     />
                                 </div>
 
-                                <div
-                                    v-if="
-                                        props.mustVerifyEmail &&
-                                        user.email_verified_at === null
-                                    "
-                                >
-                                    <p class="text-sm mt-2 text-gray-800">
-                                        Your email address is unverified.
-                                        <Link
-                                            :href="route('verification.send')"
-                                            method="post"
-                                            as="button"
-                                            class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                        >
-                                            Click here to re-send the
-                                            verification email.
-                                        </Link>
-                                    </p>
+                                <div>
+                                    <InputLabel
+                                        for="password"
+                                        value="Kata Sandi"
+                                    />
+                                    <TextInput
+                                        id="password"
+                                        ref="passwordInput"
+                                        v-model="form.password"
+                                        type="password"
+                                        class="mt-1 block w-full"
+                                        autocomplete="new-password"
+                                        placeholder="Masukan Kata Sandi"
+                                    />
+                                    <InputError
+                                        :message="form.errors.password"
+                                        class="mt-2"
+                                    />
+                                </div>
 
-                                    <div
-                                        v-show="
-                                            props.status ===
-                                            'verification-link-sent'
+                                <div>
+                                    <InputLabel
+                                        for="password_confirmation"
+                                        value="Konfirmasi Kata Sandi"
+                                    />
+                                    <TextInput
+                                        id="password_confirmation"
+                                        v-model="form.password_confirmation"
+                                        type="password"
+                                        class="mt-1 block w-full"
+                                        autocomplete="new-password"
+                                        placeholder=" Masukan Konfirmasi Kata Sandi"
+                                    />
+                                    <InputError
+                                        :message="
+                                            form.errors.password_confirmation
                                         "
-                                        class="mt-2 font-medium text-sm text-green-600"
-                                    >
-                                        A new verification link has been sent to
-                                        your email address.
-                                    </div>
+                                        class="mt-2"
+                                    />
                                 </div>
 
                                 <div class="flex items-center gap-4">
                                     <PrimaryButton :disabled="form.processing"
-                                        >Save</PrimaryButton
+                                        >Simpan</PrimaryButton
                                     >
-
                                     <Transition
                                         enter-from-class="opacity-0"
                                         leave-to-class="opacity-0"
@@ -121,7 +126,7 @@
                                             v-if="form.recentlySuccessful"
                                             class="text-sm text-gray-600"
                                         >
-                                            Saved.
+                                            Data Berhasil Disimpan!
                                         </p>
                                     </Transition>
                                 </div>
@@ -149,10 +154,10 @@ const props = defineProps({
     status: String,
 });
 
-const user = usePage().props.auth.user;
-
 const form = useForm({
     name: "",
     email: "",
+    password: "",
+    password_confirmation: "",
 });
 </script>
