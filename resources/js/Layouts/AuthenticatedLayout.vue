@@ -5,27 +5,49 @@ import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
 import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
-import { Link } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
 
 const showingNavigationDropdown = ref(false);
 
-const menu = ref([
-    {
-        name: "Dashboard",
-        href: route("dashboard"),
-        current: route().current("dashboard"),
-    },
-    {
-        name: "Pengguna",
-        href: route("users"),
-        current: route().current("users"),
-    },
-    {
-        name: "Data Arsip",
-        href: route("dashboard"),
-        current: route().current("dashboard"),
-    },
-]);
+// Menggunakan usePage untuk mengakses props dari Inertia
+const { props } = usePage();
+const user = props.auth.user;
+
+// Mendefinisikan menu berdasarkan peran user
+const menu = () => {
+    if (user.role === "admin") {
+        return [
+            {
+                name: "Dashboard",
+                href: route("dashboard"),
+                current: route().current("dashboard"),
+            },
+            {
+                name: "Pengguna",
+                href: route("users"),
+                current: route().current("users"),
+            },
+            {
+                name: "Data Arsip",
+                href: route("dashboard"),
+                current: route().current("dashboard"),
+            },
+        ];
+    } else {
+        return [
+            {
+                name: "Dashboard",
+                href: route("dashboard"),
+                current: route().current("dashboard"),
+            },
+            {
+                name: "Data Arsip",
+                href: route("dashboard"),
+                current: route().current("dashboard"),
+            },
+        ];
+    }
+};
 </script>
 
 <template>
@@ -50,7 +72,7 @@ const menu = ref([
                                 class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex"
                             >
                                 <NavLink
-                                    v-for="item in menu"
+                                    v-for="item in menu()"
                                     :key="item.name"
                                     :href="item.href"
                                     :active="item.current"
@@ -159,7 +181,7 @@ const menu = ref([
                 >
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink
-                            v-for="item in menu"
+                            v-for="item in menu()"
                             :key="item.name"
                             :href="item.href"
                             :active="item.current"

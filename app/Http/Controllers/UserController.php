@@ -28,13 +28,14 @@ class UserController extends Controller
         'name' => 'required',
         'email' => 'required|email|unique:users,email',
         'password' => 'required|min:8',
-        'password_confirmation' => 'required|same:password'
+        'password_confirmation' => 'required|same:password'    
     ]);
 
     User::create([
         'name' => $request->name,
         'email' => $request->email,
-        'password' => bcrypt($request->password)
+        'password' => bcrypt($request->password),
+        'role' => $request -> role
     ]);
 
     return redirect()->route('users');

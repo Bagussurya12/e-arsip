@@ -72,6 +72,23 @@
                                 </div>
 
                                 <div>
+                                    <InputLabel for="role" value="Role" />
+                                    <SelectBox
+                                        v-model="form.role"
+                                        :options="dropdownOptions"
+                                        label="Pilih Role"
+                                        id="select-box"
+                                        name="selectBox"
+                                        placeholder="Pilih Role"
+                                        required
+                                    />
+                                    <InputError
+                                        class="mt-2"
+                                        :message="form.errors.role"
+                                    />
+                                </div>
+
+                                <div>
                                     <InputLabel
                                         for="password"
                                         value="Kata Sandi"
@@ -102,7 +119,7 @@
                                         type="password"
                                         class="mt-1 block w-full"
                                         autocomplete="new-password"
-                                        placeholder=" Masukan Konfirmasi Kata Sandi"
+                                        placeholder="Masukan Konfirmasi Kata Sandi"
                                     />
                                     <InputError
                                         :message="
@@ -113,9 +130,9 @@
                                 </div>
 
                                 <div class="flex items-center gap-4">
-                                    <PrimaryButton :disabled="form.processing"
-                                        >Simpan</PrimaryButton
-                                    >
+                                    <PrimaryButton :disabled="form.processing">
+                                        Simpan
+                                    </PrimaryButton>
                                     <Transition
                                         enter-from-class="opacity-0"
                                         leave-to-class="opacity-0"
@@ -139,24 +156,26 @@
 </template>
 
 <script setup>
-import { defineProps } from "vue";
+import { ref } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
-import { Head, Link, useForm, usePage } from "@inertiajs/vue3";
-
-const props = defineProps({
-    mustVerifyEmail: Boolean,
-    status: String,
-});
+import SelectBox from "@/Components/SelectBox.vue";
+import { Head, useForm, usePage } from "@inertiajs/vue3";
 
 const form = useForm({
     name: "",
     email: "",
     password: "",
     password_confirmation: "",
+    role: "", // Tambahkan role dalam form
 });
+
+const dropdownOptions = [
+    { value: "admin", label: "Admin" },
+    { value: "user", label: "User" },
+];
 </script>
