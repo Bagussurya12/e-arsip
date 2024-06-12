@@ -12,19 +12,34 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
-                        Kelola Pengguna untuk menjaga keamanan Akun 🤞
+                        <div class="flex justify-between items-center">
+                            <h5 class="text-gray-900">
+                                Kelola Pengguna untuk menjaga keamanan Akun 🤞
+                            </h5>
+                            <input
+                                type="text"
+                                v-model="searchQuery"
+                                @input="searchUsers"
+                                @keyup.enter="handleSearchInput"
+                                placeholder="Cari Pengguna disini"
+                                class="ml-4 p-2 border border-Dark rounded min-w-[200px] focus:ring-black"
+                            />
+                        </div>
                     </div>
                     <div class="w-full border-t border-slate-700"></div>
                     <div class="p-6 text-black">
                         <div class="flex justify-between items-center mb-10">
-                            <label
-                                >Total Data Pengguna: {{ users.total }}</label
-                            >
+                            <div class="flex items-center">
+                                <label class="mr-2">
+                                    Total Data Pengguna: {{ users.total }}
+                                </label>
+                            </div>
                             <Link
                                 :href="route('users.create')"
                                 class="bg-Dark hover:text-Hijau text-white font-bold py-2 px-4 rounded"
-                                >Tambah Pengguna</Link
                             >
+                                Tambah Pengguna
+                            </Link>
                         </div>
 
                         <table class="min-w-full">
@@ -55,11 +70,16 @@
                                     >
                                         Role
                                     </th>
+                                    <th
+                                        class="px-6 py-3 text-left text-lg font-medium text-black"
+                                    >
+                                        #
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr
-                                    v-for="(user, index) in users.data"
+                                    v-for="(user, index) in displayedUsers"
                                     :key="user.id"
                                     class="border-b"
                                 >
@@ -68,6 +88,14 @@
                                     <td class="px-6 py-4">{{ user.name }}</td>
                                     <td class="px-6 py-4">{{ user.email }}</td>
                                     <td class="px-6 py-4">{{ user.role }}</td>
+                                    <td class="px-6 py-4">
+                                        <Link
+                                            :href="route('users.edit', user.id)"
+                                            class="bg-Dark hover:text-Hijau text-white font-base py-2 px-4 rounded"
+                                        >
+                                            Edit
+                                        </Link>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -95,6 +123,7 @@
 </template>
 
 <script setup>
+import { ref, computed } from "vue";
 import { defineProps } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
@@ -103,6 +132,8 @@ import { Head, Link } from "@inertiajs/vue3";
 const props = defineProps({
     users: Object,
 });
+
+const searchQuery = ref("");
 
 // Mengelola navigasi halaman
 const prevPage = () => {
@@ -114,6 +145,44 @@ const prevPage = () => {
 const nextPage = () => {
     if (props.users.next_page_url) {
         Inertia.visit(props.users.next_page_url);
+    }
+};
+
+const displayedUsers = computed(() => {
+    if (searchQuery.value.trim() === "") {
+        // Jika query kosong, tampilkan semua data pengguna
+        return props.users.data;
+    } else {
+        // Jika query tidak kosong, filter data pengguna sesuai dengan query
+        return props.users.data.filter((user) =>
+            user.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+        );
+    }
+});
+
+// Fungsi untuk pencarian
+const searchUsers = () => {
+    if (searchQuery.value.trim() === "") {
+        // Jika query kosong, arahkan pengguna kembali ke halaman semula
+        Inertia.visit(route("users"));
+    } else {
+        Inertia.get(
+            route("users"),
+            { search: searchQuery.value },
+            {
+                preserveState: true,
+                replace: true,
+            }
+        );
+    }
+};
+
+// Event listener untuk mendeteksi tekanan tombol "Enter"
+const handleSearchInput = (event) => {
+    if (event.key === "Enter" && searchQuery.value.trim() === "") {
+        // Jika tombol "Enter" ditekan dan nilai pencarian kosong,
+        // arahkan pengguna kembali ke halaman semula
+        Inertia.visit(route("users"));
     }
 };
 </script>

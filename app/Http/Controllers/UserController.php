@@ -8,14 +8,22 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(30);
-        // dd($users);
+        $query = User::query();
+    
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('name', 'like', '%' . $search . '%');
+        }
+    
+        $users = $query->paginate(30);
+    
         return Inertia::render('User/Index', [
             'users' => $users
         ]);
     }
+    
 
     public function create()
     {
@@ -24,20 +32,47 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-    $request->validate([
-        'name' => 'required',
-        'email' => 'required|email|unique:users,email',
-        'password' => 'required|min:8',
-        'password_confirmation' => 'required|same:password'    
-    ]);
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8',
+            'password_confirmation' => 'required|same:password',
+            'role' => 'required|in:admin,user'
+        ]);
 
-    User::create([
-        'name' => $request->name,
-        'email' => $request->email,
-        'password' => bcrypt($request->password),
-        'role' => $request -> role
-    ]);
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'role' => $request->role
+        ]);
 
-    return redirect()->route('users');
+        return redirect()->route('users');
+    }
+
+    public function edit(User $user)
+    {
+        return Inertia::render('User/Edit', [
+            'user' => $user
+        ]);
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'nullable|min:8|confirmed',
+            'role' => 'required|in:admin,user'
+        ]);
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => $request->role,
+            'password' => $request->password ? bcrypt($request->password) : $user->password,
+        ]);
+
+        return redirect()->route('users');
     }
 }
