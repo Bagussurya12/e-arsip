@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('lokasi_simpan', function (Blueprint $table) {
             $table->id();
-            $table->integer('kolom');
-            $table->integer('rak');
-            $table->integer('bindeks');
+            $table->foreignId('arsip_id')->constrained('arsip')->onDelete('cascade');
+            $table->integer('kolom_lemari');
+            $table->integer('no_bindeks');
             $table->string('map_bulan')->nullable();
             $table->timestamps();
         });

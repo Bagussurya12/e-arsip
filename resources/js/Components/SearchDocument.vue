@@ -1,13 +1,15 @@
 <template>
-    <div class="pencarian w-full text-center mt-16 md:mt-24 lg:mt-32">
-        <div class="container">
+    <div
+        class="pencarian w-full text-center mt-16 md:mt-24 lg:mt-32 items-center"
+    >
+        <div class="container mx-auto">
             <form
                 action=""
                 class="flex justify-center flex-wrap w-full mx-auto"
             >
                 <!-- Select Naskah Dinas -->
                 <div
-                    class="w-1/4 bg-white text-sm rounded-l-lg border-transparent border-none px-2"
+                    class="w-1/6 bg-white text-sm rounded-l-lg border-transparent border-none px-2"
                 >
                     <select
                         id="selectNaskah"
@@ -31,27 +33,35 @@
                         id="inputNomor"
                         type="text"
                         class="w-full border-none focus:outline-none focus:ring-0"
-                        placeholder="Nomor Naskah Dinas"
+                        placeholder="Uraian"
+                    />
+                </div>
+                <!-- Select Bulan -->
+                <div class="w-1/6 bg-white text-sm border-transparent">
+                    <input
+                        type="number"
+                        class="w-full border-none focus:outline-none focus:ring-0"
+                        placeholder="bulan"
                     />
                 </div>
                 <!-- Select Tahun -->
                 <div class="w-1/6 bg-white text-sm border-transparent">
                     <input
-                        type="text"
+                        type="number"
                         class="w-full border-none focus:outline-none focus:ring-0"
                         placeholder="Tahun"
                     />
                 </div>
                 <!-- Select Media Arsip -->
                 <div
-                    class="w-1/8 bg-white text-sm border-transparent border-none px-2"
+                    class="w-1/6 bg-white text-sm border-transparent border-none px-2"
                 >
                     <select
                         id="selectMedia"
                         name="mediaArsip"
                         class="truncate w-full border-none focus:outline-none focus:ring-0"
                     >
-                        <option disabled selected>Media</option>
+                        <option disabled selected>Media Arsip</option>
                         <option
                             v-for="mediaArsip in MediaArsipGroup"
                             :key="mediaArsip"
@@ -109,7 +119,7 @@ export default {
                 "Telaahan Staf",
                 "Lain-lain",
             ],
-            MediaArsipGroup: ["Digital", "Fisik", "Lainnya"],
+            MediaArsipGroup: ["PDF", "Gambar", "Vidio", "Audio", "Lain-lain"],
         };
     },
 };

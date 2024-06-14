@@ -10,17 +10,10 @@ class LokasiSimpan extends Model
 {
     use HasFactory;
 
-    protected $table = 'lokasi_simpan';
-
-    protected $fillable = [
-        'kolom',
-        'rak',
-        'bindeks',
-        'map_bulan',
-    ];
+    protected $fillable = ['arsip_id', 'kolom', 'rak', 'bindeks', 'map_bulan'];
 
     public function arsip()
     {
-        return $this->belongsToMany(Arsip::class, 'arsip_lokasi', 'id_lokasi', 'id_arsip');
+        return $this->belongsTo(Arsip::class);
     }
 }

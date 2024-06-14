@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('arsip_lokasi', function (Blueprint $table) {
-            $table->foreignId('id_arsip')->constrained('arsip')->onDelete('cascade');
-            $table->foreignId('id_lokasi')->constrained('lokasi_simpan')->onDelete('cascade');
+        Schema::create('media_arsip', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('arsip_id')->constrained('arsip')->onDelete('cascade');
+            $table->enum('jenis_media', ['Gambar', 'PDF', 'Video', 'Audio']);
+            $table->string('nama_media');
             $table->timestamps();
-
-            $table->primary(['id_arsip', 'id_lokasi']);
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('arsip_lokasi');
+        Schema::dropIfExists('media_arsip');
     }
 };
