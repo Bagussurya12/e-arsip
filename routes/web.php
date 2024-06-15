@@ -4,7 +4,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ArsipController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -33,4 +35,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware('auth') -> group(function(){
+    Route::get('/arsip', [ArsipController::class, 'index'])-> name('arsip');
+    Route::get('/arsip/create', [ArsipController::class, 'create'])->name('arsip.create'); 
+});
 require __DIR__.'/auth.php';
+

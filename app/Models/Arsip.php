@@ -6,19 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Arsip extends Model
 {
+    protected $table = 'arsip';
+
+
     protected $fillable = [
         'jenis_arsip', 'uraian_informasi', 'asal_surat', 'tanggal_surat',
         'nomor_urut_perbulan', 'nomor_dokumen', 'jumlah', 'tingkat_perkembangan',
         'keterangan',
     ];
 
-    public function lokasiSimpan()
-    {
-        return $this->hasOne(LokasiSimpan::class);
+    public function lokasiSimpan() {
+        return $this->belongsTo(LokasiSimpan::class);
     }
 
-    public function mediaArsip()
-    {
-        return $this->hasOne(MediaArsip::class);
+    public function mediaArsip() {
+        return $this->hasMany(MediaArsip::class);
     }
+
+
+
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+
 use App\Models\Arsip;
 use App\Models\LokasiSimpan;
 use App\Models\MediaArsip;
@@ -16,7 +18,6 @@ class ArsipController extends Controller
         $request->validate([
             'jenis_arsip' => 'required|string',
             'uraian_informasi' => 'required|string',
-            'asal_surat' => 'required|string',
             'tanggal_surat' => 'required|date',
             'nomor_urut_perbulan' => 'required|integer',
             'nomor_dokumen' => 'required|string',
@@ -26,8 +27,7 @@ class ArsipController extends Controller
             'lemari' => 'required|integer',
             'no_bindeks' => 'required|integer',
             'map_bulan' => 'nullable|string',
-            'jenis_media' => 'required|in:Gambar,PDF,Video,Audio',
-            'nama_media' => 'required|string',
+            'jenis_media' => 'in:Gambar,PDF,Video,Audio',
         ]);
 
         // Simpan data arsip
@@ -62,10 +62,20 @@ class ArsipController extends Controller
     }
 
     // Mengambil data arsip beserta lokasi simpan dan media arsip
-    public function show($id)
+    public function index(Request $request) {
+        // Memuat relasi 'lokasiSimpan' dan 'mediaArsip' dengan menggunakan metode 'with'
+        $query = Arsip::with(['lokasiSimpan', 'mediaArsip']);
+    
+        // Melakukan paginasi hasil query
+        $arsip = $query->paginate(20);
+    
+        // Mengembalikan hasil ke view dengan menggunakan Inertia
+        return Inertia::render('Arsip/Index', [
+            'arsip' => $arsip
+        ]);
+    }
+    public function create()
     {
-        $arsip = Arsip::with('lokasiSimpan', 'mediaArsip')->findOrFail($id);
-
-        return response()->json($arsip);
+        return Inertia::render('Arsip/Create');
     }
 }
