@@ -29,8 +29,8 @@ const menu = () => {
             },
             {
                 name: "Data Arsip",
-                href: route("dashboard"),
-                current: route().current("dashboard"),
+                href: route("arsip"),
+                current: route().current("arsip"),
             },
         ];
     } else {
