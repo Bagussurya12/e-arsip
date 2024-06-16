@@ -23,7 +23,7 @@ return new class extends Migration
             $table->date('tanggal_surat');
             $table->integer('jumlah')->nullable();
             $table->string('tingkat_perkembangan');
-            $table->enum('keterangan', ['Surat Masuk', 'Surat Keluar']);
+            $table->string('keterangan');
             $table->timestamps();
         });
     }

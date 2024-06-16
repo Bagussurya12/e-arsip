@@ -15,21 +15,22 @@ class ArsipController extends Controller
     public function store(Request $request)
     {
         // Validasi request
-        $request->validate([
-            'jenis_arsip' => 'required|string',
-            'uraian_informasi' => 'required|string',
-            'tanggal_surat' => 'required|date',
-            'nomor_urut_perbulan' => 'required|integer',
-            'nomor_dokumen' => 'required|string',
-            'jumlah' => 'nullable|integer',
-            'tingkat_perkembangan' => 'required|string',
-            'keterangan' => 'required|in:Surat Masuk,Surat Keluar',
-            'lemari' => 'required|integer',
-            'no_bindeks' => 'required|integer',
-            'map_bulan' => 'nullable|string',
-            'jenis_media' => 'in:Gambar,PDF,Video,Audio',
-        ]);
-
+        // $request->validate([
+        //     'jenis_arsip' => 'required|string',
+        //     'uraian_informasi' => 'required|string',
+        //     'tanggal_surat' => 'required|date',
+        //     'nomor_urut_perbulan' => 'required|integer',
+        //     'nomor_dokumen' => 'required|string',
+        //     'jumlah' => 'nullable|integer',
+        //     'tingkat_perkembangan' => 'required|string',
+        //     'keterangan' => 'required|in:Surat Masuk,Surat Keluar',
+        //     'lemari' => 'required|integer',
+        //     'no_bindeks' => 'required|integer',
+        //     'map_bulan' => 'nullable|string',
+        //     'jenis_media' => 'required|string',
+        //     'nama_media' => 'nullable|file|mimes:jpg,png,jpeg,pdf,mp4,mp3', // Menambah validasi file
+        // ]);
+    
         // Simpan data arsip
         $arsip = Arsip::create([
             'jenis_arsip' => $request->jenis_arsip,
@@ -42,29 +43,36 @@ class ArsipController extends Controller
             'tingkat_perkembangan' => $request->tingkat_perkembangan,
             'keterangan' => $request->keterangan,
         ]);
-
+    
         // Simpan data lokasi simpan
-        $lokasiSimpan = LokasiSimpan::create([
+        $lokasi_simpan = LokasiSimpan::create([
             'arsip_id' => $arsip->id,
-            'lemari' => $request->lemari,
+            'kolom_lemari' => $request->kolom_lemari,
             'no_bindeks' => $request->no_bindeks,
             'map_bulan' => $request->map_bulan,
         ]);
-
-        // Simpan data media arsip
-        $mediaArsip = MediaArsip::create([
-            'arsip_id' => $arsip->id,
-            'jenis_media' => $request->jenis_media,
-            'nama_media' => $request->nama_media,
-        ]);
-
-        return response()->json(['message' => 'Arsip berhasil disimpan'], 201);
+    
+        // Simpan file media arsip jika ada
+        if ($request->hasFile('nama_media')) {
+            $file = $request->file('nama_media');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('assets_backend', $filename);
+    
+            $media_arsip = MediaArsip::create([
+                'arsip_id' => $arsip->id,
+                'jenis_media' => $request->jenis_media,
+                'nama_media' => $filename, // Simpan nama file
+            ]);
+        }
+        
+        return  redirect()->back()->with('success','Data Berhasil Di Simpan');
+        
     }
 
     // Mengambil data arsip beserta lokasi simpan dan media arsip
     public function index(Request $request) {
         // Memuat relasi 'lokasiSimpan' dan 'mediaArsip' dengan menggunakan metode 'with'
-        $query = Arsip::with(['lokasiSimpan', 'mediaArsip']);
+        $query = Arsip::with(['LokasiSimpan', 'MediaArsip']);
     
         // Melakukan paginasi hasil query
         $arsip = $query->paginate(20);

@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth') -> group(function(){
     Route::get('/arsip', [ArsipController::class, 'index'])-> name('arsip');
     Route::get('/arsip/create', [ArsipController::class, 'create'])->name('arsip.create'); 
+    Route::post('/arsip/store', [ArsipController::class, 'store'])->name('arsip.store');
+
 });
 require __DIR__.'/auth.php';
 

@@ -23,7 +23,10 @@
                             class="w-full border-t border-slate-700 my-10"
                         ></div>
                     </header>
-                    <form action="" class="m-6 space-y-6">
+                    <form
+                        @submit.prevent="form.post(route('arsip.store'))"
+                        class="m-6 space-y-6"
+                    >
                         <div
                             class="mb-4 flex flex-wrap md:flex-nowrap md:space-x-6 mt-5"
                         >
@@ -132,14 +135,14 @@
                                     id="no_urut_perbulan"
                                     type="number"
                                     class="mt-1 block w-full"
-                                    v-model="form.no_urut_perbulan"
+                                    v-model="form.nomor_urut_perbulan"
                                     required
                                     autocomplete="off"
                                     placeholder="Masukan Nomor Urut Perbulan"
                                 />
                                 <InputError
                                     class="mt-2"
-                                    :message="form.errors.no_urut_perbulan"
+                                    :message="form.errors.nomor_urut_perbulan"
                                 />
                             </div>
                             <!-- NOMOR DOKUMEN -->
@@ -154,14 +157,14 @@
                                     id="no_dokumen"
                                     type="text"
                                     class="mt-1 block w-full"
-                                    v-model="form.no_dokumen"
+                                    v-model="form.nomor_dokumen"
                                     required
                                     autocomplete="off"
                                     placeholder="Masukan Nomor Dokumen"
                                 />
                                 <InputError
                                     class="mt-2"
-                                    :message="form.errors.no_dokumen"
+                                    :message="form.errors.nomor_dokumen"
                                 />
                             </div>
                         </div>
@@ -350,11 +353,10 @@
                                     value="File Media"
                                 />
                                 <input
-                                    name=""
                                     id="nama_media"
                                     type="file"
                                     class="block w-full text-lg text-Dark file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-Dark file:text-white hover:file:bg-Dark"
-                                    autocomplete="off"
+                                    @change="handleFileUpload"
                                     placeholder="Masukan File Media"
                                 />
                                 <InputError
@@ -363,37 +365,22 @@
                                 />
                             </div>
                         </div>
-                        <div class="flex justify-center mt-20">
-                            <button
-                                type="submit"
-                                :disabled="isSubmitting"
-                                class="bg-Dark text-white px-4 py-2 rounded-md shadow-md hover:bg-amber-800 focus:outline-none focus:ring-2 w-1/2"
+                        <div class="flex items-center gap-4">
+                            <PrimaryButton :disabled="form.processing">
+                                Simpan Data
+                            </PrimaryButton>
+                            <Transition
+                                enter-from-class="opacity-0"
+                                leave-to-class="opacity-0"
+                                class="transition ease-in-out"
                             >
-                                <span v-if="!isSubmitting"
-                                    >Simpan Data Arsip</span
+                                <p
+                                    v-if="form.recentlySuccessful"
+                                    class="text-sm text-gray-600"
                                 >
-                                <svg
-                                    v-else
-                                    class="animate-spin h-5 w-5 text-white"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <circle
-                                        class="opacity-25"
-                                        cx="12"
-                                        cy="12"
-                                        r="10"
-                                        stroke="currentColor"
-                                        stroke-width="4"
-                                    ></circle>
-                                    <path
-                                        class="opacity-75"
-                                        fill="currentColor"
-                                        d="M4 12a8 8 0 018-8v8H4z"
-                                    ></path>
-                                </svg>
-                            </button>
+                                    Data Berhasil Disimpan!
+                                </p>
+                            </Transition>
                         </div>
                     </form>
                 </section>
@@ -403,28 +390,30 @@
 </template>
 
 <script setup>
+import { Head, useForm } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
-import TextInput from "@/Components/TextInput.vue";
 import SelectBox from "@/Components/SelectBox.vue";
-import { Head, useForm } from "@inertiajs/vue3";
+import TextInput from "@/Components/TextInput.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 const form = useForm({
     jenis_arsip: "",
+    nomor_urut_perbulan: "",
     kolom_lemari: null,
     no_bindeks: null,
     map_bulan: "",
-    no_urut_perbulan: null,
-    no_dokumen: "",
+
+    nomor_dokumen: "",
     uraian_informasi: "",
     asal_surat: "",
     tanggal_surat: "",
     jumlah_berkas: null,
     tingkat_perkembangan: "",
     keterangan: "",
-    nama_media: "",
     jenis_media: "",
+    nama_media: "",
 });
 
 const optionNaskahDinas = [
@@ -474,4 +463,30 @@ const optionJenisMedia = [
     { value: "Audio", label: "Audio" },
     { value: "Vidio", label: "Vidio" },
 ];
+
+let mediaFile = null;
+const handleFileUpload = (event) => {
+    mediaFile = event.target.files[0];
+};
+
+const submitForm = () => {
+    const formData = new FormData();
+
+    Object.keys(form).forEach((key) => {
+        formData.append(key, form[key]);
+    });
+
+    if (mediaFile) {
+        formData.append("nama_media", mediaFile);
+    }
+
+    form.post(route("arsip.store"), formData, {
+        forceFormData: true,
+        onSuccess: () => {
+            // handle success, misalnya reset form atau tampilkan pesan sukses
+            form.reset();
+            console.log("Sukses"); // Reset form setelah sukses menyimpan data
+        },
+    });
+};
 </script>

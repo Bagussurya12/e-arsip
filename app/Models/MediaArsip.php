@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MediaArsip extends Model
 {
+    protected $table = 'media_arsip';
     protected $fillable = ['jenis_media', 'nama_media'];
 
     public function arsip()

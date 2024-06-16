@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('media_arsip', function (Blueprint $table) {
             $table->id();
             $table->foreignId('arsip_id')->constrained('arsip')->onDelete('cascade');
-            $table->enum('jenis_media', ['Gambar', 'PDF', 'Video', 'Audio']);
+            $table->string('jenis_media');
             $table->string('nama_media');
             $table->timestamps();
         });
