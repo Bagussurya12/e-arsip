@@ -22,8 +22,10 @@ return new class extends Migration
             $table->string('asal_surat');
             $table->date('tanggal_surat');
             $table->integer('jumlah')->nullable();
-            $table->string('tingkat_perkembangan');
+            $table->string('tingkat_perkembangan')->nullable();
             $table->string('keterangan');
+            $table->string('jenis_media')->nullable();
+            $table->string('media')->nullable();
             $table->timestamps();
         });
     }

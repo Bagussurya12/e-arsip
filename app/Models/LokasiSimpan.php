@@ -9,12 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 class LokasiSimpan extends Model
 {
     use HasFactory;
-
+    // protected $table = 'arsip';
     protected $table = 'lokasi_simpan';
     protected $fillable = ['arsip_id', 'kolom_lemari',  'no_bindeks', 'map_bulan'];
 
     public function arsip()
     {
-        return $this->belongsTo(Arsip::class);
+        return $this->belongsTo(Arsip::class, 'arsip_id');
     }
 }

@@ -1,10 +1,10 @@
 <template>
-    <Head title="Tambah Data Arsip" />
+    <Head title="Edit Data Arsip" />
 
     <AuthenticatedLayout class="w-full">
         <template #header>
             <h2 class="font-semibold text-lg text-gray-800 leading-tight">
-                Tambah Data Arsip
+                Edit Data Arsip
             </h2>
         </template>
 
@@ -13,10 +13,10 @@
                 <section>
                     <header class="m-6 space-y-6">
                         <h2 class="text-lg font-medium text-gray-900">
-                            Tambah Data Arsip
+                            Edit Data Arsip
                         </h2>
                         <p class="mt-1 text-sm text-gray-600">
-                            Tambah Data Arsip Untuk Menyimpan Data Arsip Agar
+                            Edit Data Arsip Untuk Memperbarui Data Arsip Agar
                             Selalu Konsisten ✨
                         </p>
                         <div
@@ -24,7 +24,7 @@
                         ></div>
                     </header>
                     <form
-                        @submit.prevent="submitForm"
+                        @submit.prevent="updateArsip"
                         enctype="multipart/form-data"
                         class="m-6 space-y-6"
                     >
@@ -206,7 +206,7 @@
                                     value="Asal Surat"
                                 />
                                 <TextInput
-                                    id="no_bindeks"
+                                    id="asal_surat"
                                     type="text"
                                     class="mt-1 block w-full"
                                     v-model="form.asal_surat"
@@ -256,7 +256,7 @@
                                     value="Jumlah Berkas/Lembar"
                                 />
                                 <TextInput
-                                    id="no_bindeks"
+                                    id="jumlah_berkas"
                                     type="number"
                                     class="mt-1 block w-full"
                                     v-model="form.jumlah"
@@ -387,101 +387,74 @@
         </div>
     </AuthenticatedLayout>
 </template>
+
 <script setup>
+import { ref } from "vue";
 import { Head, useForm } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
-import SelectBox from "@/Components/SelectBox.vue";
 import TextInput from "@/Components/TextInput.vue";
+import InputError from "@/Components/InputError.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import SelectBox from "@/Components/SelectBox.vue";
+
+const props = defineProps([
+    "arsip",
+    "optionNaskahDinas",
+    "optionBulan",
+    "optionKeterangan",
+    "optionJenisMedia",
+]);
 
 const form = useForm({
-    jenis_arsip: "",
-    nomor_urut_perbulan: "",
-    kolom_lemari: null,
-    no_bindeks: null,
-    map_bulan: "",
-    nomor_dokumen: "",
-    uraian_informasi: "",
-    asal_surat: "",
-    tanggal_surat: "",
-    jumlah: null,
-    tingkat_perkembangan: "",
-    keterangan: "",
-    jenis_media: "",
+    jenis_arsip: props.arsip.jenis_arsip ?? "",
+    kolom_lemari: props.arsip.kolom_lemari ?? "",
+    no_bindeks: props.arsip.no_bindeks ?? "",
+    map_bulan: props.arsip.map_bulan ?? "",
+    nomor_urut_perbulan: props.arsip.nomor_urut_perbulan ?? "",
+    nomor_dokumen: props.arsip.nomor_dokumen ?? "",
+    uraian_informasi: props.arsip.uraian_informasi ?? "",
+    asal_surat: props.arsip.asal_surat ?? "",
+    tanggal_surat: props.arsip.tanggal_surat ?? "",
+    jumlah: props.arsip.jumlah ?? "",
+    tingkat_perkembangan: props.arsip.tingkat_perkembangan ?? "",
+    keterangan: props.arsip.keterangan ?? "",
+    jenis_media: props.arsip.jenis_media ?? "",
     media: null,
 });
-
-const optionNaskahDinas = [
-    { value: "Instruksi", label: "Instruksi" },
-    { value: "Surat Perintah", label: "Surat Perintah" },
-    { value: "Surat Keterangan", label: "Surat Keterangan" },
-    { value: "Surat Biasa", label: "Surat Biasa" },
-    { value: "Surat Tugas", label: "Surat Tugas" },
-    { value: "Surat Kuasa", label: "Surat Kuasa" },
-    { value: "Surat Undangan", label: "Surat Undangan" },
-    { value: "Surat Edaran", label: "Surat Edaran" },
-    { value: "Surat Keputusan", label: "Surat Keputusan" },
-    { value: "Surat Perjanjian", label: "Surat Perjanjian" },
-    { value: "Surat Laporan", label: "Surat Laporan" },
-    { value: "Nota Dinas", label: "Nota Dinas" },
-    {
-        value: "Nota Pengajuan Naskah Dinas",
-        label: "Nota Pengajuan Naskah Dinas",
-    },
-    { value: "Telaahan Staf", label: "Telaahan Staf" },
-    { value: "Lain-lain", label: "Lain-lain" },
-];
-
-const optionBulan = [
-    { value: "Januari", label: "Januari" },
-    { value: "Februari", label: "Februari" },
-    { value: "Maret", label: "Maret" },
-    { value: "April", label: "April" },
-    { value: "Mei", label: "Mei" },
-    { value: "Juni", label: "Juni" },
-    { value: "Juli", label: "Juli" },
-    { value: "Agustus", label: "Agustus" },
-    { value: "September", label: "September" },
-    { value: "Oktober", label: "Oktober" },
-    { value: "November", label: "November" },
-    { value: "Desember", label: "Desember" },
-];
-
-const optionKeterangan = [
-    { value: "Surat Masuk", label: "Surat Masuk" },
-    { value: "Surat Keluar", label: "Surat Keluar" },
-];
-
-const optionJenisMedia = [
-    { value: "PDF", label: "PDF" },
-    { value: "Gambar", label: "Gambar" },
-    { value: "Audio", label: "Audio" },
-    { value: "Vidio", label: "Vidio" },
-];
 
 const handleFileUpload = (event) => {
     form.media = event.target.files[0];
 };
 
-const submitForm = () => {
+const updateArsip = () => {
     const formData = new FormData();
-    Object.keys(form).forEach((key) => {
-        formData.append(key, form[key]);
-    });
-
+    formData.append("jenis_arsip", form.jenis_arsip);
+    formData.append("kolom_lemari", form.kolom_lemari);
+    formData.append("no_bindeks", form.no_bindeks);
+    formData.append("map_bulan", form.map_bulan);
+    formData.append("nomor_urut_perbulan", form.nomor_urut_perbulan);
+    formData.append("nomor_dokumen", form.nomor_dokumen);
+    formData.append("uraian_informasi", form.uraian_informasi);
+    formData.append("asal_surat", form.asal_surat);
+    formData.append("tanggal_surat", form.tanggal_surat);
+    formData.append("jumlah", form.jumlah);
+    formData.append("tingkat_perkembangan", form.tingkat_perkembangan);
+    formData.append("keterangan", form.keterangan);
+    formData.append("jenis_media", form.jenis_media);
     if (form.media) {
         formData.append("media", form.media);
     }
 
-    form.post(route("arsip.store"), {
-        data: formData,
+    Inertia.post(route("arsip.update", { id: props.arsip.id }), formData, {
         forceFormData: true,
-        onSuccess: () => {
-            form.reset();
-            console.log("Sukses"); // Reset form setelah sukses menyimpan data
+        onFinish: () => {
+            Inertia.visit(route("arsip"));
         },
     });
 };
 </script>
+
+<style scoped>
+/* Tambahkan gaya kustom di sini */
+</style>
