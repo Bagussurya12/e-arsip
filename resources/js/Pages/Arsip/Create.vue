@@ -365,7 +365,9 @@
                             </div>
                         </div>
                         <div class="flex items-center gap-4">
-                            <PrimaryButton :disabled="form.processing"
+                            <PrimaryButton
+                                :disabled="form.processing"
+                                class="w-full text-center"
                                 >Simpan Data</PrimaryButton
                             >
                             <Transition

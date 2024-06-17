@@ -352,16 +352,27 @@
                                 <InputLabel for="media" value="Media" />
                                 <input
                                     id="media"
-                                    type="file"
                                     class="block w-full text-lg text-Dark file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-Dark file:text-white hover:file:bg-Dark"
-                                    @input="handleFileUpload"
-                                    placeholder="Masukan File Media"
-                                    name="media"
+                                    type="file"
+                                    @change="handleFileUpload"
+                                    :accepted-mime-types="[
+                                        'image/jpeg',
+                                        'image/png',
+                                        'application/pdf',
+                                        'audio/mp3',
+                                        'video/mp4',
+                                    ]"
                                 />
                                 <InputError
                                     class="mt-2"
                                     :message="form.errors.media"
                                 />
+                                <!-- Tampilkan nama file lama jika ada -->
+                                <div v-if="form.old_media">
+                                    <p class="mt-2 text-sm text-gray-600">
+                                        File Lama: {{ form.old_media }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                         <div class="flex items-center gap-4">
@@ -389,8 +400,9 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { Head, useForm } from "@inertiajs/vue3";
+import { Inertia } from "@inertiajs/inertia";
+import { ref, watch } from "vue";
+import { Head, useForm, Link } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
@@ -398,19 +410,16 @@ import InputError from "@/Components/InputError.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SelectBox from "@/Components/SelectBox.vue";
 
-const props = defineProps([
-    "arsip",
-    "optionNaskahDinas",
-    "optionBulan",
-    "optionKeterangan",
-    "optionJenisMedia",
-]);
+const props = defineProps({
+    arsip: Object,
+});
 
+// Initialize form using `useForm` with initial values.
 const form = useForm({
-    jenis_arsip: props.arsip.jenis_arsip ?? "",
-    kolom_lemari: props.arsip.kolom_lemari ?? "",
-    no_bindeks: props.arsip.no_bindeks ?? "",
-    map_bulan: props.arsip.map_bulan ?? "",
+    jenis_arsip: props.arsip.jenis_arsip,
+    kolom_lemari: props.arsip.lokasi_simpan.kolom_lemari ?? "",
+    no_bindeks: props.arsip.lokasi_simpan.no_bindeks ?? "",
+    map_bulan: props.arsip.lokasi_simpan.map_bulan ?? "",
     nomor_urut_perbulan: props.arsip.nomor_urut_perbulan ?? "",
     nomor_dokumen: props.arsip.nomor_dokumen ?? "",
     uraian_informasi: props.arsip.uraian_informasi ?? "",
@@ -421,38 +430,75 @@ const form = useForm({
     keterangan: props.arsip.keterangan ?? "",
     jenis_media: props.arsip.jenis_media ?? "",
     media: null,
+    old_media: props.arsip.media, // Store the old media file name.
+    _method: "put",
 });
 
 const handleFileUpload = (event) => {
     form.media = event.target.files[0];
 };
 
-const updateArsip = () => {
-    const formData = new FormData();
-    formData.append("jenis_arsip", form.jenis_arsip);
-    formData.append("kolom_lemari", form.kolom_lemari);
-    formData.append("no_bindeks", form.no_bindeks);
-    formData.append("map_bulan", form.map_bulan);
-    formData.append("nomor_urut_perbulan", form.nomor_urut_perbulan);
-    formData.append("nomor_dokumen", form.nomor_dokumen);
-    formData.append("uraian_informasi", form.uraian_informasi);
-    formData.append("asal_surat", form.asal_surat);
-    formData.append("tanggal_surat", form.tanggal_surat);
-    formData.append("jumlah", form.jumlah);
-    formData.append("tingkat_perkembangan", form.tingkat_perkembangan);
-    formData.append("keterangan", form.keterangan);
-    formData.append("jenis_media", form.jenis_media);
-    if (form.media) {
-        formData.append("media", form.media);
+watch(
+    () => form.media,
+    (newVal) => {
+        if (newVal) {
+            form.old_media = null;
+        }
     }
-
-    Inertia.post(route("arsip.update", { id: props.arsip.id }), formData, {
-        forceFormData: true,
-        onFinish: () => {
-            Inertia.visit(route("arsip"));
-        },
+);
+const updateArsip = () => {
+    form.post(route("arsip.update", props.arsip.id), {
+        preserveState: true,
+        preserveScroll: true,
     });
 };
+const optionNaskahDinas = [
+    { value: "Instruksi", label: "Instruksi" },
+    { value: "Surat Perintah", label: "Surat Perintah" },
+    { value: "Surat Keterangan", label: "Surat Keterangan" },
+    { value: "Surat Biasa", label: "Surat Biasa" },
+    { value: "Surat Tugas", label: "Surat Tugas" },
+    { value: "Surat Kuasa", label: "Surat Kuasa" },
+    { value: "Surat Undangan", label: "Surat Undangan" },
+    { value: "Surat Edaran", label: "Surat Edaran" },
+    { value: "Surat Keputusan", label: "Surat Keputusan" },
+    { value: "Surat Perjanjian", label: "Surat Perjanjian" },
+    { value: "Surat Laporan", label: "Surat Laporan" },
+    { value: "Nota Dinas", label: "Nota Dinas" },
+    {
+        value: "Nota Pengajuan Naskah Dinas",
+        label: "Nota Pengajuan Naskah Dinas",
+    },
+    { value: "Telaahan Staf", label: "Telaahan Staf" },
+    { value: "Lain-lain", label: "Lain-lain" },
+];
+
+const optionBulan = [
+    { value: "Januari", label: "Januari" },
+    { value: "Februari", label: "Februari" },
+    { value: "Maret", label: "Maret" },
+    { value: "April", label: "April" },
+    { value: "Mei", label: "Mei" },
+    { value: "Juni", label: "Juni" },
+    { value: "Juli", label: "Juli" },
+    { value: "Agustus", label: "Agustus" },
+    { value: "September", label: "September" },
+    { value: "Oktober", label: "Oktober" },
+    { value: "November", label: "November" },
+    { value: "Desember", label: "Desember" },
+];
+
+const optionKeterangan = [
+    { value: "Surat Masuk", label: "Surat Masuk" },
+    { value: "Surat Keluar", label: "Surat Keluar" },
+];
+
+const optionJenisMedia = [
+    { value: "PDF", label: "PDF" },
+    { value: "Gambar", label: "Gambar" },
+    { value: "Audio", label: "Audio" },
+    { value: "Vidio", label: "Vidio" },
+];
 </script>
 
 <style scoped>

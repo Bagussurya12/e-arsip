@@ -41,6 +41,7 @@ Route::middleware('auth') -> group(function(){
     Route::post('/arsip/store', [ArsipController::class, 'store'])->name('arsip.store');
     Route::get('/arsip/edit/{arsipId}', [ArsipController::class, 'edit'])->name('arsip.edit');
     Route::put('/arsip/{arsipId}', [ArsipController::class,'update'])->name('arsip.update');
+    Route::delete('/arsip/{id}', [ArsipController::class, 'destroy'])->name('arsip.delete');
 
 });
 require __DIR__.'/auth.php';

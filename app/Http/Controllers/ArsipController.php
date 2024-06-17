@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Arsip;
 use App\Models\LokasiSimpan;
+use Illuminate\Support\Facades\Storage;
 
 class ArsipController extends Controller
 {
@@ -34,7 +35,7 @@ class ArsipController extends Controller
 
         $arsip = Arsip::create($validated);
 
-        $lokasi_simpan = LokasiSimpan::create([
+        LokasiSimpan::create([
             'arsip_id' => $arsip->id,
             'kolom_lemari' => $request->kolom_lemari,
             'no_bindeks' => $request->no_bindeks,
@@ -59,7 +60,7 @@ class ArsipController extends Controller
 
     public function edit($id)
     {
-        $arsip = Arsip::with('lokasiSimpan')->findOrFail($id);
+        $arsip = Arsip::with('lokasiSimpan')->find($id);
         return Inertia::render('Arsip/Edit', [
             'arsip' => $arsip
         ]);
@@ -81,27 +82,34 @@ class ArsipController extends Controller
             'no_bindeks' => 'integer',
             'map_bulan' => 'string',
             'jenis_media' => 'string',
-            'media' => 'file|mimes:jpg,png,jpeg,pdf,mp4,mp3',
+            'media' => 'nullable|file|mimes:jpg,png,jpeg,pdf,mp4,mp3', // Update validation
         ]);
     
         $arsip = Arsip::findOrFail($id);
     
-        if ($request->file('media')) {
+        if ($request->hasFile('media')) {
+            // Delete the old file if a new file is uploaded.
+            if ($arsip->media) {
+                Storage::delete($arsip->media);
+            }
             $validated['media'] = $request->file('media')->store('assets-arsip');
+        } else {
+            // Retain the old file if no new file is uploaded.
+            $validated['media'] = $arsip->media;
         }
     
         $arsip->update($validated);
     
         if ($arsip->lokasiSimpan) {
             $arsip->lokasiSimpan->update([
-                'kolom_lemari' => $request->lemari,
+                'kolom_lemari' => $request->kolom_lemari,
                 'no_bindeks' => $request->no_bindeks,
                 'map_bulan' => $request->map_bulan,
             ]);
         } else {
             LokasiSimpan::create([
                 'arsip_id' => $arsip->id,
-                'kolom_lemari' => $request->lemari,
+                'kolom_lemari' => $request->kolom_lemari,
                 'no_bindeks' => $request->no_bindeks,
                 'map_bulan' => $request->map_bulan,
             ]);
@@ -109,4 +117,18 @@ class ArsipController extends Controller
     
         return redirect()->route('arsip')->with('success', 'Data arsip berhasil diperbarui');
     }
+    public function destroy($id)
+    {
+        $arsip = Arsip::findOrFail($id);
+    
+        // Hapus media terkait jika ada
+        if ($arsip->media) {
+            Storage::delete($arsip->media);
+        }
+    
+        $arsip->delete();
+    
+        return redirect(route('arsip'))->with('success', 'Data arsip berhasil dihapus');
+    }
+    
 }
