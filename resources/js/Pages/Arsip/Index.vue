@@ -28,13 +28,9 @@
                                     id="selectNaskah"
                                     name="naskahDinas"
                                     v-model="searchFilters.naskahDinas"
-                                    class="truncate w-full border-none focus:outline-none focus:ring-0 text-Dark pilih"
+                                    class="truncate w-full border-none focus:outline-none focus:ring-0 text-Dark"
                                 >
-                                    <option
-                                        disabled
-                                        selected
-                                        class="text-black"
-                                    >
+                                    <option disabled value="" selected>
                                         Naskah Dinas
                                     </option>
                                     <option
@@ -55,7 +51,7 @@
                                     id="inputNomor"
                                     type="text"
                                     class="w-full border-none focus:outline-none focus:ring-0 text-Dark"
-                                    placeholder="Uraian"
+                                    placeholder="Uraian Informasi"
                                     v-model="searchQuery"
                                 />
                             </div>
@@ -69,7 +65,7 @@
                                     class="truncate w-full border-none focus:outline-none focus:ring-0 text-Dark"
                                     v-model="searchFilters.filterBulan"
                                 >
-                                    <option disabled selected class="text-Dark">
+                                    <option disabled value="" selected>
                                         Bulan
                                     </option>
                                     <option
@@ -103,7 +99,7 @@
                                     class="truncate w-full border-none focus:outline-none focus:ring-0 text-Dark"
                                     v-model="searchFilters.filterMediaArsip"
                                 >
-                                    <option disabled selected>
+                                    <option disabled value="" selected>
                                         Media Arsip
                                     </option>
                                     <option
@@ -392,14 +388,14 @@
                             :disabled="!arsip.prev_page_url"
                             class="px-4 py-2 mr-2 bg-Dark text-white rounded"
                         >
-                            Previous
+                            Sebelumnya
                         </button>
                         <button
                             @click="nextPage"
                             :disabled="!arsip.next_page_url"
                             class="px-4 py-2 bg-Dark text-white rounded"
                         >
-                            Next
+                            Selanjutnya
                         </button>
                     </div>
                 </div>
@@ -607,7 +603,7 @@ const displayedArsip = computed(() => {
 
             const filterBulan =
                 !searchFilters.value.filterBulan ||
-                arsip.map_bulan.toLowerCase() ===
+                arsip.lokasi_simpan.map_bulan.toLowerCase() ===
                     searchFilters.value.filterBulan.toLowerCase();
 
             const filterTahun =
