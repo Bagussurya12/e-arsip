@@ -9,13 +9,134 @@
         </template>
 
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="p-6 text-Dark-900">
-                    <div class="flex justify-between items-center">
-                        <h5 class="text-Dark">
+            <div class="max-w-full mx-auto sm:px-6 lg:px-8">
+                <div class="p-6 m-6 text-white bg-Dark rounded-xl mb-5">
+                    <div class="justify-between items-center">
+                        <h5 class="text-white text-center mb-10">
                             Kelola Data Arsip Untuk Menyimpan dan menjaga
                             konsistensi Data 🤞
                         </h5>
+                        <form
+                            action=""
+                            class="flex justify-center flex-wrap w-full mx-auto text-Dark"
+                        >
+                            <!-- Select Naskah Dinas -->
+                            <div
+                                class="w-1/6 bg-white text-sm text-Dark rounded-l-lg border-transparent border-none px-2"
+                            >
+                                <select
+                                    id="selectNaskah"
+                                    name="naskahDinas"
+                                    v-model="searchFilters.naskahDinas"
+                                    class="truncate w-full border-none focus:outline-none focus:ring-0 text-Dark pilih"
+                                >
+                                    <option
+                                        disabled
+                                        selected
+                                        class="text-black"
+                                    >
+                                        Naskah Dinas
+                                    </option>
+                                    <option
+                                        v-for="naskahDinas in NaskahDinasGroup"
+                                        :key="naskahDinas"
+                                        :value="naskahDinas"
+                                        class="text-Black focus:outline-none text-Dark"
+                                    >
+                                        {{ naskahDinas }}
+                                    </option>
+                                </select>
+                            </div>
+                            <!-- Input Nomor Naskah Dinas -->
+                            <div
+                                class="w-1/6 bg-white text-sm border-transparent"
+                            >
+                                <input
+                                    id="inputNomor"
+                                    type="text"
+                                    class="w-full border-none focus:outline-none focus:ring-0 text-Dark"
+                                    placeholder="Uraian"
+                                    v-model="searchQuery"
+                                />
+                            </div>
+                            <!-- Select Bulan -->
+                            <div
+                                class="w-1/6 bg-white text-sm border-transparent"
+                            >
+                                <select
+                                    id="selectBulan"
+                                    name="map_bulan"
+                                    class="truncate w-full border-none focus:outline-none focus:ring-0 text-Dark"
+                                    v-model="searchFilters.filterBulan"
+                                >
+                                    <option disabled selected class="text-Dark">
+                                        Bulan
+                                    </option>
+                                    <option
+                                        v-for="bulan in optionBulan"
+                                        :key="bulan"
+                                        :value="bulan"
+                                        class="text-Dark rounded-lg"
+                                    >
+                                        {{ bulan }}
+                                    </option>
+                                </select>
+                            </div>
+                            <!-- Select Tahun -->
+                            <div
+                                class="w-1/6 bg-white text-sm border-transparent"
+                            >
+                                <input
+                                    type="number"
+                                    class="w-full border-none focus:outline-none focus:ring-0 text-Dark"
+                                    placeholder="Tahun"
+                                    v-model="searchFilters.tahun"
+                                />
+                            </div>
+                            <!-- Select Media Arsip -->
+                            <div
+                                class="w-1/6 bg-white text-sm border-transparent border-none px-2"
+                            >
+                                <select
+                                    id="selectMedia"
+                                    name="mediaArsip"
+                                    class="truncate w-full border-none focus:outline-none focus:ring-0 text-Dark"
+                                    v-model="searchFilters.filterMediaArsip"
+                                >
+                                    <option disabled selected>
+                                        Media Arsip
+                                    </option>
+                                    <option
+                                        v-for="mediaArsip in MediaArsipGroup"
+                                        :key="mediaArsip"
+                                        :value="mediaArsip"
+                                        class="text-Dark rounded-lg"
+                                    >
+                                        {{ mediaArsip }}
+                                    </option>
+                                </select>
+                            </div>
+                            <!-- Button Cari -->
+                            <div
+                                class="w-auto bg-white text-sm rounded-r-lg border-transparent border-none px-2"
+                            >
+                                <button
+                                    type="submit"
+                                    class="flex items-center justify-center h-full px-3 py-2 w-10 text-Dark rounded-lg focus:outline-none"
+                                >
+                                    <svg
+                                        role="img"
+                                        viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <title>Cari</title>
+                                        <path
+                                            d="m13.716 17.261 6.873 6.582L24 20.282l-6.824-6.536a9.11 9.11 0 0 0 1.143-4.43c0-5.055-4.105-9.159-9.16-9.159S0 4.261 0 9.316c0 5.055 4.104 9.159 9.159 9.159a9.11 9.11 0 0 0 4.557-1.214ZM9.159 2.773a6.546 6.546 0 0 1 6.543 6.543 6.545 6.545 0 0 1-6.543 6.542 6.545 6.545 0 0 1-6.542-6.542 6.545 6.545 0 0 1 6.542-6.543ZM7.26 5.713a4.065 4.065 0 0 1 4.744.747 4.064 4.064 0 0 1 .707 4.749l1.157.611a5.376 5.376 0 0 0-.935-6.282 5.377 5.377 0 0 0-6.274-.987l.601 1.162Z"
+                                        />
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <!-- Garis horizontal di atas tabel -->
@@ -196,12 +317,12 @@
                                         {{ arsipItem.nomor_dokumen }}
                                     </td>
                                     <td
-                                        class="px-6 py-4 text-center border-2 border-Dark"
+                                        class="px-8 py-2 text-center border-2 border-Dark"
                                     >
                                         {{ arsipItem.uraian_informasi }}
                                     </td>
                                     <td
-                                        class="px-6 py-4 text-center border-2 border-Dark"
+                                        class="px-8 py-4 text-center border-2 border-Dark"
                                     >
                                         {{ arsipItem.asal_surat }}
                                     </td>
@@ -231,7 +352,7 @@
                                         {{ arsipItem.jenis_media }}
                                     </td>
                                     <td
-                                        class="px-6 py-4 text-center border-2 border-Dark"
+                                        class="px-6 py-2 text-center border-2 border-Dark"
                                     >
                                         <a
                                             :href="`/storage/${arsipItem.media}`"
@@ -328,7 +449,7 @@
                                 <h3
                                     class="text-lg leading-6 font-medium text-gray-900"
                                 >
-                                    Delete Arsip
+                                    Hapus Data Arsip
                                 </h3>
                                 <div class="mt-2">
                                     <p class="text-sm leading-5 text-Dark">
@@ -356,7 +477,7 @@
                                 <button
                                     @click="closeDelete"
                                     type="button"
-                                    class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+                                    class="inline-flex justify-center w-full rounded-md border border-Dark px-4 py-2 bg-white text-base leading-6 font-medium text-Dark shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5"
                                 >
                                     Cancel
                                 </button>
@@ -380,7 +501,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 const props = defineProps({
     arsip: Object,
 });
-const searchQuery = ref("");
+
 let dialogDelete = ref(false); // Gunakan ref untuk variabel reactive
 let itemDelete = ref(null); // Gunakan ref untuk variabel reactive
 
@@ -397,24 +518,10 @@ const nextPage = () => {
     }
 };
 
-const displayedArsip = computed(() => {
-    if (searchQuery.value.trim() === "") {
-        // Jika query kosong, tampilkan semua data arsip
-        return props.arsip.data;
-    } else {
-        // Jika query tidak kosong, filter data arsip sesuai dengan query
-        return props.arsip.data.filter((arsip) =>
-            arsip.uraian_informasi
-                .toLowerCase()
-                .includes(searchQuery.value.toLowerCase())
-        );
-    }
-});
-
 // Fungsi untuk menampilkan konfirmasi hapus
 const confirmDelete = (arsipItem) => {
-    itemDelete.value = arsipItem; // Menggunakan langsung itemDelete.value
-    dialogDelete.value = true; // Menggunakan langsung dialogDelete.value
+    itemDelete.value = arsipItem; // Menggunakan langsung
+    dialogDelete.value = true; // Menggunakan langsung
 };
 
 const hapus = (arsipItem) => {
@@ -433,4 +540,99 @@ const closeDelete = () => {
     dialogDelete.value = false;
     itemDelete.value = null;
 };
+const searchQuery = ref("");
+const searchFilters = ref({
+    naskahDinas: "",
+    filterBulan: "",
+    tahun: "",
+    filterMediaArsip: "",
+});
+const NaskahDinasGroup = [
+    "Instruksi",
+    "Surat Perintah",
+    "Surat Keterangan",
+    "Surat Biasa",
+    "Surat Perintah Tugas",
+    "Surat Tugas",
+    "Surat Kuasa",
+    "Surat Undangan",
+    "Surat Edaran",
+    "Surat Keputusan",
+    "Surat Perjanjian",
+    "Surat Laporan",
+    "Nota Dinas",
+    "Nota Pengajuan Naskah Dinas",
+    "Telaahan Staf",
+    "Lain-lain",
+];
+
+let MediaArsipGroup = ["PDF", "Gambar", "Vidio", "Audio", "Lain-lain"];
+
+let optionBulan = [
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "Mei",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember",
+];
+
+const displayedArsip = computed(() => {
+    if (
+        searchQuery.value.trim() === "" &&
+        searchFilters.value.naskahDinas === "" &&
+        searchFilters.value.filterBulan === "" &&
+        searchFilters.value.tahun === "" &&
+        searchFilters.value.filterMediaArsip === ""
+    ) {
+        return props.arsip.data;
+    } else {
+        return props.arsip.data.filter((arsip) => {
+            const filterNaskahDinas =
+                !searchFilters.value.naskahDinas ||
+                arsip.jenis_arsip.toLowerCase() ===
+                    searchFilters.value.naskahDinas.toLowerCase();
+
+            const filterUraian =
+                searchQuery.value.trim() === "" ||
+                arsip.uraian_informasi
+                    .toLowerCase()
+                    .includes(searchQuery.value.toLowerCase());
+
+            const filterBulan =
+                !searchFilters.value.filterBulan ||
+                arsip.map_bulan.toLowerCase() ===
+                    searchFilters.value.filterBulan.toLowerCase();
+
+            const filterTahun =
+                !searchFilters.value.tahun ||
+                arsip.tahun.toString() === searchFilters.value.tahun;
+
+            const filterMediaArsip =
+                !searchFilters.value.filterMediaArsip ||
+                arsip.jenis_media.toLowerCase() ===
+                    searchFilters.value.filterMediaArsip.toLowerCase();
+
+            return (
+                filterNaskahDinas &&
+                filterUraian &&
+                filterBulan &&
+                filterTahun &&
+                filterMediaArsip
+            );
+        });
+    }
+});
 </script>
+
+<style>
+select {
+    color: black;
+}
+</style>
