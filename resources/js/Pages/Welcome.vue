@@ -20,7 +20,7 @@
                 <div
                     class="absolute top-0 left-0 w-full h-full flex items-center justify-center"
                 >
-                    <SearchDocument class="rounded-lg"></SearchDocument>
+                    <SearchDocument></SearchDocument>
                 </div>
             </div>
         </section>

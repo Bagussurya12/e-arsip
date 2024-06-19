@@ -11,7 +11,7 @@ class LokasiSimpan extends Model
     use HasFactory;
     // protected $table = 'arsip';
     protected $table = 'lokasi_simpan';
-    protected $fillable = ['arsip_id', 'kolom_lemari',  'no_bindeks', 'map_bulan'];
+    protected $fillable = ['arsip_id', 'kolom_lemari',  'no_bindeks', 'map_bulan','tahun'];
 
     public function arsip()
     {

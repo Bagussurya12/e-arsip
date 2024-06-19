@@ -40,6 +40,7 @@ class ArsipController extends Controller
             'kolom_lemari' => $request->kolom_lemari,
             'no_bindeks' => $request->no_bindeks,
             'map_bulan' => $request->map_bulan,
+            'tahun' => $request->tahun,
         ]);
 
         return redirect()->route('arsip');
@@ -48,34 +49,34 @@ class ArsipController extends Controller
     public function index(Request $request)
     {
         $query = Arsip::with('lokasiSimpan');
-    
+
         // Filter berdasarkan jenis naskah dinas
         if ($request->has('naskahDinas')) {
             $query->where('jenis_arsip', 'like', '%' . $request->input('naskahDinas') . '%');
         }
-    
+
         // Filter berdasarkan uraian informasi
         if ($request->has('searchQuery')) {
             $query->where('uraian_informasi', 'like', '%' . $request->input('searchQuery') . '%');
         }
-    
+
         // Filter berdasarkan bulan
         if ($request->has('filterBulan')) {
             $query->where('map_bulan', 'like', '%' . $request->input('filterBulan') . '%');
         }
-    
+
         // Filter berdasarkan tahun
-        if ($request->has('tahun')) {
+        if ($request->has('filterTahun')) {
             $query->where('tahun', $request->input('tahun'));
         }
-    
+
         // Filter berdasarkan media arsip
         if ($request->has('filterMediaArsip')) {
             $query->where('jenis_media', 'like', '%' . $request->input('filterMediaArsip') . '%');
         }
-    
+
         $arsip = $query->paginate(20);
-    
+
         return Inertia::render('Arsip/Index', [
             'arsip' => $arsip
         ]);
@@ -134,6 +135,7 @@ class ArsipController extends Controller
                 'kolom_lemari' => $request->kolom_lemari,
                 'no_bindeks' => $request->no_bindeks,
                 'map_bulan' => $request->map_bulan,
+                'tahun' => $request->tahun,
             ]);
         } else {
             LokasiSimpan::create([
@@ -141,6 +143,7 @@ class ArsipController extends Controller
                 'kolom_lemari' => $request->kolom_lemari,
                 'no_bindeks' => $request->no_bindeks,
                 'map_bulan' => $request->map_bulan,
+                'tahun' => $request -> tahun,
             ]);
         }
     

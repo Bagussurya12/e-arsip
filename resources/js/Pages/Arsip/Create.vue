@@ -119,6 +119,26 @@
                                     :message="form.errors.map_bulan"
                                 />
                             </div>
+
+                            <!-- TAHUN -->
+                            <div
+                                class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
+                            >
+                                <InputLabel for="tahun" value="Tahun" />
+                                <TextInput
+                                    id="tahun"
+                                    type="number"
+                                    class="mt-1 block w-full"
+                                    v-model="form.tahun"
+                                    required
+                                    autocomplete="off"
+                                    placeholder="Masukan Tahun"
+                                />
+                                <InputError
+                                    class="mt-2"
+                                    :message="form.errors.tahun"
+                                />
+                            </div>
                         </div>
 
                         <div
@@ -402,6 +422,7 @@ const form = useForm({
     kolom_lemari: null,
     no_bindeks: null,
     map_bulan: "",
+    tahun: "",
     nomor_dokumen: "",
     uraian_informasi: "",
     asal_surat: "",

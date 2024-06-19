@@ -119,6 +119,25 @@
                                     :message="form.errors.map_bulan"
                                 />
                             </div>
+                            <!-- TAHUN -->
+                            <div
+                                class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
+                            >
+                                <InputLabel for="tahun" value="Tahun" />
+                                <TextInput
+                                    id="tahun"
+                                    type="number"
+                                    class="mt-1 block w-full"
+                                    v-model="form.tahun"
+                                    required
+                                    autocomplete="off"
+                                    placeholder="Masukan Tahun"
+                                />
+                                <InputError
+                                    class="mt-2"
+                                    :message="form.errors.tahun"
+                                />
+                            </div>
                         </div>
 
                         <div
@@ -420,6 +439,7 @@ const form = useForm({
     kolom_lemari: props.arsip.lokasi_simpan.kolom_lemari ?? "",
     no_bindeks: props.arsip.lokasi_simpan.no_bindeks ?? "",
     map_bulan: props.arsip.lokasi_simpan.map_bulan ?? "",
+    tahun: props.arsip.lokasi_simpan.tahun ?? "",
     nomor_urut_perbulan: props.arsip.nomor_urut_perbulan ?? "",
     nomor_dokumen: props.arsip.nomor_dokumen ?? "",
     uraian_informasi: props.arsip.uraian_informasi ?? "",

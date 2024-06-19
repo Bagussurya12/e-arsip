@@ -19,6 +19,7 @@
                         <form
                             action=""
                             class="flex justify-center flex-wrap w-full mx-auto text-Dark"
+                            @submit.prevent="search"
                         >
                             <!-- Select Naskah Dinas -->
                             <div
@@ -48,7 +49,7 @@
                                 class="w-1/6 bg-white text-sm border-transparent"
                             >
                                 <input
-                                    id="inputNomor"
+                                    id="uraianInformasi"
                                     type="text"
                                     class="w-full border-none focus:outline-none focus:ring-0 text-Dark"
                                     placeholder="Uraian Informasi"
@@ -536,6 +537,30 @@ const closeDelete = () => {
     dialogDelete.value = false;
     itemDelete.value = null;
 };
+
+const search = () => {
+    // Pastikan searchFilters dan searchQuery terdefinisi dengan benar
+    const queryParams = {
+        naskahDinas:
+            searchFilters && searchFilters.naskahDinas
+                ? searchFilters.naskahDinas
+                : "",
+        searchQuery: searchQuery ? searchQuery : "",
+        filterBulan:
+            searchFilters && searchFilters.filterBulan
+                ? searchFilters.filterBulan
+                : "",
+        tahun: searchFilters && searchFilters.tahun ? searchFilters.tahun : "",
+        filterMediaArsip:
+            searchFilters && searchFilters.filterMediaArsip
+                ? searchFilters.filterMediaArsip
+                : "",
+    };
+
+    const queryString = new URLSearchParams(queryParams).toString();
+    Inertia.visit(route("arsip.index") + "?" + queryString);
+};
+
 const searchQuery = ref("");
 const searchFilters = ref({
     naskahDinas: "",
@@ -607,8 +632,8 @@ const displayedArsip = computed(() => {
                     searchFilters.value.filterBulan.toLowerCase();
 
             const filterTahun =
-                !searchFilters.value.tahun ||
-                arsip.tahun.toString() === searchFilters.value.tahun;
+                searchFilters.value.tahun === "" || // Jika searchFilters.value.tahun kosong, lewati filter tahun
+                arsip.lokasi_simpan.tahun === searchFilters.value.tahun;
 
             const filterMediaArsip =
                 !searchFilters.value.filterMediaArsip ||
