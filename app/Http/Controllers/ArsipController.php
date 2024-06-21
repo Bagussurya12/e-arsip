@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -67,7 +66,7 @@ class ArsipController extends Controller
 
         // Filter berdasarkan tahun
         if ($request->has('filterTahun')) {
-            $query->where('tahun', $request->input('tahun'));
+            $query->where('tahun', $request->input('filterTahun'));
         }
 
         // Filter berdasarkan media arsip
@@ -77,12 +76,56 @@ class ArsipController extends Controller
 
         $arsip = $query->paginate(20);
 
+
         return Inertia::render('Arsip/Index', [
             'arsip' => $arsip
         ]);
     }
     
-
+    public function getDataArsip(Request $request)
+    {
+        $query = Arsip::with('lokasiSimpan');
+    
+        // Filter berdasarkan jenis naskah dinas
+        if ($request->has('naskahDinas')) {
+            $query->where('jenis_arsip', 'like', '%' . $request->input('naskahDinas') . '%');
+        }
+    
+        // Filter berdasarkan uraian informasi
+        if ($request->has('searchQuery')) {
+            $query->where('uraian_informasi', 'like', '%' . $request->input('searchQuery') . '%');
+        }
+    
+        // Filter berdasarkan bulan
+        if ($request->has('filterBulan')) {
+            $query->where('map_bulan', 'like', '%' . $request->input('filterBulan') . '%');
+        }
+    
+        // Filter berdasarkan tahun
+        if ($request->has('filterTahun')) {
+            $query->where('tahun', $request->input('filterTahun'));
+        }
+    
+        // Filter berdasarkan media arsip
+        if ($request->has('filterMediaArsip')) {
+            $query->where('jenis_media', 'like', '%' . $request->input('filterMediaArsip') . '%');
+        }
+    
+        $arsip = $query->paginate(20);
+    
+   
+        return Inertia::render('Welcome', [
+            'arsip' => $arsip
+        ]);
+    }
+    
+    public function detail($id)
+    {
+        $arsip = Arsip::with('lokasiSimpan')->find($id);
+        return Inertia::render('detail', [
+            'arsip' => $arsip
+        ]);
+    }
     public function create()
     {
         return Inertia::render('Arsip/Create');
@@ -149,6 +192,7 @@ class ArsipController extends Controller
     
         return redirect()->route('arsip')->with('success', 'Data arsip berhasil diperbarui');
     }
+
     public function destroy($id)
     {
         $arsip = Arsip::findOrFail($id);
@@ -162,5 +206,4 @@ class ArsipController extends Controller
     
         return redirect(route('arsip'))->with('success', 'Data arsip berhasil dihapus');
     }
-    
 }

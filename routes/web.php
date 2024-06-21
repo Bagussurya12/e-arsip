@@ -21,6 +21,8 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+
 Route::middleware(['auth', 'admin'])->group(function() {
     Route::get('/users', [UserController::class, 'index'])->name('users'); 
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create'); 
@@ -44,5 +46,10 @@ Route::middleware('auth') -> group(function(){
     Route::delete('/arsip/{id}', [ArsipController::class, 'destroy'])->name('arsip.delete');
 
 });
+// UNTUK DI WELCOME.VUE
+
+Route::get('/', [ArsipController::class, 'getDataArsip'])->name('get.data.arsip');
+Route::get('detail/{id}', [ArsipController::class, 'detail'])->name('detail.arsip');
+
 require __DIR__.'/auth.php';
 

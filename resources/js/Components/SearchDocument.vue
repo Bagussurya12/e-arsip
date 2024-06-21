@@ -33,16 +33,26 @@
                         id="inputNomor"
                         type="text"
                         class="w-full border-none focus:outline-none focus:ring-0"
-                        placeholder="Uraian"
+                        placeholder="Uraian Informasi"
                     />
                 </div>
                 <!-- Select Bulan -->
                 <div class="w-1/6 bg-white text-sm border-transparent">
-                    <input
-                        type="number"
-                        class="w-full border-none focus:outline-none focus:ring-0"
-                        placeholder="bulan"
-                    />
+                    <select
+                        id="bulan"
+                        name="optionBulan"
+                        class="truncate w-full border-none focus:outline-none focus:ring-0"
+                    >
+                        <option disabled selected>Bulan</option>
+                        <option
+                            v-for="bulan in optionBulan"
+                            :key="bulan"
+                            :value="bulan"
+                            class="text-Dark focus:outline-none"
+                        >
+                            {{ bulan }}
+                        </option>
+                    </select>
                 </div>
                 <!-- Select Tahun -->
                 <div class="w-1/6 bg-white text-sm border-transparent">
@@ -120,6 +130,20 @@ export default {
                 "Lain-lain",
             ],
             MediaArsipGroup: ["PDF", "Gambar", "Vidio", "Audio", "Lain-lain"],
+            optionBulan: [
+                "Januari",
+                "Februari",
+                "Maret",
+                "April",
+                "Mei",
+                "Juni",
+                "Juli",
+                "Agustus",
+                "September",
+                "Oktober",
+                "November",
+                "Desember",
+            ],
         };
     },
 };
@@ -132,5 +156,3 @@ input:focus {
     box-shadow: none !important;
 }
 </style>
-
-<!-- Include Font Awesome -->

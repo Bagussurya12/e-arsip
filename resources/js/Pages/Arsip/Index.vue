@@ -589,20 +589,7 @@ const NaskahDinasGroup = [
 
 let MediaArsipGroup = ["PDF", "Gambar", "Vidio", "Audio", "Lain-lain"];
 
-let optionBulan = [
-    "Januari",
-    "Februari",
-    "Maret",
-    "April",
-    "Mei",
-    "Juni",
-    "Juli",
-    "Agustus",
-    "September",
-    "Oktober",
-    "November",
-    "Desember",
-];
+let
 
 const displayedArsip = computed(() => {
     if (
