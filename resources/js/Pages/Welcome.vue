@@ -37,7 +37,7 @@
                     <div
                         v-for="(arsipItem, index) in displayedArsip"
                         :key="arsipItem.id"
-                        class="bg-gray-100 rounded-lg overflow-hidden shadow-lg"
+                        class="bg-gray-100 rounded-lg overflow-hidden shadow-lg transition-transform transform card-zoom"
                     >
                         <div class="p-6">
                             <h3 class="text-xl font-semibold text-Dark">
@@ -47,7 +47,12 @@
                                 {{ arsipItem.asal_surat }}
                             </p>
                             <p class="text-gray-600 mt-2 mb-5">
-                                {{ arsipItem.uraian_informasi }}
+                                {{
+                                    truncateDescription(
+                                        arsipItem.uraian_informasi,
+                                        40
+                                    )
+                                }}
                             </p>
                             <p class="text-gray-600 mt-2 mb-5">
                                 {{ arsipItem.tanggal_surat }} ||
@@ -110,6 +115,12 @@ export default {
             const scrollTop = window.scrollY || window.pageYOffset;
             const zoomFactor = 1 + scrollTop / 1000;
             this.$refs.masterImage.style.transform = `scale(${zoomFactor})`;
+        },
+        truncateDescription(text, maxLength) {
+            if (text.length <= maxLength) {
+                return text;
+            }
+            return text.substring(0, maxLength) + "...";
         },
     },
     setup(props) {
@@ -182,4 +193,20 @@ export default {
 
 <style>
 /* Gaya CSS sesuai kebutuhan */
+.transition-transform {
+    transition: transform 0.3s ease-in-out;
+}
+
+.transition-opacity {
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Tambahkan ini untuk efek zoom pada hover */
+.card-zoom {
+    transition: transform 0.3s ease-in-out;
+}
+
+.card-zoom:hover {
+    transform: scale(1.05); /* Menambahkan efek zoom */
+}
 </style>

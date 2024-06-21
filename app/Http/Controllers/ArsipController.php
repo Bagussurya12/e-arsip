@@ -122,6 +122,7 @@ class ArsipController extends Controller
     public function detail($id)
     {
         $arsip = Arsip::with('lokasiSimpan')->find($id);
+        
         return Inertia::render('detail', [
             'arsip' => $arsip
         ]);
