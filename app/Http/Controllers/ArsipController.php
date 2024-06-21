@@ -111,7 +111,7 @@ class ArsipController extends Controller
             $query->where('jenis_media', 'like', '%' . $request->input('filterMediaArsip') . '%');
         }
     
-        $arsip = $query->paginate(20);
+        $arsip = $query->paginate(9);
     
    
         return Inertia::render('Welcome', [

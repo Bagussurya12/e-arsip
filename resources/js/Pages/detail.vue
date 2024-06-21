@@ -86,7 +86,7 @@
                         </div>
                         <div class="flex mt-20">
                             <button
-                                class="bg-Dark text-white font-bold py-2 px-4 rounded mr-4 hover:bg-blue-700"
+                                class="bg-Dark text-white font-bold py-2 px-4 rounded mr-4 hover:bg-Hijau"
                                 @click="viewDocument"
                             >
                                 Lihat Dokumen
@@ -94,7 +94,7 @@
                             <a
                                 :href="`/storage/${arsip.media}`"
                                 download
-                                class="bg-Hijau text-white font-bold py-2 px-4 rounded hover:bg-green-700"
+                                class="bg-Hijau text-white font-bold py-2 px-4 rounded hover:bg-Dark"
                             >
                                 Unduh Dokumen
                             </a>

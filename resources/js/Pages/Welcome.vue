@@ -8,7 +8,7 @@
                     ref="masterImage"
                     src="../../../assets/img/monas.png"
                     alt="Master Image"
-                    class="m-0 p-0 w-full lg:h-[600px] h-full object-cover zoom-effect"
+                    class="m-0 p-0 w-full lg:h-[400px] h-full object-cover zoom-effect"
                 />
                 <div
                     class="absolute top-0 left-0 w-full h-full bg-black opacity-50"
