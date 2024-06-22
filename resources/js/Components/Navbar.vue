@@ -55,9 +55,9 @@
                         </li>
                         <li class="group">
                             <a
-                                href="#"
+                                href="/kontak"
                                 class="text-base text-white font-bold py-2 mx-2 lg:mx-4 flex group-hover:text-Hijau"
-                                >Lokasi</a
+                                >Kontak</a
                             >
                         </li>
                     </ul>

@@ -53,6 +53,9 @@ Route::get('/', [ArsipController::class, 'getDataArsip'])->name('get.data.arsip'
 Route::get('detail/{id}', [ArsipController::class, 'detail'])->name('detail.arsip');
 
 // KONTAK 
+Route::middleware(['auth', 'admin'])->group(function(){
+    Route::get('/pesan', [ContactController::class, 'index'])->name('pesan');
+});
 Route::get('/kontak', [ContactController::class, 'showContactForm'])->name('kontak');
 Route::post('/kontak', [ContactController::class, 'store'])->name('kontak.store');
 
