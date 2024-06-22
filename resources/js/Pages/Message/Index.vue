@@ -50,6 +50,9 @@
                                                 {{ kontakItem.name }}
                                             </h3>
                                             <p class="text-gray-600 mt-2">
+                                                {{ kontakItem.institution }}
+                                            </p>
+                                            <p class="text-gray-600 mt-2">
                                                 {{ kontakItem.email }}
                                             </p>
                                             <p class="text-gray-600 mt-2 mb-5">
@@ -72,7 +75,7 @@
                                             >
                                                 <Link
                                                     :href="
-                                                        route('detail.arsip', {
+                                                        route('pesan.detail', {
                                                             id: kontakItem.id,
                                                         })
                                                     "

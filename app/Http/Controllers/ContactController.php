@@ -16,13 +16,13 @@ class ContactController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'string|required',
-            'email' => 'email|required',
-            'phone' => 'integer|required',
-            'institution' => 'string|required',
-            'message' => 'string|required'
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'phone' => 'required|integer',
+            'institution' => 'required|string',
+            'message' => 'required|string'
         ]);
-    
+        
         Kontak::create($validated);
     
         return redirect()->back()->with('success', 'Pesan Anda berhasil terkirim!');
@@ -44,14 +44,16 @@ class ContactController extends Controller
         ]);
     }
 
-    // public function detail($id)
-    // {
-    //     $arsip = Kontak->find($id);
-        
-    //     return Inertia::render('detail', [
-    //         'arsip' => $arsip
-    //     ]);
-    // }
+    public function detail($id)
+    {
+         // Mengambil data pesan berdasarkan ID
+         $kontak = Kontak::findOrFail($id);
+
+         // Mengembalikan view dengan data pesan
+         return Inertia::render('Message/Detail', [
+             'kontak' => $kontak,
+         ]);
+    }
 
     public function destroy($id)
     {
