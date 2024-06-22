@@ -7,6 +7,7 @@ use Inertia\Inertia;
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArsipController;
+use App\Http\Controllers\ContactController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -51,5 +52,7 @@ Route::middleware('auth') -> group(function(){
 Route::get('/', [ArsipController::class, 'getDataArsip'])->name('get.data.arsip');
 Route::get('detail/{id}', [ArsipController::class, 'detail'])->name('detail.arsip');
 
+// KONTAK 
+Route::get('/kontak', [ContactController::class, 'showContactForm'])->name('contact.form');
 require __DIR__.'/auth.php';
 

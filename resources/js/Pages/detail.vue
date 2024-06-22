@@ -2,7 +2,7 @@
     <section>
         <Head title="Detail Arsip" />
         <Navbar />
-        <section id="master" class="relative w-full h-full overflow-hidden">
+        <section id="detail" class="relative w-full h-full overflow-hidden">
             <div class="m-0 p-0 w-full h-full flex relative">
                 <img
                     ref="masterImage"
