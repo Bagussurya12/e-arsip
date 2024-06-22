@@ -190,7 +190,7 @@
                                         No Dokumen
                                     </th>
                                     <th
-                                        class="px-24 py-3 text-center text-lg font-medium text-Dark border-2 border-Dark"
+                                        class="px-32 py-3 text-center text-lg font-medium text-Dark border-2 border-Dark"
                                         rowspan="2"
                                     >
                                         Uraian Informasi Arsip
