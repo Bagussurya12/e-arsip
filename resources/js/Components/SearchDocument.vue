@@ -4,7 +4,7 @@
     >
         <div class="container mx-auto">
             <form
-                action=""
+                @submit.prevent="submitSearch"
                 class="flex justify-center flex-wrap w-full mx-auto"
             >
                 <!-- Select Naskah Dinas -->
@@ -14,9 +14,10 @@
                     <select
                         id="selectNaskah"
                         name="naskahDinas"
+                        v-model="filters.naskahDinas"
                         class="truncate w-full border-none focus:outline-none focus:ring-0"
                     >
-                        <option disabled selected>Naskah Dinas</option>
+                        <option disabled selected value="">Naskah Dinas</option>
                         <option
                             v-for="naskahDinas in NaskahDinasGroup"
                             :key="naskahDinas"
@@ -32,6 +33,7 @@
                     <input
                         id="inputNomor"
                         type="text"
+                        v-model="filters.uraianInformasi"
                         class="w-full border-none focus:outline-none focus:ring-0"
                         placeholder="Uraian Informasi"
                     />
@@ -41,9 +43,10 @@
                     <select
                         id="bulan"
                         name="optionBulan"
+                        v-model="filters.filterBulan"
                         class="truncate w-full border-none focus:outline-none focus:ring-0"
                     >
-                        <option disabled selected>Bulan</option>
+                        <option disabled selected value="">Bulan</option>
                         <option
                             v-for="bulan in optionBulan"
                             :key="bulan"
@@ -58,6 +61,7 @@
                 <div class="w-1/6 bg-white text-sm border-transparent">
                     <input
                         type="number"
+                        v-model="filters.tahun"
                         class="w-full border-none focus:outline-none focus:ring-0"
                         placeholder="Tahun"
                     />
@@ -69,9 +73,10 @@
                     <select
                         id="selectMedia"
                         name="mediaArsip"
+                        v-model="filters.filterMediaArsip"
                         class="truncate w-full border-none focus:outline-none focus:ring-0"
                     >
-                        <option disabled selected>Media Arsip</option>
+                        <option disabled selected value="">Media Arsip</option>
                         <option
                             v-for="mediaArsip in MediaArsipGroup"
                             :key="mediaArsip"
@@ -109,6 +114,9 @@
 
 <script>
 export default {
+    props: {
+        filters: Object, // Menerima data filter dari komponen induk
+    },
     data() {
         return {
             NaskahDinasGroup: [
@@ -146,13 +154,10 @@ export default {
             ],
         };
     },
+    methods: {
+        submitSearch() {
+            this.$emit("search", this.filters); // Mengirim event 'search' dengan data filters ke komponen induk
+        },
+    },
 };
 </script>
-
-<style>
-select:focus,
-input:focus {
-    outline: none !important;
-    box-shadow: none !important;
-}
-</style>

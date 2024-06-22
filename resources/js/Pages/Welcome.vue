@@ -17,7 +17,10 @@
                 <div
                     class="absolute top-0 left-0 w-full h-full flex items-center justify-center"
                 >
-                    <SearchDocument></SearchDocument>
+                    <SearchDocument
+                        :filters="searchFilters"
+                        @search="handleSearch"
+                    ></SearchDocument>
                 </div>
             </div>
         </section>
@@ -29,6 +32,9 @@
         >
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
+                    <h1 class="text-2xl text-Dark font-bold font-mono">
+                        Data Arsip
+                    </h1>
                     <p class="text-Hijau mt-4">
                         Nantikan Data Arsip Terbaru Dari Kami! 🤞
                     </p>
@@ -87,8 +93,6 @@ import { Head, Link } from "@inertiajs/inertia-vue3";
 import Navbar from "@/Components/Navbar.vue";
 import Footer from "@/Components/Footer.vue";
 import SearchDocument from "@/Components/SearchDocument.vue";
-import { usePage } from "@inertiajs/inertia-vue3";
-import { defineProps } from "vue";
 
 export default {
     components: {
@@ -99,11 +103,22 @@ export default {
         Link,
     },
     props: {
-        arsip: Object, // Pastikan props diinisialisasi dengan benar
+        arsip: Object,
+    },
+    data() {
+        return {
+            searchFilters: {
+                naskahDinas: "",
+                uraianInformasi: "",
+                filterBulan: "",
+                tahun: "",
+                filterMediaArsip: "",
+            },
+        };
     },
     mounted() {
         if (this.arsip) {
-            console.log(this.arsip.data); // Pastikan data telah dimuat saat komponen di-mount
+            console.log(this.arsip.data);
         }
         window.addEventListener("scroll", this.handleScroll);
     },
@@ -121,6 +136,9 @@ export default {
                 return text;
             }
             return text.substring(0, maxLength) + "...";
+        },
+        handleSearch(filters) {
+            this.searchFilters = filters;
         },
     },
     setup(props) {
@@ -161,7 +179,7 @@ export default {
                                   searchFilters.value.filterBulan.toLowerCase();
 
                           const filterTahun =
-                              searchFilters.value.tahun === "" || // Jika searchFilters.value.tahun kosong, lewati filter tahun
+                              searchFilters.value.tahun === "" ||
                               arsip.lokasi_simpan.tahun ===
                                   searchFilters.value.tahun;
 
@@ -201,12 +219,11 @@ export default {
     transition: opacity 0.3s ease-in-out;
 }
 
-/* Tambahkan ini untuk efek zoom pada hover */
 .card-zoom {
     transition: transform 0.3s ease-in-out;
 }
 
 .card-zoom:hover {
-    transform: scale(1.05); /* Menambahkan efek zoom */
+    transform: scale(1.05);
 }
 </style>
