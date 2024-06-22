@@ -53,6 +53,9 @@ Route::get('/', [ArsipController::class, 'getDataArsip'])->name('get.data.arsip'
 Route::get('detail/{id}', [ArsipController::class, 'detail'])->name('detail.arsip');
 
 // KONTAK 
-Route::get('/kontak', [ContactController::class, 'showContactForm'])->name('contact.form');
+Route::get('/kontak', [ContactController::class, 'showContactForm'])->name('kontak');
+Route::post('/kontak', [ContactController::class, 'store'])->name('kontak.store');
+
+
 require __DIR__.'/auth.php';
 

@@ -41,7 +41,6 @@
                 <div class="w-full max-w-4xl flex justify-between">
                     <div class="w-full px-4">
                         <div class="w-full max-w-full mb-8">
-                            <div class="w-full border-t border-Dark" />
                             <h4
                                 class="text-Dark font-semibold font-montserrat text-2xl mb-2 mt-10"
                             >
@@ -60,7 +59,7 @@
                                 >
                             </p>
                         </div>
-                        <form action="">
+                        <form @submit.prevent="submitForm">
                             <div class="mb-4">
                                 <InputLabel
                                     for="name"
@@ -68,6 +67,7 @@
                                     class="mb-2"
                                 />
                                 <TextInput
+                                    v-model="form.name"
                                     id="name"
                                     type="text"
                                     class="mt-1 block w-full"
@@ -76,7 +76,10 @@
                                     placeholder="Masukan Nama Lengkap"
                                     autocomplete="name"
                                 />
-                                <InputError class="mt-2" />
+                                <InputError
+                                    :message="errors.name"
+                                    class="mt-2"
+                                />
                             </div>
                             <div class="mb-4">
                                 <InputLabel
@@ -85,6 +88,7 @@
                                     class="mb-2"
                                 />
                                 <TextInput
+                                    v-model="form.email"
                                     id="email"
                                     type="email"
                                     class="mt-1 block w-full"
@@ -92,7 +96,10 @@
                                     placeholder="Masukan Email"
                                     autocomplete="email"
                                 />
-                                <InputError class="mt-2" />
+                                <InputError
+                                    :message="errors.email"
+                                    class="mt-2"
+                                />
                             </div>
                             <div class="mb-4">
                                 <InputLabel
@@ -101,14 +108,18 @@
                                     class="mb-2"
                                 />
                                 <TextInput
+                                    v-model="form.phone"
                                     id="phone"
-                                    type="text"
+                                    type="number"
                                     class="mt-1 block w-full"
                                     required
                                     placeholder="Masukan No. Telepon"
                                     autocomplete="phone"
                                 />
-                                <InputError class="mt-2" />
+                                <InputError
+                                    :message="errors.phone"
+                                    class="mt-2"
+                                />
                             </div>
                             <div class="mb-4">
                                 <InputLabel
@@ -117,6 +128,7 @@
                                     class="mb-2"
                                 />
                                 <TextInput
+                                    v-model="form.institution"
                                     id="institution"
                                     type="text"
                                     class="mt-1 block w-full"
@@ -124,7 +136,10 @@
                                     placeholder="Masukan Institusi"
                                     autocomplete="institution"
                                 />
-                                <InputError class="mt-2" />
+                                <InputError
+                                    :message="errors.institution"
+                                    class="mt-2"
+                                />
                             </div>
                             <div class="mb-4">
                                 <InputLabel
@@ -133,13 +148,17 @@
                                     class="mb-2"
                                 />
                                 <textarea
+                                    v-model="form.message"
                                     id="message"
                                     class="mt-1 block w-full rounded-lg border-gray-300 focus:ring-Dark focus:border-Dark"
                                     required
                                     placeholder="Masukan Pesan"
                                     rows="4"
                                 ></textarea>
-                                <InputError class="mt-2" />
+                                <InputError
+                                    :message="errors.message"
+                                    class="mt-2"
+                                />
                             </div>
                             <div>
                                 <button
@@ -154,12 +173,29 @@
                 </div>
             </section>
         </section>
+        <!-- Modal for success message -->
+        <div
+            v-if="showModal"
+            class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+        >
+            <div class="bg-white p-8 rounded-lg shadow-lg max-w-sm">
+                <h2 class="text-2xl font-semibold mb-4">Pesan Terkirim!</h2>
+                <p class="text-lg mb-4">Pesan Anda berhasil terkirim.</p>
+                <button
+                    @click="closeModal"
+                    class="px-4 py-2 bg-Dark text-white rounded-lg"
+                >
+                    Tutup
+                </button>
+            </div>
+        </div>
         <Footer />
     </section>
 </template>
 
 <script>
 import { Head } from "@inertiajs/inertia-vue3";
+import { Inertia } from "@inertiajs/inertia";
 import Navbar from "@/Components/Navbar.vue";
 import Footer from "@/Components/Footer.vue";
 import InputError from "@/Components/InputError.vue";
@@ -184,7 +220,31 @@ export default {
                 institution: "",
                 message: "",
             },
+            errors: {},
+            showModal: false, // State untuk menampilkan modal
         };
+    },
+    methods: {
+        async submitForm() {
+            try {
+                const response = await Inertia.post("/kontak", this.form);
+
+                this.showModal = true;
+                // Tampilkan modal jika pengiriman berhasil
+                if (response.success) {
+                    this.showModal = true;
+                } else {
+                    // Handle errors if necessary
+                    this.errors = response.errors;
+                }
+            } catch (error) {
+                console.error("Error submitting form:", error);
+                // Handle other errors if necessary
+            }
+        },
+        closeModal() {
+            this.showModal = false;
+        },
     },
 };
 </script>
