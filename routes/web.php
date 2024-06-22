@@ -55,6 +55,7 @@ Route::get('detail/{id}', [ArsipController::class, 'detail'])->name('detail.arsi
 // KONTAK 
 Route::middleware(['auth', 'admin'])->group(function(){
     Route::get('/pesan', [ContactController::class, 'index'])->name('pesan');
+    Route::delete('/pesan/{id}', [ContactController::class, 'destroy'])->name('pesan.delete');
 });
 Route::get('/kontak', [ContactController::class, 'showContactForm'])->name('kontak');
 Route::post('/kontak', [ContactController::class, 'store'])->name('kontak.store');

@@ -43,4 +43,23 @@ class ContactController extends Controller
             'kontak' => $kontak
         ]);
     }
+
+    // public function detail($id)
+    // {
+    //     $arsip = Kontak->find($id);
+        
+    //     return Inertia::render('detail', [
+    //         'arsip' => $arsip
+    //     ]);
+    // }
+
+    public function destroy($id)
+    {
+        $kontak = Kontak::findOrFail($id);
+    
+
+        $kontak->delete();
+    
+        return redirect(route('pesan'))->with('success', 'Data Pesan berhasil dihapus');
+    }
 }
