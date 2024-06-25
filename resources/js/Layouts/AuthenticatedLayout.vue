@@ -37,6 +37,11 @@ const menu = () => {
                 href: route("pesan"),
                 current: route().current("pesan"),
             },
+            {
+                name: "Statistik",
+                href: route("statistic.page"),
+                current: route().current("statistic.page"),
+            },
         ];
     } else {
         return [

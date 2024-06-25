@@ -8,6 +8,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArsipController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\StatisticsController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -60,6 +61,10 @@ Route::middleware(['auth', 'admin'])->group(function(){
 });
 Route::get('/kontak', [ContactController::class, 'showContactForm'])->name('kontak');
 Route::post('/kontak', [ContactController::class, 'store'])->name('kontak.store');
+
+Route::middleware(['auth', 'admin'])->group(function() {
+    Route::get('/statistic', [StatisticsController::class, 'statisticKeterangan'])->name('statistic.page');
+});
 
 
 require __DIR__.'/auth.php';

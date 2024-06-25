@@ -17,6 +17,8 @@ module.exports = {
             colors: {
                 Dark: "#0f172a",
                 Hijau: "#0d9488",
+                Orange: "#ED7423",
+                Biru: "#13597A",
             },
         },
     },

@@ -79,7 +79,7 @@
                                                             id: kontakItem.id,
                                                         })
                                                     "
-                                                    class="bg-Dark hover:text-Hijau text-white font-base py-2 px-4 rounded m-2"
+                                                    class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded m-2"
                                                 >
                                                     Detail
                                                 </Link>
@@ -89,7 +89,7 @@
                                                             kontakItem
                                                         )
                                                     "
-                                                    class="bg-Dark py-2 hover:text-Hijau text-white font-base px-4 rounded m-2"
+                                                    class="bg-Orange py-2 hover:text-Biru text-white font-base px-4 rounded m-2"
                                                 >
                                                     Hapus
                                                 </button>
@@ -101,14 +101,14 @@
                                     <button
                                         @click="prevPage"
                                         :disabled="!kontak.prev_page_url"
-                                        class="bg-Dark text-white py-2 px-4 rounded"
+                                        class="bg-Biru text-white py-2 px-4 rounded"
                                     >
                                         Previous
                                     </button>
                                     <button
                                         @click="nextPage"
                                         :disabled="!kontak.next_page_url"
-                                        class="bg-Dark text-white py-2 px-4 rounded"
+                                        class="bg-Biru text-white py-2 px-4 rounded"
                                     >
                                         Next
                                     </button>
