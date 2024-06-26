@@ -16,28 +16,22 @@
 
                 <div
                     class="absolute top-0 left-0 w-full h-full flex items-center justify-center"
-                >
-                    <SearchDocument
-                        :filters="searchFilters"
-                        @search="handleSearch"
-                    ></SearchDocument>
-                </div>
+                ></div>
             </div>
         </section>
         <!-- DATA ARSIP -->
+
         <section
             id="Arsip"
             class="pt-20 pb-20 bg-white"
             v-if="arsip && arsip.data"
         >
             <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h1 class="text-2xl text-Dark font-bold font-mono">
-                        Data Arsip
-                    </h1>
-                    <p class="text-Hijau mt-4">
-                        Nantikan Data Arsip Terbaru Dari Kami! 🤞
-                    </p>
+                <div class="text-center mb-12 bg-Biru">
+                    <SearchDocument
+                        :filters="searchFilters"
+                        @search="handleSearch"
+                    ></SearchDocument>
                 </div>
                 <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
                     <div
@@ -72,7 +66,7 @@
                                             id: arsipItem.id,
                                         })
                                     "
-                                    class="bg-Dark hover:text-Hijau text-white font-base py-2 px-4 rounded"
+                                    class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
                                 >
                                     Detail
                                 </Link>

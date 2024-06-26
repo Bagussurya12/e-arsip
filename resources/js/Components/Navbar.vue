@@ -15,7 +15,7 @@
                         class="ml-5 text-white font-semibold text-lg hidden lg:inline"
                     >
                         Dinas Perpustakaan Dan Kearsipan <br />
-                        Kota Jakarta Selatan
+                        DKI JAKARTA
                     </span>
                 </div>
                 <!-- Hamburger button for mobile screens -->
