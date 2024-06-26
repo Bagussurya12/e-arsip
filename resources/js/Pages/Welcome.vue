@@ -16,7 +16,11 @@
 
                 <div
                     class="absolute top-0 left-0 w-full h-full flex items-center justify-center"
-                ></div>
+                >
+                    <h1 class="text-4xl text-white font-bold mx-10">
+                        Data Arsip
+                    </h1>
+                </div>
             </div>
         </section>
         <!-- DATA ARSIP -->
@@ -27,7 +31,7 @@
             v-if="arsip && arsip.data"
         >
             <div class="container mx-auto px-6">
-                <div class="text-center mb-12 bg-Biru">
+                <div class="text-center mb-12">
                     <SearchDocument
                         :filters="searchFilters"
                         @search="handleSearch"
