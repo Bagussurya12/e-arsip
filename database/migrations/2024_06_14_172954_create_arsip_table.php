@@ -15,17 +15,21 @@ return new class extends Migration
     {
         Schema::create('arsip', function (Blueprint $table) {
             $table->id();
-            $table->string('jenis_arsip');
+            $table->string('keterangan');
+            $table->string('jenis_surat');
+            $table->string('asal_surat');
+            $table->integer('tanggal');
+            $table->string('bulan');
+            $table->integer('tahun');
+            $table->string('uraian_informasi');
             $table->integer('nomor_urut_perbulan');
             $table->string('nomor_dokumen');
-            $table->string('uraian_informasi');
-            $table->string('asal_surat');
-            $table->date('tanggal_surat');
             $table->integer('jumlah')->nullable();
             $table->string('tingkat_perkembangan')->nullable();
-            $table->string('keterangan');
             $table->string('jenis_media')->nullable();
             $table->string('media')->nullable();
+            $table->string('disposisi')->nullable();
+            $table->string('terusan')->nullable();
             $table->timestamps();
         });
     }

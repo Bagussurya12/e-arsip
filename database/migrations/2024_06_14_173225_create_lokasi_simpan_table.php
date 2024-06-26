@@ -17,8 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('arsip_id')->constrained('arsip')->onDelete('cascade');
             $table->integer('kolom_lemari');
-            $table->integer('no_bindeks');
-            $table->string('map_bulan')->nullable();
+            $table->enum('kotak', ['A', 'B']); // Ubah kolom kotak menjadi tipe enum
             $table->timestamps();
         });
     }

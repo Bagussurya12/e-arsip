@@ -12,18 +12,21 @@ class ArsipController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'jenis_arsip' => 'string',
+            'keterangan' => 'in:Surat Masuk,Surat Keluar',
+            'jenis_surat' => 'string',
+            'asal_surat' => 'string',
+            'tanggal' => 'integer',
+            'bulan' => 'string',
+            'tahun' => 'integer',
             'uraian_informasi' => 'string',
-            'tanggal_surat' => 'date',
             'nomor_urut_perbulan' => 'integer',
             'nomor_dokumen' => 'string',
+            'kolom_lemari' => 'integer',
+            'kotak' => 'in: A, B',
             'jumlah' => 'integer',
-            'asal_surat' => 'string',
             'tingkat_perkembangan' => 'string',
-            'keterangan' => 'in:Surat Masuk,Surat Keluar',
-            'lemari' => 'integer',
-            'no_bindeks' => 'integer',
-            'map_bulan' => 'string',
+            'disposisi' => 'string',
+            'terusan' => 'string',
             'jenis_media' => 'string',
             'media' => 'file|mimes:jpg,png,jpeg,pdf,mp4,mp3',
         ]);
@@ -37,9 +40,7 @@ class ArsipController extends Controller
         LokasiSimpan::create([
             'arsip_id' => $arsip->id,
             'kolom_lemari' => $request->kolom_lemari,
-            'no_bindeks' => $request->no_bindeks,
-            'map_bulan' => $request->map_bulan,
-            'tahun' => $request->tahun,
+            'kotak' => $request->kotak
         ]);
 
         return redirect()->route('arsip');

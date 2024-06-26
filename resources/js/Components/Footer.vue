@@ -153,7 +153,7 @@
                 <p class="text-lg font-semibold text-slate-500 text-center">
                     Copy Right &copy;
                     <a href="/home" class="font-bold text-Hijau"
-                        >Dispusip Kota Jakarta Selatan</a
+                        >Dispusip Provinsi DKI Jakarta</a
                     >
                     2024. All Right Reserved
                 </p>
