@@ -16,124 +16,11 @@
                             Kelola Data Arsip Untuk Menyimpan dan menjaga
                             konsistensi Data 🤞
                         </h5>
-                        <form
-                            action=""
-                            class="flex justify-center flex-wrap w-full mx-auto text-Dark"
+                        <SearchDocument
+                            :filters="searchFilters"
+                            @search="handleSearch"
                             @submit.prevent="search"
-                        >
-                            <!-- Select Naskah Dinas -->
-                            <div
-                                class="w-1/6 bg-white text-sm text-Dark rounded-l-lg border-transparent border-none px-2"
-                            >
-                                <select
-                                    id="selectNaskah"
-                                    name="naskahDinas"
-                                    v-model="searchFilters.naskahDinas"
-                                    class="truncate w-full border-none focus:outline-none focus:ring-0 text-Dark"
-                                >
-                                    <option disabled value="" selected>
-                                        Naskah Dinas
-                                    </option>
-                                    <option
-                                        v-for="naskahDinas in NaskahDinasGroup"
-                                        :key="naskahDinas"
-                                        :value="naskahDinas"
-                                        class="text-Black focus:outline-none text-Dark"
-                                    >
-                                        {{ naskahDinas }}
-                                    </option>
-                                </select>
-                            </div>
-                            <!-- Input Nomor Naskah Dinas -->
-                            <div
-                                class="w-1/6 bg-white text-sm border-transparent"
-                            >
-                                <input
-                                    id="uraianInformasi"
-                                    type="text"
-                                    class="w-full border-none focus:outline-none focus:ring-0 text-Dark"
-                                    placeholder="Uraian Informasi"
-                                    v-model="searchQuery"
-                                />
-                            </div>
-                            <!-- Select Bulan -->
-                            <div
-                                class="w-1/6 bg-white text-sm border-transparent"
-                            >
-                                <select
-                                    id="selectBulan"
-                                    name="map_bulan"
-                                    class="truncate w-full border-none focus:outline-none focus:ring-0 text-Dark"
-                                    v-model="searchFilters.filterBulan"
-                                >
-                                    <option disabled value="" selected>
-                                        Bulan
-                                    </option>
-                                    <option
-                                        v-for="bulan in optionBulan"
-                                        :key="bulan"
-                                        :value="bulan"
-                                        class="text-Dark rounded-lg"
-                                    >
-                                        {{ bulan }}
-                                    </option>
-                                </select>
-                            </div>
-                            <!-- Select Tahun -->
-                            <div
-                                class="w-1/6 bg-white text-sm border-transparent"
-                            >
-                                <input
-                                    type="number"
-                                    class="w-full border-none focus:outline-none focus:ring-0 text-Dark"
-                                    placeholder="Tahun"
-                                    v-model="searchFilters.tahun"
-                                />
-                            </div>
-                            <!-- Select Media Arsip -->
-                            <div
-                                class="w-1/6 bg-white text-sm border-transparent border-none px-2"
-                            >
-                                <select
-                                    id="selectMedia"
-                                    name="mediaArsip"
-                                    class="truncate w-full border-none focus:outline-none focus:ring-0 text-Dark"
-                                    v-model="searchFilters.filterMediaArsip"
-                                >
-                                    <option disabled value="" selected>
-                                        Media Arsip
-                                    </option>
-                                    <option
-                                        v-for="mediaArsip in MediaArsipGroup"
-                                        :key="mediaArsip"
-                                        :value="mediaArsip"
-                                        class="text-Dark rounded-lg"
-                                    >
-                                        {{ mediaArsip }}
-                                    </option>
-                                </select>
-                            </div>
-                            <!-- Button Cari -->
-                            <div
-                                class="w-auto bg-white text-sm rounded-r-lg border-transparent border-none px-2"
-                            >
-                                <button
-                                    type="submit"
-                                    class="flex items-center justify-center h-full px-3 py-2 w-10 text-Dark rounded-lg focus:outline-none"
-                                >
-                                    <svg
-                                        role="img"
-                                        viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <title>Cari</title>
-                                        <path
-                                            d="m13.716 17.261 6.873 6.582L24 20.282l-6.824-6.536a9.11 9.11 0 0 0 1.143-4.43c0-5.055-4.105-9.159-9.16-9.159S0 4.261 0 9.316c0 5.055 4.104 9.159 9.159 9.159a9.11 9.11 0 0 0 4.557-1.214ZM9.159 2.773a6.546 6.546 0 0 1 6.543 6.543 6.545 6.545 0 0 1-6.543 6.542 6.545 6.545 0 0 1-6.542-6.542 6.545 6.545 0 0 1 6.542-6.543ZM7.26 5.713a4.065 4.065 0 0 1 4.744.747 4.064 4.064 0 0 1 .707 4.749l1.157.611a5.376 5.376 0 0 0-.935-6.282 5.377 5.377 0 0 0-6.274-.987l.601 1.162Z"
-                                        />
-                                    </svg>
-                                </button>
-                            </div>
-                        </form>
+                        ></SearchDocument>
                     </div>
                 </div>
                 <!-- Garis horizontal di atas tabel -->
@@ -166,16 +53,34 @@
                                         No
                                     </th>
                                     <th
-                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                        class="px-8 py-3 text-center text-lg font-medium text-Dark"
                                         rowspan="2"
                                     >
-                                        Jenis Arsip
+                                        KETERANGAN <br />
                                     </th>
                                     <th
-                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                        colspan="3"
+                                        class="px-18 py-3 text-center text-lg font-medium text-Dark"
+                                        rowspan="2"
                                     >
-                                        Kolom Simpan
+                                        Jenis Surat
+                                    </th>
+                                    <th
+                                        class="px-32 py-3 text-center text-lg font-medium text-Dark"
+                                        rowspan="2"
+                                    >
+                                        Asal Surat
+                                    </th>
+                                    <th
+                                        class="px-18 py-3 text-center text-lg font-medium text-Dark"
+                                        rowspan="2"
+                                    >
+                                        Tanggal Surat
+                                    </th>
+                                    <th
+                                        class="px-64 py-3 text-center text-lg font-medium text-Dark"
+                                        rowspan="2"
+                                    >
+                                        Uraian Informasi Arsip
                                     </th>
                                     <th
                                         class="px-6 py-3 text-center text-lg font-medium text-Dark"
@@ -190,22 +95,10 @@
                                         No Dokumen
                                     </th>
                                     <th
-                                        class="px-32 py-3 text-center text-lg font-medium text-Dark"
-                                        rowspan="2"
-                                    >
-                                        Uraian Informasi Arsip
-                                    </th>
-                                    <th
                                         class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                        rowspan="2"
+                                        colspan="3"
                                     >
-                                        Asal Surat
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                        rowspan="2"
-                                    >
-                                        Tgl Surat
+                                        Lokasi Simpan
                                     </th>
                                     <th
                                         class="px-6 py-3 text-center text-lg font-medium text-Dark"
@@ -223,12 +116,6 @@
                                         class="px-6 py-3 text-center text-lg font-medium text-Dark"
                                         rowspan="2"
                                     >
-                                        Keterangan
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                        rowspan="2"
-                                    >
                                         Jenis Media
                                     </th>
                                     <th
@@ -236,6 +123,18 @@
                                         rowspan="2"
                                     >
                                         Media
+                                    </th>
+                                    <th
+                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                        rowspan="2"
+                                    >
+                                        Disposisi
+                                    </th>
+                                    <th
+                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                        rowspan="2"
+                                    >
+                                        Diteruskan Kepada
                                     </th>
                                     <th
                                         class="px-6 py-3 text-center text-lg font-medium text-Dark"
@@ -253,12 +152,12 @@
                                     <th
                                         class="px-6 py-3 text-center text-lg font-medium text-Dark"
                                     >
-                                        No Bindeks
+                                        Kotak A
                                     </th>
                                     <th
                                         class="px-6 py-3 text-center text-lg font-medium text-Dark"
                                     >
-                                        Map Bulan
+                                        Kotak B
                                     </th>
                                 </tr>
                             </thead>
@@ -273,49 +172,56 @@
                                         {{ index + 1 }}
                                     </td>
                                     <td class="px-6 py-4 text-center">
-                                        {{ arsipItem.jenis_arsip }}
+                                        {{ arsipItem.keterangan }}
                                     </td>
                                     <td class="px-6 py-4 text-center">
-                                        {{
-                                            arsipItem.lokasi_simpan
-                                                ?.kolom_lemari ?? "-"
-                                        }}
+                                        {{ arsipItem.jenis_surat }}
                                     </td>
                                     <td class="px-6 py-4 text-center">
-                                        {{
-                                            arsipItem.lokasi_simpan
-                                                ?.no_bindeks ?? "-"
-                                        }}
+                                        {{ arsipItem.asal_surat }}
                                     </td>
                                     <td class="px-6 py-4 text-center">
-                                        {{
-                                            arsipItem.lokasi_simpan
-                                                ?.map_bulan ?? "-"
-                                        }}
+                                        {{ arsipItem.tanggal }}/{{
+                                            arsipItem.bulan
+                                        }}/{{ arsipItem.tahun }}
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        {{ arsipItem.uraian_informasi }}
                                     </td>
                                     <td class="px-6 py-4 text-center">
                                         {{ arsipItem.nomor_urut_perbulan }}
                                     </td>
-                                    <td class="px-6 py-4 text-center">
+                                    <td class="px-6 py-2 text-center">
                                         {{ arsipItem.nomor_dokumen }}
                                     </td>
-                                    <td class="px-8 py-2 text-center">
-                                        {{ arsipItem.uraian_informasi }}
-                                    </td>
-                                    <td class="px-8 py-4 text-center">
-                                        {{ arsipItem.asal_surat }}
+                                    <td class="px-6 py-4 text-center">
+                                        {{
+                                            arsipItem.lokasi_simpan.kolom_lemari
+                                        }}
                                     </td>
                                     <td class="px-6 py-4 text-center">
-                                        {{ arsipItem.tanggal_surat }}
+                                        <span
+                                            v-if="
+                                                arsipItem.lokasi_simpan
+                                                    .kotak === 'A'
+                                            "
+                                            >✔️</span
+                                        >
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span
+                                            v-if="
+                                                arsipItem.lokasi_simpan
+                                                    .kotak === 'B'
+                                            "
+                                            >✔️</span
+                                        >
                                     </td>
                                     <td class="px-6 py-4 text-center">
                                         {{ arsipItem.jumlah }}
                                     </td>
                                     <td class="px-6 py-4 text-center">
                                         {{ arsipItem.tingkat_perkembangan }}
-                                    </td>
-                                    <td class="px-6 py-4 text-center">
-                                        {{ arsipItem.keterangan }}
                                     </td>
                                     <td class="px-6 py-4 text-center">
                                         {{ arsipItem.jenis_media }}
@@ -325,9 +231,14 @@
                                             :href="`/storage/${arsipItem.media}`"
                                             target="_blank"
                                             class="text-blue-600 hover:underline"
+                                            >Lihat Media</a
                                         >
-                                            Lihat Media
-                                        </a>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        {{ arsipItem.disposisi }}
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        {{ arsipItem.terusan }}
                                     </td>
                                     <td
                                         class="px-6 py-4 text-center border-Dark flex space-x-2"
@@ -339,9 +250,8 @@
                                                 })
                                             "
                                             class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
+                                            >Edit</Link
                                         >
-                                            Edit
-                                        </Link>
                                         <button
                                             @click="confirmDelete(arsipItem)"
                                             class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
@@ -464,6 +374,7 @@ import { defineProps } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 import { Head, Link } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import SearchDocument from "@/Components/SearchDocument.vue";
 
 const props = defineProps({
     arsip: Object,
@@ -538,58 +449,6 @@ const searchFilters = ref({
     tahun: "",
     filterMediaArsip: "",
 });
-const NaskahDinasGroup = [
-    "Peraturan Daerah",
-    "Peraturan Gubernur",
-    "Peraturan Bersama Kepala Daerah",
-    "Keputusan Gubernur",
-    "Keputusan Kepala Perangkat Daerah",
-    "Instruksi",
-    "Surat Edaran",
-    "Seruan",
-    "Surat Perintah",
-    "Surat Tugas",
-    "Nota Dinas",
-    "Nota Kesepakatan",
-    "Kesepakatan Bersama",
-    "Surat Undangan",
-    "Surat Biasa",
-    "Surat Panggilan",
-    "Telaahan Staf",
-    "Laporan",
-    "Perjanjian Kerja Sama",
-    "Surat Keterangan",
-    "Surat Kuasa",
-    "Berita Acara",
-    "Pengumuman",
-    "Surat Pengantar",
-    "Surat Perjalanan Dinas",
-    "Notulen Rapat",
-    "Notulen Rapat Hasil Rapat",
-    "Sertifikat",
-    "Piagam",
-    "Surat Tanda Tamat Pendidikan dan Pelatihan (STTPP)",
-    "Memo",
-    "Surat Keterangan Melaksanakan Tugas",
-    "Rekomendasi",
-];
-
-let MediaArsipGroup = ["PDF", "Gambar", "Vidio", "Audio", "Lain-lain"];
-
-let optionBulan = [
-    "Januari",
-    "Februari",
-    "Maret",
-    "April",
-    "Mei",
-    "Juni",
-    "Juli",
-    "Agustus",
-    "September",
-    "Oktober",
-    "November",
-    "Desember",
-];
 
 const displayedArsip = computed(() => {
     if (
