@@ -404,7 +404,7 @@
                                 <input
                                     id="media"
                                     type="file"
-                                    class="block w-full text-lg text-Dark file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-Dark file:text-white hover:file:bg-Dark"
+                                    class="block w-full text-lg text-Dark file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-Biru file:text-white hover:file:bg-Orange"
                                     @input="handleFileUpload"
                                     placeholder="Masukan File Media"
                                     name="media"
@@ -415,8 +415,12 @@
                                 />
                             </div>
                         </div>
-                        <div class="flex items-center text-center gap-2">
-                            <PrimaryButton :disabled="form.processing"
+                        <div
+                            class="flex items-center text-center justify-center gap-2 mt-10"
+                        >
+                            <PrimaryButton
+                                :disabled="form.processing"
+                                class="w-full justify-center mt-10"
                                 >Simpan Data</PrimaryButton
                             >
                             <Transition

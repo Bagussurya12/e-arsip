@@ -31,46 +31,70 @@
                         <div
                             class="mb-4 flex flex-wrap md:flex-nowrap md:space-x-6 mt-5"
                         >
+                            <!-- KETERANGAN -->
                             <div
                                 class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
                             >
                                 <InputLabel
-                                    for="jenis_arsip"
-                                    value="Jenis Arsip"
+                                    for="keterangan"
+                                    value="Keterangan"
                                 />
                                 <SelectBox
-                                    v-model="form.jenis_arsip"
-                                    :options="optionNaskahDinas"
-                                    label="Pilih Naskah Dinas"
+                                    v-model="form.keterangan"
+                                    :options="optionKeterangan"
+                                    label="Pilih Keterangan"
                                     id="select-box"
                                     name="selectBox"
-                                    placeholder="Pilih Naskah Dinas"
+                                    placeholder="Pilih Keterangan"
                                     required
                                 />
                                 <InputError
                                     class="mt-2"
-                                    :message="form.errors.jenis_arsip"
+                                    :message="form.errors.keterangan"
                                 />
                             </div>
+                            <!-- JENIS SURAT -->
                             <div
                                 class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
                             >
                                 <InputLabel
-                                    for="kolom_lemari"
-                                    value="Kolom Lemari"
+                                    for="jenis_surat"
+                                    value="Jenis surat"
                                 />
-                                <TextInput
-                                    id="kolom_lemari"
-                                    type="number"
-                                    class="mt-1 block w-full"
-                                    v-model="form.kolom_lemari"
+                                <SelectBox
+                                    v-model="form.jenis_surat"
+                                    :options="optionJenisSurat"
+                                    label="Pilih Jenis Surat"
+                                    id="select-box"
+                                    name="jenisSurat"
+                                    placeholder="Pilih Jenis Surat"
                                     required
-                                    autocomplete="off"
-                                    placeholder="Masukan Kolom Lemari"
                                 />
                                 <InputError
                                     class="mt-2"
-                                    :message="form.errors.kolom_lemari"
+                                    :message="form.errors.jenis_surat"
+                                />
+                            </div>
+                            <!-- ASAL SURAT -->
+                            <div
+                                class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
+                            >
+                                <InputLabel
+                                    for="asal_surat"
+                                    value="Asal Surat"
+                                />
+                                <TextInput
+                                    id="asal_surat"
+                                    type="text"
+                                    class="mt-1 block w-full"
+                                    v-model="form.asal_surat"
+                                    required
+                                    autocomplete="off"
+                                    placeholder="Masukan Asal Surat"
+                                />
+                                <InputError
+                                    class="mt-2"
+                                    :message="form.errors.no_bindeks"
                                 />
                             </div>
                         </div>
@@ -78,35 +102,32 @@
                         <div
                             class="mb-4 flex flex-wrap md:flex-nowrap md:space-x-6 mt-5"
                         >
-                            <!-- NOMOR BINDEKS -->
+                            <!-- TANGGAL -->
                             <div
-                                class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
+                                class="w-full md:w-1/3 flex flex-col space-y-2 mt-5"
                             >
-                                <InputLabel
-                                    for="no_bindeks"
-                                    value="Nomor Bindeks"
-                                />
+                                <InputLabel for="tanggal" value="Tanggal" />
                                 <TextInput
-                                    id="no_bindeks"
+                                    id="tanggal"
                                     type="number"
                                     class="mt-1 block w-full"
-                                    v-model="form.no_bindeks"
+                                    v-model="form.tanggal"
                                     required
                                     autocomplete="off"
-                                    placeholder="Masukan Nomor Bindeks"
+                                    placeholder="Masukan tanggal"
                                 />
                                 <InputError
                                     class="mt-2"
-                                    :message="form.errors.no_bindeks"
+                                    :message="form.errors.tanggal"
                                 />
                             </div>
-                            <!-- MAP BULAN -->
+                            <!--  BULAN -->
                             <div
-                                class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
+                                class="w-full md:w-1/3 flex flex-col space-y-2 mt-5"
                             >
-                                <InputLabel for="map_bulan" value="Map Bulan" />
+                                <InputLabel for="bulan" value="Bulan" />
                                 <SelectBox
-                                    v-model="form.map_bulan"
+                                    v-model="form.bulan"
                                     :options="optionBulan"
                                     label="Pilih Map Bulan"
                                     id="select-box"
@@ -116,12 +137,12 @@
                                 />
                                 <InputError
                                     class="mt-2"
-                                    :message="form.errors.map_bulan"
+                                    :message="form.errors.bulan"
                                 />
                             </div>
                             <!-- TAHUN -->
                             <div
-                                class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
+                                class="w-full md:w-1/3 flex flex-col space-y-2 mt-5"
                             >
                                 <InputLabel for="tahun" value="Tahun" />
                                 <TextInput
@@ -139,7 +160,31 @@
                                 />
                             </div>
                         </div>
-
+                        <div
+                            class="mb-4 flex flex-wrap md:flex-nowrap md:space-x-6 mt-5"
+                        >
+                            <!-- URAIAN INFORMASI ARSIP -->
+                            <div class="w-full flex flex-col space-y-2 mt-5">
+                                <InputLabel
+                                    for="uraian_informasi"
+                                    value="Uraian Informasi Arsip"
+                                />
+                                <textarea
+                                    name=""
+                                    id="uraianInformasi"
+                                    type="text"
+                                    class="mt-1 block w-full rounded-lg border-gray-300 focus:ring-Dark focus:border-Dark"
+                                    v-model="form.uraian_informasi"
+                                    required
+                                    autocomplete="off"
+                                    placeholder="Masukan Uraian Informasi"
+                                />
+                                <InputError
+                                    class="mt-2"
+                                    :message="form.errors.uraian_informasi"
+                                />
+                            </div>
+                        </div>
                         <div
                             class="mb-4 flex flex-wrap md:flex-nowrap md:space-x-6 mt-5"
                         >
@@ -192,80 +237,6 @@
                         <div
                             class="mb-4 flex flex-wrap md:flex-nowrap md:space-x-6 mt-5"
                         >
-                            <!-- URAIAN INFORMASI ARSIP -->
-                            <div
-                                class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
-                            >
-                                <InputLabel
-                                    for="uraian_informasi"
-                                    value="Uraian Informasi Arsip"
-                                />
-                                <textarea
-                                    name=""
-                                    id="uraianInformasi"
-                                    type="text"
-                                    class="mt-1 block w-full rounded-lg border-gray-300 focus:ring-Dark focus:border-Dark"
-                                    v-model="form.uraian_informasi"
-                                    required
-                                    autocomplete="off"
-                                    placeholder="Masukan Uraian Informasi"
-                                />
-                                <InputError
-                                    class="mt-2"
-                                    :message="form.errors.uraian_informasi"
-                                />
-                            </div>
-
-                            <!-- ASAL SURAT -->
-                            <div
-                                class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
-                            >
-                                <InputLabel
-                                    for="asal_surat"
-                                    value="Asal Surat"
-                                />
-                                <TextInput
-                                    id="asal_surat"
-                                    type="text"
-                                    class="mt-1 block w-full"
-                                    v-model="form.asal_surat"
-                                    autocomplete="off"
-                                    placeholder="Masukan Asal Surat"
-                                />
-                                <InputError
-                                    class="mt-2"
-                                    :message="form.errors.asal_surat"
-                                />
-                            </div>
-                        </div>
-
-                        <div
-                            class="mb-4 flex flex-wrap md:flex-nowrap md:space-x-6 mt-5"
-                        >
-                            <!-- TANGGAL SURAT -->
-                            <div
-                                class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
-                            >
-                                <InputLabel
-                                    for="tanggal_surat"
-                                    value="Tanggal Surat"
-                                />
-                                <TextInput
-                                    name=""
-                                    id="tanggal_surat"
-                                    type="date"
-                                    class="mt-1 block w-full rounded-lg"
-                                    v-model="form.tanggal_surat"
-                                    required
-                                    autocomplete="off"
-                                    placeholder="Masukan Tanggal Surat"
-                                />
-                                <InputError
-                                    class="mt-2"
-                                    :message="form.errors.tanggal_surat"
-                                />
-                            </div>
-
                             <!-- Jumlah Berkas -->
                             <div
                                 class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
@@ -275,7 +246,7 @@
                                     value="Jumlah Berkas/Lembar"
                                 />
                                 <TextInput
-                                    id="jumlah_berkas"
+                                    id="no_bindeks"
                                     type="number"
                                     class="mt-1 block w-full"
                                     v-model="form.jumlah"
@@ -287,11 +258,6 @@
                                     :message="form.errors.jumlah"
                                 />
                             </div>
-                        </div>
-
-                        <div
-                            class="mb-4 flex flex-wrap md:flex-nowrap md:space-x-6 mt-5"
-                        >
                             <!-- TINGKAT PERKEMBANGAN -->
                             <div
                                 class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
@@ -300,41 +266,107 @@
                                     for="tingkat_perkembangan"
                                     value="Tingkat Perkembangan"
                                 />
-                                <TextInput
-                                    name=""
-                                    id="tingkat_perkembangan"
-                                    type="text"
-                                    class="mt-1 block w-full rounded-lg"
+                                <SelectBox
                                     v-model="form.tingkat_perkembangan"
-                                    autocomplete="off"
-                                    placeholder="Masukan Tingkat Perkembangan"
+                                    :options="optionTingkatPerkembangan"
+                                    label="Tingkat Perkembangan"
+                                    id="select-box"
+                                    name="selectBox"
+                                    placeholder="Tingkat Perkembangan"
                                 />
                                 <InputError
                                     class="mt-2"
                                     :message="form.errors.tingkat_perkembangan"
                                 />
                             </div>
+                        </div>
 
-                            <!-- KETERANGAN -->
+                        <div
+                            class="mb-4 flex flex-wrap md:flex-nowrap md:space-x-6 mt-5"
+                        >
+                            <!-- Disposisi -->
+                            <div
+                                class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
+                            >
+                                <InputLabel for="disposisi" value="Disposisi" />
+                                <TextInput
+                                    id="diposisi"
+                                    type="text"
+                                    class="mt-1 block w-full"
+                                    v-model="form.disposisi"
+                                    autocomplete="off"
+                                    placeholder="Masukan disposisi"
+                                />
+                                <InputError
+                                    class="mt-2"
+                                    :message="form.errors.disposisi"
+                                />
+                            </div>
+                            <!-- Terusan  -->
                             <div
                                 class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
                             >
                                 <InputLabel
-                                    for="keterangan"
-                                    value="Keterangan"
+                                    for="terusan"
+                                    value="Terusan Kepada"
                                 />
+                                <TextInput
+                                    id="terusan"
+                                    type="text"
+                                    class="mt-1 block w-full"
+                                    v-model="form.terusan"
+                                    autocomplete="off"
+                                    placeholder="Masukan terusan"
+                                />
+                                <InputError
+                                    class="mt-2"
+                                    :message="form.errors.terusan"
+                                />
+                            </div>
+                        </div>
+
+                        <div
+                            class="mb-4 flex flex-wrap md:flex-nowrap md:space-x-6 mt-5"
+                        >
+                            <!-- kolom_lemari -->
+                            <div
+                                class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
+                            >
+                                <InputLabel
+                                    for="kolom_lemari"
+                                    value="Kolom Lemari"
+                                />
+                                <TextInput
+                                    id="kolom_lemari"
+                                    type="number"
+                                    class="mt-1 block w-full"
+                                    v-model="form.kolom_lemari"
+                                    autocomplete="off"
+                                    placeholder="Masukan kolom_lemari"
+                                />
+                                <InputError
+                                    class="mt-2"
+                                    :message="form.errors.kolom_lemari"
+                                />
+                            </div>
+
+                            <!-- KOTAK -->
+                            <div
+                                class="w-full md:w-1/3 flex flex-col space-y-2 mt-5"
+                            >
+                                <InputLabel for="kotak" value="Kotak A/B" />
                                 <SelectBox
-                                    v-model="form.keterangan"
-                                    :options="optionKeterangan"
-                                    label="Pilih Keterangan"
+                                    v-model="form.kotak"
+                                    :options="optionKotak"
+                                    label="Pilih Kotak"
                                     id="select-box"
                                     name="selectBox"
-                                    placeholder="Pilih Keterangan"
+                                    placeholder="Pilih kotak"
                                     required
                                 />
                                 <InputError
                                     class="mt-2"
-                                    :message="form.errors.keterangan"
+                                    :message="form.errors.kotak"
                                 />
                             </div>
                         </div>
@@ -371,22 +403,16 @@
                                 <InputLabel for="media" value="Media" />
                                 <input
                                     id="media"
-                                    class="block w-full text-lg text-Dark file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-Dark file:text-white hover:file:bg-Dark"
                                     type="file"
-                                    @change="handleFileUpload"
-                                    :accepted-mime-types="[
-                                        'image/jpeg',
-                                        'image/png',
-                                        'application/pdf',
-                                        'audio/mp3',
-                                        'video/mp4',
-                                    ]"
+                                    class="block w-full text-lg text-Dark file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-Biru file:text-white hover:file:bg-Orange"
+                                    @input="handleFileUpload"
+                                    placeholder="Masukan File Media"
+                                    name="media"
                                 />
                                 <InputError
                                     class="mt-2"
                                     :message="form.errors.media"
                                 />
-                                <!-- Tampilkan nama file lama jika ada -->
                                 <div v-if="form.old_media">
                                     <p class="mt-2 text-sm text-gray-600">
                                         File Lama: {{ form.old_media }}
@@ -394,8 +420,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex items-center gap-4">
-                            <PrimaryButton :disabled="form.processing"
+                        <div
+                            class="flex items-center text-center justify-center gap-2 mt-10"
+                        >
+                            <PrimaryButton
+                                :disabled="form.processing"
+                                class="w-full justify-center mt-10"
                                 >Simpan Data</PrimaryButton
                             >
                             <Transition
@@ -405,7 +435,7 @@
                             >
                                 <p
                                     v-if="form.recentlySuccessful"
-                                    class="text-sm text-gray-600"
+                                    class="text-sm text-white"
                                 >
                                     Data Berhasil Disimpan!
                                 </p>
@@ -435,19 +465,23 @@ const props = defineProps({
 
 // Initialize form using `useForm` with initial values.
 const form = useForm({
-    jenis_arsip: props.arsip.jenis_arsip,
-    kolom_lemari: props.arsip.lokasi_simpan.kolom_lemari ?? "",
-    no_bindeks: props.arsip.lokasi_simpan.no_bindeks ?? "",
-    map_bulan: props.arsip.lokasi_simpan.map_bulan ?? "",
-    tahun: props.arsip.lokasi_simpan.tahun ?? "",
+    keterangan: props.arsip.keterangan,
+    jenis_surat: props.arsip.jenis_surat ?? "",
+    asal_surat: props.arsip.asal_surat ?? "",
+    tanggal: props.arsip.tanggal ?? "",
+    bulan: props.arsip.bulan ?? "",
+    tahun: props.arsip.tahun ?? "",
+    uraian_informasi: props.arsip.uraian_informasi ?? "",
+
     nomor_urut_perbulan: props.arsip.nomor_urut_perbulan ?? "",
     nomor_dokumen: props.arsip.nomor_dokumen ?? "",
-    uraian_informasi: props.arsip.uraian_informasi ?? "",
-    asal_surat: props.arsip.asal_surat ?? "",
-    tanggal_surat: props.arsip.tanggal_surat ?? "",
+
+    kolom_lemari: props.arsip.lokasi_simpan.kolom_lemari ?? "",
+    kotak: props.arsip.lokasi_simpan.kotak ?? "",
     jumlah: props.arsip.jumlah ?? "",
     tingkat_perkembangan: props.arsip.tingkat_perkembangan ?? "",
-    keterangan: props.arsip.keterangan ?? "",
+    disposisi: props.arsip.disposisi ?? "",
+    terusan: props.arsip.terusan ?? "",
     jenis_media: props.arsip.jenis_media ?? "",
     media: null,
     old_media: props.arsip.media, // Store the old media file name.
@@ -472,7 +506,7 @@ const updateArsip = () => {
         preserveScroll: true,
     });
 };
-const optionNaskahDinas = [
+const optionJenisSurat = [
     { value: "Peraturan Daerah", label: "Peraturan Daerah" },
     { value: "Peraturan Gubernur", label: "Peraturan Gubernur" },
     {
@@ -519,6 +553,10 @@ const optionNaskahDinas = [
     },
     { value: "Rekomendasi", label: "Rekomendasi" },
 ];
+const optionTingkatPerkembangan = [
+    { value: "Copy", label: "Copy" },
+    { value: "Asli", label: "Asli" },
+];
 
 const optionBulan = [
     { value: "Januari", label: "Januari" },
@@ -545,6 +583,10 @@ const optionJenisMedia = [
     { value: "Gambar", label: "Gambar" },
     { value: "Audio", label: "Audio" },
     { value: "Vidio", label: "Vidio" },
+];
+const optionKotak = [
+    { value: "A", label: "A" },
+    { value: "B", label: "B" },
 ];
 </script>
 
