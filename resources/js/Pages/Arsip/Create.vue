@@ -434,13 +434,13 @@
                                         id="diposisi_acara"
                                         type="text"
                                         class="mt-1 block w-full"
-                                        v-model="form.diposisi_acara"
+                                        v-model="form.disposisi_acara"
                                         autocomplete="on"
                                         placeholder="Masukan Disposisi Acara"
                                     />
                                     <InputError
                                         class="mt-2"
-                                        :message="form.errors.diposisi_acara"
+                                        :message="form.errors.disposisi_acara"
                                     />
                                 </div>
                                 <div
@@ -498,7 +498,7 @@
                                         id="foto_kegiatan"
                                         type="file"
                                         class="block w-full text-lg text-Dark file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-Biru file:text-white hover:file:bg-Orange"
-                                        @change="handleFileUpload"
+                                        @change="handleFileUploadUndangan"
                                         placeholder="Masukan File Foto Kegiatan"
                                         name="foto_kegiatan"
                                     />
@@ -564,7 +564,7 @@ const form = useForm({
     terusan: "",
     jenis_media: "",
     media: null,
-    diposisi_acara: "",
+    disposisi_acara: "",
     notulen: "",
     keterangan_undangan: "",
     foto_kegiatan: null,
@@ -657,6 +657,9 @@ const optionJenisMedia = [
 
 const handleFileUpload = (event) => {
     form.media = event.target.files[0];
+};
+const handleFileUploadUndangan = (event) => {
+    form.foto_kegiatan = event.target.files[0];
 };
 
 const submitForm = () => {

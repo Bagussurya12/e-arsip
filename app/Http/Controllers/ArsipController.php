@@ -54,7 +54,7 @@ class ArsipController extends Controller
             $undangan->notulen = $request->input('notulen');
             $undangan->keterangan_undangan = $request->input('keterangan_undangan'); // Pastikan field sesuai dengan model Undangan
             if ($request->file('foto_kegiatan')) {
-                $undangan->foto_kegiatan = $request->file('foto_kegiatan')->store('assets_ArsipUndangan');
+                $undangan->foto_kegiatan = $request->file('foto_kegiatan')->store('assets-arsip');
             }
             $undangan->save();
         }
