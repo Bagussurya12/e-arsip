@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArsipController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\StatisticsController;
+use App\Http\Controllers\UndanganController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -47,6 +48,10 @@ Route::middleware('auth') -> group(function(){
     Route::put('/arsip/{arsipId}', [ArsipController::class,'update'])->name('arsip.update');
     Route::delete('/arsip/{id}', [ArsipController::class, 'destroy'])->name('arsip.delete');
 
+});
+
+Route::middleware('auth')->group(function(){
+    Route::post('/undangan', [UndanganController::class, 'store'])->name('undangan.store');
 });
 // UNTUK DI WELCOME.VUE
 

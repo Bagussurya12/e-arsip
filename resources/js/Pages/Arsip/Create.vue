@@ -416,6 +416,13 @@
                             </div>
                         </div>
                         <div
+                            class="w-full border-t border-slate-700 my-10"
+                        ></div>
+
+                        <FormUndangan
+                            v-if="form.jenis_surat === 'Surat Undangan'"
+                        ></FormUndangan>
+                        <div
                             class="flex items-center text-center justify-center gap-2 mt-10"
                         >
                             <PrimaryButton
@@ -450,6 +457,7 @@ import InputLabel from "@/Components/InputLabel.vue";
 import SelectBox from "@/Components/SelectBox.vue";
 import TextInput from "@/Components/TextInput.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import FormUndangan from "@/Components/FormUndangan.vue";
 
 const form = useForm({
     keterangan: "",
