@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('disposisi_acara')->nullable();
             $table->string('notulen')->nullable();
             $table->string('foto_kegiatan')->nullable();
-            $table->string('keterangan')->nullable();
+            $table->string('keterangan_undangan')->nullable();
 
             $table->timestamps();
         });

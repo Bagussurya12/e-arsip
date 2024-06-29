@@ -56,12 +56,6 @@
                 <InputError class="mt-2" :message="form.errors.foto_kegiatan" />
             </div>
         </div>
-
-        <PrimaryButton
-            :disabled="form.processing"
-            class="w-full justify-center mt-10"
-            >Simpan Data</PrimaryButton
-        >
     </form>
 </template>
 
@@ -78,21 +72,4 @@ const form = useForm({
     keterangan: "",
     foto_kegiatan: null,
 });
-
-const handleFileUpload = (event) => {
-    form.foto_kegiatan = event.target.files[0];
-};
-
-const submitForm = () => {
-    const formData = new FormData();
-    for (const key in form) {
-        formData.append(key, form[key]);
-    }
-
-    form.post(route("undangan.store"), {
-        data: formData,
-        forceFormData: true,
-        onSuccess: () => form.reset(),
-    });
-};
 </script>

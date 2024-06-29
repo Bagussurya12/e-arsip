@@ -20,4 +20,8 @@ class Arsip extends Model
     {
         return $this->hasOne(LokasiSimpan::class, 'arsip_id');
     }
+    public function undangan()
+    {
+        return $this->hasOne(Undangan::class, 'arsip_id');
+    }
 }

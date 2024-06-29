@@ -45,6 +45,7 @@ Route::middleware('auth') -> group(function(){
     Route::get('/arsip/create', [ArsipController::class, 'create'])->name('arsip.create'); 
     Route::post('/arsip/store', [ArsipController::class, 'store'])->name('arsip.store');
     Route::get('/arsip/edit/{arsipId}', [ArsipController::class, 'edit'])->name('arsip.edit');
+    Route::get('/arsip/detail/{arsipId}', [ArsipController::class, 'undangan_detail'])->name('arsip.detail');
     Route::put('/arsip/{arsipId}', [ArsipController::class,'update'])->name('arsip.update');
     Route::delete('/arsip/{id}', [ArsipController::class, 'destroy'])->name('arsip.delete');
 
