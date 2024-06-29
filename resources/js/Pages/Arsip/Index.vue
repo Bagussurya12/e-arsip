@@ -258,6 +258,20 @@
                                         >
                                             Hapus
                                         </button>
+
+                                        <Link
+                                            v-if="
+                                                arsipItem.jenis_surat ===
+                                                'Surat Undangan'
+                                            "
+                                            :href="
+                                                route('arsip.detail', {
+                                                    arsipId: arsipItem.id,
+                                                })
+                                            "
+                                            class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
+                                            >Detail</Link
+                                        >
                                     </td>
                                 </tr>
                             </tbody>
