@@ -55,7 +55,7 @@
                             </div>
                             <button
                                 type="submit"
-                                class="px-4 py-2 bg-Hijau text-white rounded ml-2"
+                                class="px-4 py-2 bg-Biru text-white rounded ml-2"
                             >
                                 Cari
                             </button>

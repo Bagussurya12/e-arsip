@@ -146,7 +146,7 @@ class ArsipController extends Controller
 
     public function edit($id)
     {
-        $arsip = Arsip::with('lokasiSimpan')->find($id);
+        $arsip = Arsip::with('lokasiSimpan', 'undangan')->find($id);
         return Inertia::render('Arsip/Edit', [
             'arsip' => $arsip
         ]);
@@ -160,55 +160,87 @@ class ArsipController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $validated = $request->validate([
-            'keterangan' => 'required|string|in:Surat Masuk,Surat Keluar',
-            'jenis_surat' => 'required|string',
-            'asal_surat' => 'required|string',
-            'tanggal' => 'required|integer',
-            'bulan' => 'required|string',
-            'tahun' => 'required|integer',
-            'uraian_informasi' => 'required|string',
-            'nomor_urut_perbulan' => 'required|integer',
-            'nomor_dokumen' => 'required|string',
-            'jumlah' => 'required|integer',
-            'tingkat_perkembangan' => 'required|string',
-            'disposisi' => 'required|string',
-            'terusan' => 'required|string',
-            'kolom_lemari' => 'required|integer',
-            'kotak' => 'required|string',
-            'jenis_media' => 'required|string',
-            'media' => 'nullable|file|mimes:jpg,png,jpeg,pdf,mp4,mp3',
-        ]);
+{
+    $validated = $request->validate([
+        'keterangan' => 'string|in:Surat Masuk,Surat Keluar',
+        'jenis_surat' => 'string',
+        'asal_surat' => 'string',
+        'tanggal' => 'integer',
+        'bulan' => 'string',
+        'tahun' => 'integer',
+        'uraian_informasi' => 'string',
+        'nomor_urut_perbulan' => 'integer',
+        'nomor_dokumen' => 'string',
+        'jumlah' => 'integer',
+        'tingkat_perkembangan' => 'string',
+        'disposisi' => 'nullable|string',
+        'terusan' => 'nullable|string',
+        'kolom_lemari' => 'integer',
+        'kotak' => 'string',
+        'jenis_media' => 'string',
+        'media' => 'nullable|file|mimes:jpg,png,jpeg,pdf,mp4,mp3',
+        'disposisi_acara' => 'nullable|string|max:255',
+        'notulen' => 'nullable|string|max:255',
+        'keterangan_undangan' => 'nullable|string|max:255',
+        'foto_kegiatan' => 'nullable|file|mimes:jpg,png,jpeg,pdf,mp4,mp3|max:2048',
+    ]);
 
-        $arsip = Arsip::findOrFail($id);
+    $arsip = Arsip::findOrFail($id);
 
-        if ($request->hasFile('media')) {
-            if ($arsip->media) {
-                Storage::delete($arsip->media);
-            }
-            $validated['media'] = $request->file('media')->store('assets-arsip');
-        } else {
-            $validated['media'] = $arsip->media;
+    if ($request->hasFile('media')) {
+        if ($arsip->media) {
+            Storage::delete($arsip->media);
         }
-
-        $arsip->update($validated);
-
-        if ($arsip->lokasiSimpan) {
-            $arsip->lokasiSimpan->update([
-                'kolom_lemari' => $request->kolom_lemari,
-                'kotak' => $request->kotak,
-            ]);
-        } else {
-            LokasiSimpan::create([
-                'arsip_id' => $arsip->id,
-                'kolom_lemari' => $request->kolom_lemari,
-                'kotak' => $request->kotak,
-            ]);
-        }
-
-        return redirect()->route('arsip')->with('success', 'Data arsip berhasil diperbarui');
+        $validated['media'] = $request->file('media')->store('assets-arsip');
+    } else {
+        $validated['media'] = $arsip->media;
     }
+
+    $arsip->update($validated);
+
+    if ($arsip->lokasiSimpan) {
+        $arsip->lokasiSimpan->update([
+            'kolom_lemari' => $request->kolom_lemari,
+            'kotak' => $request->kotak,
+        ]);
+    } else {
+        LokasiSimpan::create([
+            'arsip_id' => $arsip->id,
+            'kolom_lemari' => $request->kolom_lemari,
+            'kotak' => $request->kotak,
+        ]);
+    }
+
+    // Menangani update undangan jika arsip adalah Surat Undangan
+    if ($arsip->jenis_surat === 'Surat Undangan') {
+        $undangan = Undangan::where('arsip_id', $arsip->id)->first();
+        if ($undangan) {
+            $undangan->disposisi_acara = $request->input('disposisi_acara');
+            $undangan->notulen = $request->input('notulen');
+            $undangan->keterangan_undangan = $request->input('keterangan_undangan');
+            if ($request->hasFile('foto_kegiatan')) {
+                if ($undangan->foto_kegiatan) {
+                    Storage::delete($undangan->foto_kegiatan);
+                }
+                $undangan->foto_kegiatan = $request->file('foto_kegiatan')->store('assets-arsip');
+            }
+            $undangan->save();
+        } else {
+            $undangan = new Undangan();
+            $undangan->arsip_id = $arsip->id;
+            $undangan->disposisi_acara = $request->input('disposisi_acara');
+            $undangan->notulen = $request->input('notulen');
+            $undangan->keterangan_undangan = $request->input('keterangan_undangan');
+            if ($request->file('foto_kegiatan')) {
+                $undangan->foto_kegiatan = $request->file('foto_kegiatan')->store('assets-arsip');
+            }
+            $undangan->save();
+        }
+    }
+
+    return redirect()->route('arsip')->with('success', 'Data arsip berhasil diperbarui');
+}
+
 
     public function destroy($id)
     {

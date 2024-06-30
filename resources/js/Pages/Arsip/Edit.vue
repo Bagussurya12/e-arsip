@@ -420,6 +420,110 @@
                                 </div>
                             </div>
                         </div>
+                        <div v-if="form.jenis_surat === 'Surat Undangan'">
+                            <div class="items-center m-20 text-center">
+                                <div
+                                    class="w-full border-t border-slate-700 my-10"
+                                ></div>
+                                <h1 class="text-2xl font-bold text-Biru">
+                                    Dokumentasi Kegiatan Acara
+                                </h1>
+                            </div>
+                            <div
+                                class="mb-4 flex flex-wrap md:flex-nowrap md:space-x-6 mt-5"
+                            >
+                                <div
+                                    class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
+                                >
+                                    <InputLabel
+                                        for="diposisi_acara"
+                                        value="Disposisi Acara"
+                                    />
+                                    <TextInput
+                                        id="diposisi_acara"
+                                        type="text"
+                                        class="mt-1 block w-full"
+                                        v-model="form.disposisi_acara"
+                                        autocomplete="on"
+                                        placeholder="Masukan Disposisi Acara"
+                                    />
+                                    <InputError
+                                        class="mt-2"
+                                        :message="form.errors.disposisi_acara"
+                                    />
+                                </div>
+                                <div
+                                    class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
+                                >
+                                    <InputLabel for="notulen" value="Notulen" />
+                                    <textarea
+                                        id="notulen"
+                                        type="text"
+                                        class="mt-1 block w-full rounded-lg border-gray-300 focus:ring-Dark focus:border-Dark"
+                                        v-model="form.notulen"
+                                        autocomplete="on"
+                                        placeholder="Masukan Notulen"
+                                    />
+                                    <InputError
+                                        class="mt-2"
+                                        :message="form.errors.notulen"
+                                    />
+                                </div>
+                            </div>
+
+                            <div
+                                class="mb-4 flex flex-wrap md:flex-nowrap md:space-x-6 mt-5"
+                            >
+                                <div
+                                    class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
+                                >
+                                    <InputLabel
+                                        for="keterangan"
+                                        value="Keterangan Undangan"
+                                    />
+                                    <TextInput
+                                        id="keterangan_undangan"
+                                        type="text"
+                                        class="mt-1 block w-full"
+                                        v-model="form.keterangan_undangan"
+                                        autocomplete="on"
+                                        placeholder="Masukan keterangan_undangan"
+                                    />
+                                    <InputError
+                                        class="mt-2"
+                                        :message="
+                                            form.errors.keterangan_undangan
+                                        "
+                                    />
+                                </div>
+                                <div
+                                    class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
+                                >
+                                    <InputLabel
+                                        for="foto_kegiatan"
+                                        value="Foto Kegiatan"
+                                    />
+                                    <input
+                                        id="foto_kegiatan"
+                                        type="file"
+                                        class="block w-full text-lg text-Dark file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-Biru file:text-white hover:file:bg-Orange"
+                                        @change="handleFileUploadUndangan"
+                                        placeholder="Masukan File Foto Kegiatan"
+                                        name="foto_kegiatan"
+                                    />
+                                    <InputError
+                                        class="mt-2"
+                                        :message="form.errors.foto_kegiatan"
+                                    />
+                                    <div v-if="form.old_foto_kegiatan">
+                                        <p class="mt-2 text-sm text-gray-600">
+                                            File Lama:
+                                            {{ form.old_foto_kegiatan }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div
                             class="flex items-center text-center justify-center gap-2 mt-10"
                         >
@@ -486,8 +590,15 @@ const form = useForm({
     media: null,
     old_media: props.arsip.media, // Store the old media file name.
     _method: "put",
+    disposisi_acara: props.arsip.undangan.disposisi_acara ?? "",
+    notulen: props.arsip.undangan.notulen ?? "",
+    keterangan_undangan: props.arsip.undangan.keterangan_undangan ?? "",
+    foto_kegiatan: null,
+    old_foto_kegiatan: props.arsip.undangan.foto_kegiatan,
 });
-
+const handleFileUploadUndangan = (event) => {
+    form.foto_kegiatan = event.target.files[0];
+};
 const handleFileUpload = (event) => {
     form.media = event.target.files[0];
 };
