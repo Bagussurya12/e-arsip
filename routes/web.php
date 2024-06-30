@@ -68,9 +68,10 @@ Route::middleware(['auth', 'admin'])->group(function(){
 Route::get('/kontak', [ContactController::class, 'showContactForm'])->name('kontak');
 Route::post('/kontak', [ContactController::class, 'store'])->name('kontak.store');
 
-Route::middleware(['auth', 'admin'])->group(function() {
+Route::middleware('auth')->group(function() {
     Route::get('/statistic', [StatisticsController::class, 'statisticKeterangan'])->name('statistic.page');
 });
+
 
 
 require __DIR__.'/auth.php';

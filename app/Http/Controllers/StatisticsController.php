@@ -10,32 +10,46 @@ class StatisticsController extends Controller
 {
     public function statisticKeterangan(Request $request)
     {
-        $month = $request->input('month');
-        $year = $request->input('year');
+        $bulan = $request->input('bulan');
+        $tahun = $request->input('tahun');
 
         $totalSuratMasuk = Arsip::where('keterangan', 'Surat Masuk')
-            ->when($month, function ($query, $month) {
-                return $query->where('map_bulan', $month);
+            ->when($bulan, function ($query, $bulan) {
+                return $query->where('bulan', $bulan);
             })
-            ->when($year, function ($query, $year) {
-                return $query->where('tahun', $year);
+            ->when($tahun, function ($query, $tahun) {
+                return $query->where('tahun', $tahun);
             })
             ->count();
 
         $totalSuratKeluar = Arsip::where('keterangan', 'Surat Keluar')
-            ->when($month, function ($query, $month) {
-                return $query->where('map_bulan', $month);
+            ->when($bulan, function ($query, $bulan) {
+                return $query->where('bulan', $bulan);
             })
-            ->when($year, function ($query, $year) {
-                return $query->where('tahun', $year);
+            ->when($tahun, function ($query, $tahun) {
+                return $query->where('tahun', $tahun);
             })
             ->count();
+
+        // Get statistics by type of letters
+        $jenisSurat = Arsip::select('jenis_surat', \DB::raw('count(*) as total'))
+            ->when($bulan, function ($query, $bulan) {
+                return $query->where('bulan', $bulan);
+            })
+            ->when($tahun, function ($query, $tahun) {
+                return $query->where('tahun', $tahun);
+            })
+            ->groupBy('jenis_surat')
+            ->get()
+            ->pluck('total', 'jenis_surat')
+            ->toArray();
 
         return Inertia::render('Statistic/Index', [
             'totalSuratMasuk' => $totalSuratMasuk,
             'totalSuratKeluar' => $totalSuratKeluar,
-            'month' => $month,
-            'year' => $year,
+            'bulan' => $bulan,
+            'tahun' => $tahun,
+            'jenisSurat' => $jenisSurat,
         ]);
     }
 }
