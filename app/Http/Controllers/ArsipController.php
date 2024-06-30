@@ -151,7 +151,7 @@ class ArsipController extends Controller
             'arsip' => $arsip
         ]);
     }
-    public function undangan_detail($id)
+    public function arsip_detail($id)
     {
         $arsip = Arsip::with('lokasiSimpan', 'undangan')->find($id);
         return Inertia::render('Arsip/Detail', [

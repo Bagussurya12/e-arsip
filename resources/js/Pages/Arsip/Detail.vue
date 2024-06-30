@@ -3,7 +3,7 @@
     <AuthenticatedLayout>
         <template #header>
             <h3 class="font-semibold text-lg text-Dark leading-tight">
-                Detail Surat Undangan
+                Detail Arsip
             </h3>
         </template>
 
@@ -111,73 +111,81 @@
                         </div>
                     </div>
                 </div>
-                <div class="items-center m-20 text-center">
-                    <h1 class="text-2xl font-bold text-Biru">
-                        Dokumentasi Kegiatan Acara Undangan
-                    </h1>
-                </div>
-                <div class="flex flex-col md:flex-row">
-                    <div class="w-full md:w-1/2 self-center px-4 mb-4 md:mb-0">
-                        <iframe
-                            :src="`/storage/${arsip.undangan.foto_kegiatan}`"
-                            width="100%"
-                            height="600px"
-                            style="border: none"
-                            class="w-full h-[600px] border-none rounded-md"
-                        ></iframe>
+                <div v-if="arsip.jenis_surat === 'Surat Undangan'">
+                    <div class="items-center m-20 text-center">
+                        <h1 class="text-2xl font-bold text-Biru">
+                            Dokumentasi Kegiatan Acara Undangan
+                        </h1>
                     </div>
-
-                    <!-- K -->
-                    <div class="w-full md:w-1/2 self-start px-4">
-                        <div class="flex mb-4">
-                            <strong class="w-1/3">Disposisi Kegiatan</strong>
-                            <span class="w-2/3"
-                                >:
-                                {{
-                                    arsip.undangan.disposisi_acara
-                                        ? arsip.undangan.disposisi_acara
-                                        : "-"
-                                }}</span
-                            >
-                        </div>
-                        <div class="flex mb-4">
-                            <strong class="w-1/3">Keterangan Kegiatan</strong>
-                            <span class="w-2/3"
-                                >:
-                                {{
-                                    arsip.undangan.disposisi_acara
-                                        ? arsip.undangan.disposisi_acara
-                                        : "-"
-                                }}</span
-                            >
-                        </div>
-                        <div class="flex mb-4">
-                            <strong class="w-1/3">Notulen</strong>
-                            <span class="w-2/3"
-                                >:
-                                {{
-                                    arsip.undangan.notulen
-                                        ? arsip.undangan.notulen
-                                        : "-"
-                                }}</span
-                            >
+                    <div class="flex flex-col md:flex-row">
+                        <div
+                            class="w-full md:w-1/2 self-center px-4 mb-4 md:mb-0"
+                        >
+                            <iframe
+                                :src="`/storage/${arsip.undangan.foto_kegiatan}`"
+                                width="100%"
+                                height="600px"
+                                style="border: none"
+                                class="w-full h-[600px] border-none rounded-md"
+                            ></iframe>
                         </div>
 
-                        <div class="flex mt-20">
-                            <a
-                                :href="`/storage/${arsip.undangan.foto_kegiatan}`"
-                                target="_blank"
-                                class="bg-Dark text-white font-bold py-2 px-4 rounded mr-4 hover:bg-Hijau"
-                            >
-                                Lihat Foto
-                            </a>
-                            <a
-                                :href="`/storage/${arsip.undangan.foto_kegiatan}`"
-                                download
-                                class="bg-Hijau text-white font-bold py-2 px-4 rounded hover:bg-Dark"
-                            >
-                                Unduh Foto
-                            </a>
+                        <!-- K -->
+                        <div class="w-full md:w-1/2 self-start px-4">
+                            <div class="flex mb-4">
+                                <strong class="w-1/3"
+                                    >Disposisi Kegiatan</strong
+                                >
+                                <span class="w-2/3"
+                                    >:
+                                    {{
+                                        arsip.undangan.disposisi_acara
+                                            ? arsip.undangan.disposisi_acara
+                                            : "-"
+                                    }}</span
+                                >
+                            </div>
+                            <div class="flex mb-4">
+                                <strong class="w-1/3"
+                                    >Keterangan Kegiatan</strong
+                                >
+                                <span class="w-2/3"
+                                    >:
+                                    {{
+                                        arsip.undangan.disposisi_acara
+                                            ? arsip.undangan.disposisi_acara
+                                            : "-"
+                                    }}</span
+                                >
+                            </div>
+                            <div class="flex mb-4">
+                                <strong class="w-1/3">Notulen</strong>
+                                <span class="w-2/3"
+                                    >:
+                                    {{
+                                        arsip.undangan.notulen
+                                            ? arsip.undangan.notulen
+                                            : "-"
+                                    }}</span
+                                >
+                            </div>
+
+                            <div class="flex mt-20">
+                                <a
+                                    :href="`/storage/${arsip.undangan.foto_kegiatan}`"
+                                    target="_blank"
+                                    class="bg-Dark text-white font-bold py-2 px-4 rounded mr-4 hover:bg-Hijau"
+                                >
+                                    Lihat Foto
+                                </a>
+                                <a
+                                    :href="`/storage/${arsip.undangan.foto_kegiatan}`"
+                                    download
+                                    class="bg-Hijau text-white font-bold py-2 px-4 rounded hover:bg-Dark"
+                                >
+                                    Unduh Foto
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

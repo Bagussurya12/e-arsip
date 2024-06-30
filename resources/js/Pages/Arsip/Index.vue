@@ -260,10 +260,6 @@
                                         </button>
 
                                         <Link
-                                            v-if="
-                                                arsipItem.jenis_surat ===
-                                                'Surat Undangan'
-                                            "
                                             :href="
                                                 route('arsip.detail', {
                                                     arsipId: arsipItem.id,
