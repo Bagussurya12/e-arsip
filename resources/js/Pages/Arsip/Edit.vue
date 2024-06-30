@@ -444,7 +444,7 @@
                                         type="text"
                                         class="mt-1 block w-full"
                                         v-model="form.disposisi_acara"
-                                        autocomplete="on"
+                                        autocomplete="off"
                                         placeholder="Masukan Disposisi Acara"
                                     />
                                     <InputError
@@ -461,7 +461,7 @@
                                         type="text"
                                         class="mt-1 block w-full rounded-lg border-gray-300 focus:ring-Dark focus:border-Dark"
                                         v-model="form.notulen"
-                                        autocomplete="on"
+                                        autocomplete="off"
                                         placeholder="Masukan Notulen"
                                     />
                                     <InputError
@@ -486,7 +486,7 @@
                                         type="text"
                                         class="mt-1 block w-full"
                                         v-model="form.keterangan_undangan"
-                                        autocomplete="on"
+                                        autocomplete="off"
                                         placeholder="Masukan keterangan_undangan"
                                     />
                                     <InputError
@@ -576,10 +576,8 @@ const form = useForm({
     bulan: props.arsip.bulan ?? "",
     tahun: props.arsip.tahun ?? "",
     uraian_informasi: props.arsip.uraian_informasi ?? "",
-
     nomor_urut_perbulan: props.arsip.nomor_urut_perbulan ?? "",
     nomor_dokumen: props.arsip.nomor_dokumen ?? "",
-
     kolom_lemari: props.arsip.lokasi_simpan.kolom_lemari ?? "",
     kotak: props.arsip.lokasi_simpan.kotak ?? "",
     jumlah: props.arsip.jumlah ?? "",
@@ -590,11 +588,11 @@ const form = useForm({
     media: null,
     old_media: props.arsip.media, // Store the old media file name.
     _method: "put",
-    disposisi_acara: props.arsip.undangan.disposisi_acara ?? "",
-    notulen: props.arsip.undangan.notulen ?? "",
-    keterangan_undangan: props.arsip.undangan.keterangan_undangan ?? "",
-    foto_kegiatan: null,
-    old_foto_kegiatan: props.arsip.undangan.foto_kegiatan,
+    disposisi_acara: "" ?? props.arsip.undangan.disposisi_acara,
+    notulen: "" ?? props.arsip.undangan.notulen,
+    keterangan_undangan: "" ?? props.arsip.undangan.keterangan_undangan,
+    foto_kegiatan: "" ?? null,
+    old_foto_kegiatan: "" ?? props.arsip.undangan.foto_kegiatan,
 });
 const handleFileUploadUndangan = (event) => {
     form.foto_kegiatan = event.target.files[0];
