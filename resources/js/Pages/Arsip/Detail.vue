@@ -111,8 +111,12 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="arsip.jenis_surat === 'Surat Undangan'">
+                <div
+                    v-if="arsip.jenis_surat === 'Surat Undangan'"
+                    class="mb-10"
+                >
                     <div class="items-center m-20 text-center">
+                        <div class="w-full border-t border-slate-700 my-10" />
                         <h1 class="text-2xl font-bold text-Biru">
                             Dokumentasi Kegiatan Acara Undangan
                         </h1>
