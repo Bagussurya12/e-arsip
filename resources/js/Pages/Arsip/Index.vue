@@ -455,59 +455,70 @@ const search = () => {
 const searchQuery = ref("");
 const searchFilters = ref({
     naskahDinas: "",
+    uraianInformasi: "",
+    tanggal: "",
     filterBulan: "",
     tahun: "",
-    filterMediaArsip: "",
 });
 
 const displayedArsip = computed(() => {
     if (
         searchQuery.value.trim() === "" &&
         searchFilters.value.naskahDinas === "" &&
+        searchFilters.value.asalSurat === "" &&
+        searchFilters.value.uraianInformasi === "" &&
+        searchFilters.value.tanggal === "" &&
         searchFilters.value.filterBulan === "" &&
-        searchFilters.value.tahun === "" &&
-        searchFilters.value.filterMediaArsip === ""
+        searchFilters.value.tahun === ""
     ) {
         return props.arsip.data;
     } else {
         return props.arsip.data.filter((arsip) => {
             const filterNaskahDinas =
                 !searchFilters.value.naskahDinas ||
-                arsip.jenis_arsip.toLowerCase() ===
+                arsip.jenis_surat.toLowerCase() ===
                     searchFilters.value.naskahDinas.toLowerCase();
 
+            const filterAsalSurat =
+                !searchFilters.value.asalSurat ||
+                arsip.asal_surat.toLowerCase() ===
+                    searchFilters.value.asalSurat.toLowerCase();
+
             const filterUraian =
-                searchQuery.value.trim() === "" ||
-                arsip.uraian_informasi
-                    .toLowerCase()
-                    .includes(searchQuery.value.toLowerCase());
+                !searchFilters.value.uraianInformasi ||
+                arsip.uraian_informasi.toLowerCase() ===
+                    searchFilters.value.uraianInformasi.toLowerCase();
+
+            const filterTanggal =
+                !searchFilters.value.tanggal ||
+                arsip.tanggal === searchFilters.value.tanggal;
 
             const filterBulan =
                 !searchFilters.value.filterBulan ||
-                arsip.lokasi_simpan.map_bulan.toLowerCase() ===
-                    searchFilters.value.filterBulan.toLowerCase();
+                arsip.bulan === searchFilters.value.filterBulan;
 
             const filterTahun =
-                searchFilters.value.tahun === "" || // Jika searchFilters.value.tahun kosong, lewati filter tahun
-                arsip.lokasi_simpan.tahun === searchFilters.value.tahun;
-
-            const filterMediaArsip =
-                !searchFilters.value.filterMediaArsip ||
-                arsip.jenis_media.toLowerCase() ===
-                    searchFilters.value.filterMediaArsip.toLowerCase();
+                searchFilters.value.tahun === "" ||
+                arsip.tahun === searchFilters.value.tahun;
 
             return (
                 filterNaskahDinas &&
+                filterAsalSurat &&
                 filterUraian &&
+                filterTanggal &&
                 filterBulan &&
-                filterTahun &&
-                filterMediaArsip
+                filterTahun
             );
         });
     }
 });
-</script>
 
+const handleSearch = (filters) => {
+    // Lakukan sesuatu dengan filters yang diterima dari SearchDocument
+    searchFilters.value = filters; // Contoh, menyimpan filter di variabel ref
+    search(); // Panggil fungsi search setelah mendapat filters
+};
+</script>
 <style>
 select {
     color: black;

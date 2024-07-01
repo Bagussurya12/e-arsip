@@ -71,34 +71,41 @@ class ArsipController extends Controller
     public function index(Request $request)
     {
         $query = Arsip::with('lokasiSimpan');
-
-        if ($request->has('naskahDinas')) {
-            $query->where('jenis_arsip', 'like', '%' . $request->input('naskahDinas') . '%');
+    
+        if ($request->has('naskahDinas') && !empty($request->input('naskahDinas'))) {
+            $query->where('jenis_surat', 'like', '%' . $request->input('naskahDinas') . '%');
         }
-
-        if ($request->has('searchQuery')) {
-            $query->where('uraian_informasi', 'like', '%' . $request->input('searchQuery') . '%');
+    
+        if ($request->has('asalSurat') && !empty($request->input('asalSurat'))) {
+            $query->where('asal_surat', 'like', '%' . $request->input('asalSurat') . '%');
         }
-
-        if ($request->has('filterBulan')) {
-            $query->where('map_bulan', 'like', '%' . $request->input('filterBulan') . '%');
+    
+        if ($request->has('uraianInformasi') && !empty($request->input('uraianInformasi'))) {
+            $query->where('uraian_informasi', 'like', '%' . $request->input('uraianInformasi') . '%');
         }
-
-        if ($request->has('filterTahun')) {
-            $query->where('tahun', $request->input('filterTahun'));
+    
+        if ($request->has('tanggal') && !empty($request->input('tanggal'))) {
+            $query->where('tanggal', 'like', '%' . $request->input('tanggal') . '%');
         }
-
-        if ($request->has('filterMediaArsip')) {
-            $query->where('jenis_media', 'like', '%' . $request->input('filterMediaArsip') . '%');
+    
+        if ($request->has('filterBulan') && !empty($request->input('filterBulan'))) {
+            $query->where('bulan', 'like', '%' . $request->input('filterBulan') . '%');
         }
-
+    
+        if ($request->has('tahun') && !empty($request->input('tahun'))) {
+            $query->where('tahun', 'like', '%' . $request->input('tahun') . '%');
+        }
+    
         $arsip = $query->paginate(20);
 
+
         return Inertia::render('Arsip/Index', [
-            'arsip' => $arsip
+            'arsip' => $arsip,
+            'filters' => $request->all(), // Mengirimkan filter yang diterapkan ke frontend
         ]);
     }
-
+    
+    
     public function getDataArsip(Request $request)
     {
         $query = Arsip::with('lokasiSimpan');

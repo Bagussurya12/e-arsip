@@ -143,6 +143,7 @@ export default {
         const searchQuery = ref("");
         const searchFilters = ref({
             naskahDinas: "",
+            uraianInformasi: "",
             filterBulan: "",
             tahun: "",
             filterMediaArsip: "",
@@ -166,10 +167,9 @@ export default {
                                   searchFilters.value.naskahDinas.toLowerCase();
 
                           const filterUraian =
-                              searchQuery.value.trim() === "" ||
-                              arsip.uraian_informasi
-                                  .toLowerCase()
-                                  .includes(searchQuery.value.toLowerCase());
+                              !searchFilters.value.uraianInformasi ||
+                              arsip.uraian_informasi.toLowerCase() ===
+                                  searchFilters.value.uraianInformasi.toLowerCase();
 
                           const filterBulan =
                               !searchFilters.value.filterBulan ||
