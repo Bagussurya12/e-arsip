@@ -160,7 +160,7 @@ class ArsipController extends Controller
     }
 
     public function update(Request $request, $id)
-{
+    {
     $validated = $request->validate([
         'keterangan' => 'string|in:Surat Masuk,Surat Keluar',
         'jenis_surat' => 'string',
@@ -239,7 +239,7 @@ class ArsipController extends Controller
     }
 
     return redirect()->route('arsip')->with('success', 'Data arsip berhasil diperbarui');
-}
+    }
 
 
     public function destroy($id)
