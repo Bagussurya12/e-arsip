@@ -72,6 +72,7 @@ class ArsipController extends Controller
     {
         $query = Arsip::with('lokasiSimpan');
     
+        // Memeriksa apakah ada parameter pencarian dan memastikan nilainya tidak kosong
         if ($request->has('naskahDinas') && !empty($request->input('naskahDinas'))) {
             $query->where('jenis_surat', 'like', '%' . $request->input('naskahDinas') . '%');
         }
@@ -97,13 +98,15 @@ class ArsipController extends Controller
         }
     
         $arsip = $query->paginate(20);
-
-
+    
         return Inertia::render('Arsip/Index', [
             'arsip' => $arsip,
             'filters' => $request->all(), // Mengirimkan filter yang diterapkan ke frontend
         ]);
     }
+    
+    
+    
     
     
     public function getDataArsip(Request $request)

@@ -10,7 +10,7 @@
                 >
                     <!-- Select Naskah Dinas -->
                     <div
-                        class="sm:w-full md:w-full lg:w-1/6 sm:mb-2 bg-white text-sm rounded-l-lg border-transparent border-none px-2"
+                        class="w-full md:w-full lg:w-1/6 bg-white text-sm rounded-l-lg border-transparent border-none px-2 mb-5"
                     >
                         <select
                             id="selectNaskah"
@@ -33,7 +33,7 @@
                     </div>
                     <!-- Input Asal Surat -->
                     <div
-                        class="sm:w-full md:w-full lg:w-1/6 sm:mb-2 bg-white text-sm border-transparent"
+                        class="w-full md:w-full lg:w-1/6 bg-white text-sm sm:rounded-lg md:rounded-lg border-transparent border-none mb-5"
                     >
                         <input
                             id="inputAsalSurat"
@@ -45,7 +45,7 @@
                     </div>
                     <!-- Input Uraian Informasi -->
                     <div
-                        class="sm:w-full md:w-full lg:w-1/6 sm:mb-2 bg-white text-sm border-transparent"
+                        class="w-full md:w-full lg:w-1/6 bg-white text-sm sm:rounded-lg md:rounded-lg border-transparent border-none mb-5"
                     >
                         <input
                             id="inputUraianInformasi"
@@ -57,7 +57,7 @@
                     </div>
                     <!-- Input Tanggal -->
                     <div
-                        class="sm:w-full md:w-full lg:w-1/12 sm:mb-2 bg-white text-sm border-transparent"
+                        class="w-full md:w-full lg:w-1/12 bg-white text-sm sm:rounded-lg md:rounded-lg border-transparent border-none mb-5"
                     >
                         <input
                             id="inputTanggal"
@@ -69,7 +69,7 @@
                     </div>
                     <!-- Select Bulan -->
                     <div
-                        class="sm:w-full md:w-full lg:w-1/6 sm:mb-2 bg-white text-sm border-transparent"
+                        class="w-full md:w-full lg:w-1/6 bg-white text-sm sm:rounded-lg md:rounded-lg border-transparent mb-5"
                     >
                         <select
                             id="bulan"
@@ -90,7 +90,7 @@
                     </div>
                     <!-- Input Tahun -->
                     <div
-                        class="sm:w-full md:w-full lg:w-1/12 sm:mb-2 bg-white text-sm rounded-r-lg border-transparent border-none px-2"
+                        class="w-full md:w-full lg:w-1/12 bg-white text-sm rounded-r-lg border-transparent border-none px-2 mb-5"
                     >
                         <input
                             type="number"
@@ -99,7 +99,6 @@
                             placeholder="Tahun"
                         />
                     </div>
-                    <!-- Button Cari -->
                 </form>
             </div>
         </div>
