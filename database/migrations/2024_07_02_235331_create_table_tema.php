@@ -15,8 +15,10 @@ return new class extends Migration
     {
         Schema::create('tema', function (Blueprint $table) {
             $table->id();
+            // $table->string('judul_tema')->nullabe();
             $table->string('teks_tema')->nullabe();
             $table->string('foto_tema')->nullable();
+            // $table->string('status_tema')->nullable();
             $table->timestamps();
         });
     }

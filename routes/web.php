@@ -78,6 +78,8 @@ Route::middleware('auth')->group(function() {
 // Route::get('/', [TemaController::class, 'showTema'])->name('Tema');
 Route::middleware(['auth', 'admin'])->group(function(){
     Route::get('/setting', [TemaController::class,'index'])->name('setting');
+    Route::get('/setting/create', [TemaController::class, 'create'])->name('tema.create'); 
+    Route::post('/setting/store', [TemaController::class, 'store'])->name('tema.store');
 });
 
 require __DIR__.'/auth.php';

@@ -22,7 +22,7 @@ class TemaController extends Controller
     {
         $validated = $request->validate([
             'teks_tema' => 'required|string',
-            'foto_tema' => 'nullable|file|mimes:jpg,png,jpeg|max:2048'
+            'foto_tema' => 'nullable|file|mimes:jpg,png,jpeg'
         ]);
 
         if ($request->file('foto_tema')) {
@@ -62,5 +62,9 @@ class TemaController extends Controller
 
         $tema->update($validated);
         return redirect()->route('setting')->with('success', 'Tema berhasil diperbarui.');
+    }
+    public function create()
+    {
+        return Inertia::render('Setting/Create');
     }
 }
