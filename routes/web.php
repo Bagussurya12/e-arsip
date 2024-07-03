@@ -10,6 +10,7 @@ use App\Http\Controllers\ArsipController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\UndanganController;
+use App\Http\Controllers\TemaController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -73,7 +74,11 @@ Route::middleware('auth')->group(function() {
     Route::get('/statistic', [StatisticsController::class, 'statisticKeterangan'])->name('statistic.page');
 });
 
-
+// TEMA
+// Route::get('/', [TemaController::class, 'showTema'])->name('Tema');
+Route::middleware(['auth', 'admin'])->group(function(){
+    Route::get('/setting', [TemaController::class,'index'])->name('setting');
+});
 
 require __DIR__.'/auth.php';
 

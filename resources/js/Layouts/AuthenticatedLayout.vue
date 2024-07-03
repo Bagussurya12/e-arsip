@@ -42,6 +42,11 @@ const menu = () => {
                 href: route("statistic.page"),
                 current: route().current("statistic.page"),
             },
+            {
+                name: "Setting",
+                href: route("setting"),
+                current: route().current("setting"),
+            },
         ];
     } else {
         return [
@@ -52,8 +57,13 @@ const menu = () => {
             },
             {
                 name: "Data Arsip",
-                href: route("dashboard"),
-                current: route().current("dashboard"),
+                href: route("arsip"),
+                current: route().current("arsip"),
+            },
+            {
+                name: "Statistik",
+                href: route("statistic.page"),
+                current: route().current("statistic.page"),
             },
         ];
     }
