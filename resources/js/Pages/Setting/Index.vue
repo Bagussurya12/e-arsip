@@ -1,6 +1,6 @@
 <template>
     <Head title="Tema" />
-    <Authenticatedlayout class="w-full">
+    <AuthenticatedLayout class="w-full">
         <template #header>
             <h2 class="font-semibold text-lg text-gray-Dark leading-tight">
                 Pengaturan Tema
@@ -12,12 +12,8 @@
                 <section>
                     <header class="m-6 space-y-6">
                         <h2 class="text-lg font-medium text-gray-900">
-                            Tambah Data Arsip
+                            Atur Tema Sesuai Dengan Event Yang Berjalan ✨
                         </h2>
-                        <p class="mt-1 text-sm text-gray-600">
-                            Tambah Data Arsip Untuk Menyimpan Data Arsip Agar
-                            Selalu Konsisten ✨
-                        </p>
                         <div
                             class="w-full border-t border-slate-700 my-10"
                         ></div>
@@ -25,5 +21,13 @@
                 </section>
             </div>
         </div>
-    </Authenticatedlayout>
+    </AuthenticatedLayout>
 </template>
+
+<script setup>
+import { Head, useForm } from "@inertiajs/vue3";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import InputError from "@/Components/InputError.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import TextInput from "@/Components/TextInput.vue";
+</script>

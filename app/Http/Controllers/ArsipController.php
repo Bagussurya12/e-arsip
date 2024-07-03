@@ -105,10 +105,6 @@ class ArsipController extends Controller
         ]);
     }
     
-    
-    
-    
-    
     public function getDataArsip(Request $request)
     {
         $query = Arsip::with('lokasiSimpan');
