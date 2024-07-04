@@ -6,7 +6,7 @@
             <div class="m-0 p-0 w-full h-full flex relative">
                 <img
                     ref="mainImage"
-                    src="../../../public/storage/assets-frontEnd/monas-gambar.jpg"
+                    :src="'/storage/' + foto_tema"
                     alt="Master Image"
                     class="m-0 p-0 w-full h-full object-cover zoom-effect transition-transform"
                 />
@@ -20,7 +20,7 @@
                         E-Arsip Dispusip DKI Jakarta
                     </h1>
                     <h3 class="text-4xl text-white font-bold mx-10">
-                        Disini Teks Tema
+                        {{ teks_tema }}
                     </h3>
                 </div>
                 <div class="absolute bottom-0 items-center p-4">
@@ -36,12 +36,17 @@
 <script>
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import Navbar from "@/Components/Navbar.vue";
+import { defineProps } from "vue";
 
 export default {
     components: {
         Head,
         Navbar,
         Link,
+    },
+    props: {
+        foto_tema: String,
+        teks_tema: String,
     },
     mounted() {
         window.addEventListener("scroll", this.handleScroll);

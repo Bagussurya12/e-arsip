@@ -20,9 +20,10 @@ class TemaController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'teks_tema' => 'required|string',
+            'teks_tema' => 'string',
             'foto_tema' => 'nullable|file|mimes:jpg,png,jpeg'
         ]);
+
 
         if ($request->file('foto_tema')) {
             $validated['foto_tema'] = $request->file('foto_tema')->store('assets-theme');
@@ -30,7 +31,7 @@ class TemaController extends Controller
 
         Tema::create($validated);
 
-        return redirect()->route('setting')->with('success', 'Tema berhasil ditambahkan.');
+        return redirect()->route('tema')->with('success', 'Tema berhasil ditambahkan.');
     }
 
     // Menampilkan halaman edit tema
@@ -38,42 +39,44 @@ class TemaController extends Controller
     {
         return Inertia::render('Setting/Edit', compact('tema'));
     }
-
-    // Mengupdate tema yang ada
+    
     public function update(Request $request, $id)
     {
-        $tema = Tema::findOrFail($id);
-    
-        $validated = $request->validate([
+        $validated = $request -> validate([
             'teks_tema' => 'string',
             'foto_tema' => 'nullable|file|mimes:jpg,png,jpeg|max:2048',
-        ]);
-    
-        // Handle file upload
+        ]) ;
+
+        $tema = Tema::findOrFail($id);
+
         if ($request->hasFile('foto_tema')) {
-            // Delete old photo if exists
             if ($tema->foto_tema) {
                 Storage::delete($tema->foto_tema);
             }
-            // Store new photo
-            $tema->foto_tema = $request->file('foto_tema')->store('public/assets-theme');
+            $validated['foto_tema'] = $request->file('foto_tema')->store('assets-theme');
+        } else {
+            $validated['foto_tema'] = $tema->foto_tema;
         }
     
-        // Update text theme if provided
-        if (isset($validated['teks_tema'])) {
-            $tema->teks_tema = $validated['teks_tema'];
-        }
+        $tema->update($validated);
     
-        // Save the updated tema
-        $tema->save();
-    
-        return redirect()->route('setting')->with('success', 'Tema berhasil diperbarui.');
+        return redirect()->route('tema')->with('success', 'Tema berhasil diperbarui.');
     }
-    
     
     // Menampilkan halaman create tema
     public function create()
     {
         return Inertia::render('Setting/Create');
     }
+
+    public function viewTheme()
+    {
+        $tema = Tema::findOrFail(1); // Ambil data tema dengan ID 1
+        return Inertia::render('Welcome', [
+            'foto_tema' => $tema->foto_tema,
+            'teks_tema' => $tema->teks_tema,
+        ]);
+    }
+    
+
 }

@@ -44,8 +44,8 @@ const menu = () => {
             },
             {
                 name: "Setting",
-                href: route("setting"),
-                current: route().current("setting"),
+                href: route("tema"),
+                current: route().current("tema"),
             },
         ];
     } else {

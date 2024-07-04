@@ -22,18 +22,18 @@
 
                         <div class="p-6 text-Dark overflow-auto">
                             <form
-                                @submit.prevent="submitForm"
+                                @submit.prevent="updateTema"
                                 enctype="multipart/form-data"
-                                class="space-y-6"
+                                class="m-6 space-y-6"
                             >
                                 <div class="flex flex-col space-y-4">
-                                    <label
+                                    <InputLabel
                                         for="teks_tema"
                                         class="block text-sm font-medium text-gray-700"
                                     >
                                         Teks Tema
-                                    </label>
-                                    <input
+                                    </InputLabel>
+                                    <TextInput
                                         v-model="form.teks_tema"
                                         type="text"
                                         name="teks_tema"
@@ -42,18 +42,27 @@
                                         required
                                     />
 
-                                    <label
+                                    <InputError
+                                        class="mt-2"
+                                        :message="form.errors.teks_tema"
+                                    />
+
+                                    <InputLabel
                                         for="foto_tema"
                                         class="block text-sm font-medium text-gray-700"
                                     >
                                         Foto Tema
-                                    </label>
+                                    </InputLabel>
                                     <input
-                                        @change="handleFileUpload"
-                                        type="file"
                                         name="foto_tema"
                                         id="foto_tema"
-                                        class="block w-full p-2 border border-gray-300 rounded-md"
+                                        @change="handleFileUpload"
+                                        type="file"
+                                        class="block w-full text-lg text-Dark file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-Biru file:text-white hover:file:bg-Orange"
+                                    />
+                                    <InputError
+                                        class="mt-2"
+                                        :message="form.errors.foto_tema"
                                     />
 
                                     <img
@@ -80,33 +89,45 @@
 </template>
 
 <script setup>
-import { useForm } from "@inertiajs/inertia-vue3";
+import { Head } from "@inertiajs/inertia-vue3";
+import { ref, watch } from "vue";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import InputError from "@/Components/InputError.vue";
 import { defineProps } from "vue";
+import { useForm } from "@inertiajs/inertia-vue3";
+import InputLabel from "@/Components/InputLabel.vue";
+import TextInput from "@/Components/TextInput.vue";
 
 const props = defineProps({
     tema: Object,
 });
 
 const form = useForm({
-    teks_tema: props.tema.teks_tema ?? "",
+    teks_tema: props.tema.teks_tema,
+    foto_tema: null,
+    _method: "put",
     foto_preview: props.tema.foto_tema
         ? `/storage/${props.tema.foto_tema}`
         : null,
 });
 
-const submitForm = async () => {
-    const formData = new FormData();
-    formData.append("teks_tema", form.teks_tema);
-    if (form.foto_tema) {
-        formData.append("foto_tema", form.foto_tema);
-    }
-    formData.append("_method", "PUT"); // Add _method: PUT
+const handleFileUpload = (event) => {
+    form.foto_tema = event.target.files[0];
+    form.foto_preview = URL.createObjectURL(event.target.files[0]);
+};
 
-    try {
-        await form.put(route("tema.update", props.tema.id), formData);
-        console.log("Tema berhasil diperbarui");
-    } catch (error) {
-        console.error("Gagal memperbarui tema:", error);
+watch(
+    () => form.foto_tema,
+    (newVal) => {
+        if (newVal) {
+            form.foto_preview = form.foto_tema;
+        }
     }
+);
+const updateTema = async () => {
+    form.post(route("tema.update", props.tema.id), {
+        preserveState: true,
+        preserveScroll: true,
+    });
 };
 </script>
