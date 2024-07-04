@@ -90,7 +90,7 @@
 
 <script setup>
 import { Head } from "@inertiajs/inertia-vue3";
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import InputError from "@/Components/InputError.vue";
 import { defineProps } from "vue";
@@ -112,18 +112,11 @@ const form = useForm({
 });
 
 const handleFileUpload = (event) => {
-    form.foto_tema = event.target.files[0];
-    form.foto_preview = URL.createObjectURL(event.target.files[0]);
+    const file = event.target.files[0];
+    form.foto_tema = file;
+    form.foto_preview = URL.createObjectURL(file);
 };
 
-watch(
-    () => form.foto_tema,
-    (newVal) => {
-        if (newVal) {
-            form.foto_preview = form.foto_tema;
-        }
-    }
-);
 const updateTema = async () => {
     form.post(route("tema.update", props.tema.id), {
         preserveState: true,

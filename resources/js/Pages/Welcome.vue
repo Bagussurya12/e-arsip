@@ -14,19 +14,17 @@
                     class="absolute top-0 left-0 w-full h-full bg-black opacity-50"
                 ></div>
                 <div
-                    class="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center space-y-2"
+                    class="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center space-y-2 text-center"
                 >
                     <h1 class="text-xl text-white font-bold mx-10">
                         E-Arsip Dispusip DKI Jakarta
                     </h1>
-                    <h3 class="text-4xl text-white font-bold mx-10">
-                        {{ teks_tema }}
+                    <h3
+                        ref="typewriterText"
+                        class="text-4xl text-white font-bold mx-10"
+                    >
+                        <!-- Tempat teks untuk efek mengetik -->
                     </h3>
-                </div>
-                <div class="absolute bottom-0 items-center p-4">
-                    <h6 class="text-white text-md font-mono font-bold">
-                        Sukses Jakarta Untuk Indonesia
-                    </h6>
                 </div>
             </div>
         </section>
@@ -49,6 +47,7 @@ export default {
         teks_tema: String,
     },
     mounted() {
+        this.typeWriterEffect(this.teks_tema, this.$refs.typewriterText);
         window.addEventListener("scroll", this.handleScroll);
     },
     beforeUnmount() {
@@ -60,6 +59,18 @@ export default {
             const scrollPosition = window.scrollY;
             const scaleFactor = 1 + scrollPosition / 1000;
             image.style.transform = `scale(${scaleFactor})`;
+        },
+        typeWriterEffect(text, element) {
+            let i = 0;
+            const speed = 100; // Kecepatan efek mengetik dalam milidetik
+            const typeWriter = () => {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, speed);
+                }
+            };
+            typeWriter();
         },
     },
 };
