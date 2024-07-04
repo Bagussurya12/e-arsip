@@ -28,6 +28,35 @@
                                 Tema
                             </Link>
                         </div>
+
+                        <div class="flex justify-center max-w-ful">
+                            <div
+                                class="flex flex-wrap md:flex-nowrap md:space-x-4"
+                            >
+                                <div
+                                    v-for="temaItem in tema"
+                                    :key="temaItem.id"
+                                    class="flex flex-col items-center justify-center p-4"
+                                >
+                                    <img
+                                        :src="`/storage/${temaItem.foto_tema}`"
+                                        alt="Theme Photo"
+                                        class="rounded-lg h-64 w-64 object-cover mx-auto border-4 border-Dark"
+                                    />
+                                    <h3
+                                        class="mt-2 text-lg font-medium text-gray-900"
+                                    >
+                                        {{ temaItem.teks_tema }}
+                                    </h3>
+                                    <Link
+                                        :href="route('tema.edit', temaItem.id)"
+                                        class="bg-Biru mt-10 hover:bg-dark-blue text-white font-bold py-2 px-4 rounded"
+                                    >
+                                        Update Tema
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </div>
@@ -38,7 +67,9 @@
 <script setup>
 import { Head, Link } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import InputError from "@/Components/InputError.vue";
-import InputLabel from "@/Components/InputLabel.vue";
-import TextInput from "@/Components/TextInput.vue";
+import { defineProps } from "vue";
+
+const props = defineProps({
+    tema: Array, // Pastikan tema adalah array
+});
 </script>

@@ -76,11 +76,17 @@ Route::middleware('auth')->group(function() {
 
 // TEMA
 // Route::get('/', [TemaController::class, 'showTema'])->name('Tema');
+
+
 Route::middleware(['auth', 'admin'])->group(function(){
-    Route::get('/setting', [TemaController::class,'index'])->name('setting');
+    Route::get('/setting', [TemaController::class, 'index'])->name('setting');
     Route::get('/setting/create', [TemaController::class, 'create'])->name('tema.create'); 
     Route::post('/setting/store', [TemaController::class, 'store'])->name('tema.store');
+    Route::get('/setting/edit/{tema}', [TemaController::class, 'edit'])->name('tema.edit'); // Route untuk halaman edit
+    Route::put('/setting/{tema}', [TemaController::class, 'update'])->name('tema.update');
 });
+
+
 
 require __DIR__.'/auth.php';
 

@@ -244,7 +244,7 @@ class ArsipController extends Controller
         }
     }
 
-    return redirect()->route('arsip')->with('success', 'Data arsip berhasil diperbarui');
+        return redirect()->route('arsip')->with('success', 'Data arsip berhasil diperbarui');
     }
 
 
