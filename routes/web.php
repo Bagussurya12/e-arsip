@@ -85,6 +85,11 @@ Route::middleware(['auth', 'admin'])->group(function() {
 
 Route::get('/', [TemaController::class, 'viewTheme'])->name('view.theme');
 
+// DASHBOARD
+Route::middleware('auth')->group(function(){
+    Route::get('/arsip-terbaru', [ArsipController::class, 'getArsipTerbaru'])->name('arsip.terbaru');
+    Route::get('/userLogin', [UserController::class, 'loggedInUser']) -> name('user.logined');
+});
 
 
 require __DIR__.'/auth.php';

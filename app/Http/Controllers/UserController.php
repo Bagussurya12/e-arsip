@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -84,4 +85,14 @@ class UserController extends Controller
         return redirect()->route('users')->with('success', 'Data User Berhasil Dihapus');
     }
     
+    public function loggedInUser()
+    {
+        $user = Auth::user(); // Mengambil data user yang sedang login
+    
+
+        // Mengembalikan data user dalam respons Inertia
+        return Inertia::render('Dashboard', [
+            'user' => $user
+        ]);
+    }
 }

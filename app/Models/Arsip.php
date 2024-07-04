@@ -13,7 +13,7 @@ class Arsip extends Model
         'keterangan',
         'jenis_surat',
         'asal_surat', 'tanggal', 'bulan', 'tahun', 'uraian_informasi', 'nomor_urut_perbulan',
-        'nomor_dokumen', 'jumlah', 'tingkat_perkembangan', 'disposisi', 'terusan', 'jenis_media', 'media',
+        'nomor_dokumen', 'jumlah', 'tingkat_perkembangan', 'disposisi', 'terusan', 'jenis_media', 'media', 'created_at', 'updated_at'
     ];
 
     public function lokasiSimpan()

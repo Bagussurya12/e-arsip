@@ -8,6 +8,7 @@ use App\Models\Arsip;
 use App\Models\LokasiSimpan;
 use App\Models\Undangan;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class ArsipController extends Controller
 {
@@ -259,5 +260,18 @@ class ArsipController extends Controller
         $arsip->delete();
 
         return redirect(route('arsip'))->with('success', 'Data arsip berhasil dihapus');
+    }
+
+    // Method untuk mengambil arsip terbaru dalam 3 hari terakhir
+    public function getArsipTerbaru()
+    {
+        $threeDaysAgo = Carbon::now()->subDays(3);
+        $arsipTerbaru = Arsip::with('lokasiSimpan', 'undangan')
+            ->where('created_at', '>=', $threeDaysAgo)
+            ->get();
+
+        return Inertia::render('Dashboard', [
+            'arsipTerbaru' => $arsipTerbaru
+        ]);
     }
 }
