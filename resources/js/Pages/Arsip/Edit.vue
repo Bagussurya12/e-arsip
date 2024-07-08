@@ -306,17 +306,14 @@
                             <div
                                 class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
                             >
-                                <InputLabel
-                                    for="terusan"
-                                    value="Terusan Kepada"
-                                />
-                                <TextInput
-                                    id="terusan"
-                                    type="text"
-                                    class="mt-1 block w-full"
+                                <InputLabel for="terusan" value="Terusan" />
+                                <SelectBox
                                     v-model="form.terusan"
-                                    autocomplete="off"
-                                    placeholder="Masukan terusan"
+                                    :options="optionTerusan"
+                                    label="Terusan"
+                                    id="select-box"
+                                    name="selectBox"
+                                    placeholder="Pilih Terusan"
                                 />
                                 <InputError
                                     class="mt-2"
@@ -554,7 +551,7 @@
 
 <script setup>
 import { Inertia } from "@inertiajs/inertia";
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 import { Head, useForm, Link } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import InputLabel from "@/Components/InputLabel.vue";
@@ -565,6 +562,7 @@ import SelectBox from "@/Components/SelectBox.vue";
 
 const props = defineProps({
     arsip: Object,
+    terusan: Array,
 });
 
 // Initialize form using `useForm` with initial values.
@@ -594,6 +592,22 @@ const form = useForm({
     foto_kegiatan: "" ?? null,
     old_foto_kegiatan: "" ?? props.arsip.undangan.foto_kegiatan,
 });
+const optionTerusan = computed(() => {
+    if (props.terusan && Array.isArray(props.terusan)) {
+        return props.terusan.map((item) => ({
+            label: item.value,
+            value: item.value,
+        }));
+    } else {
+        return [];
+    }
+});
+
+// Debugging
+watch(optionTerusan, (newVal) => {
+    console.log("Options Terusan:", newVal);
+});
+
 const handleFileUploadUndangan = (event) => {
     form.foto_kegiatan = event.target.files[0];
 };

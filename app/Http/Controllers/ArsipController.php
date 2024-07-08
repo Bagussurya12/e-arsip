@@ -156,8 +156,10 @@ class ArsipController extends Controller
     public function edit($id)
     {
         $arsip = Arsip::with('lokasiSimpan', 'undangan')->find($id);
+        $terusan = Terusan::all();
         return Inertia::render('Arsip/Edit', [
-            'arsip' => $arsip
+            'arsip' => $arsip,
+            'terusan' => $terusan
         ]);
     }
     public function arsip_detail($id)
