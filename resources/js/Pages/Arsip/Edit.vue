@@ -487,7 +487,7 @@
                                         class="mt-1 block w-full"
                                         v-model="form.keterangan_undangan"
                                         autocomplete="off"
-                                        placeholder="Masukan keterangan_undangan"
+                                        placeholder="Masukan Keterangan Undangan"
                                     />
                                     <InputError
                                         class="mt-2"

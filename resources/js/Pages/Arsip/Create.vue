@@ -342,7 +342,7 @@
                                     class="mt-1 block w-full"
                                     v-model="form.kolom_lemari"
                                     autocomplete="off"
-                                    placeholder="Masukan kolom_lemari"
+                                    placeholder="Masukan Kolom Lemari"
                                 />
                                 <InputError
                                     class="mt-2"

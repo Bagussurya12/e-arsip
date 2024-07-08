@@ -163,7 +163,7 @@
                             <div>
                                 <button
                                     type="submit"
-                                    class="px-4 py-2 w-full bg-Dark text-white rounded-lg"
+                                    class="px-4 py-2 w-full bg-Biru text-white rounded-lg hover:bg-Orange"
                                 >
                                     Kirim
                                 </button>

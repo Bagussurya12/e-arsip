@@ -11,6 +11,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\UndanganController;
 use App\Http\Controllers\TemaController;
+use App\Http\Controllers\MasterController;
+use App\Http\Controllers\DataTerusanController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -90,6 +92,14 @@ Route::get('/kontak', [TemaController::class, 'viewThemeInContact'])->name('view
 Route::middleware('auth')->group(function(){
     Route::get('/arsip-terbaru', [ArsipController::class, 'getArsipTerbaru'])->name('arsip.terbaru');
     Route::get('/userLogin', [UserController::class, 'loggedInUser']) -> name('user.logined');
+});
+
+// MASTER
+Route::middleware(['auth', 'admin'])->group(function(){
+    Route::get('/master', [MasterController::class, 'index'])->name('master.index');
+});
+Route::middleware(['auth', 'admin'])->group(function(){
+    Route::get('/terusan', [DataTerusanController::class, 'index'])->name('terusan.index');
 });
 
 
