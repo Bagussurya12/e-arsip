@@ -77,6 +77,15 @@ class TemaController extends Controller
             'teks_tema' => $tema->teks_tema,
         ]);
     }
+    public function viewThemeInContact()
+    {
+        $tema = Tema::findOrFail(1); // Ambil data tema dengan ID 1
+        // dd($tema);
+        return Inertia::render('Kontak', [
+            'foto_tema' => $tema->foto_tema,
+            'teks_tema' => $tema->teks_tema,
+        ]);
+    }
     
 
 }

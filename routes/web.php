@@ -84,6 +84,7 @@ Route::middleware(['auth', 'admin'])->group(function() {
 });
 
 Route::get('/', [TemaController::class, 'viewTheme'])->name('view.theme');
+Route::get('/kontak', [TemaController::class, 'viewThemeInContact'])->name('view.theme.contact');
 
 // DASHBOARD
 Route::middleware('auth')->group(function(){

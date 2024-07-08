@@ -7,7 +7,7 @@
                 <div class="m-0 p-0 w-full h-full flex relative">
                     <img
                         ref="masterImage"
-                        src="../../../assets/img/monas.png"
+                        :src="'/storage/' + foto_tema"
                         alt="Master Image"
                         class="m-0 p-0 w-full lg:h-[400px] h-full object-cover zoom-effect"
                     />
@@ -210,6 +210,10 @@ export default {
         InputError,
         InputLabel,
         TextInput,
+    },
+    props: {
+        foto_tema: String,
+        teks_tema: String,
     },
     data() {
         return {
