@@ -102,11 +102,11 @@ Route::middleware(['auth', 'admin'])->group(function(){
 // TERUSAN
 Route::middleware(['auth', 'admin'])->group(function(){
     Route::get('/terusan', [DataTerusanController::class, 'index'])->name('terusan');
-    Route::get('terusan/create', [DataTerusanController::class, 'create'])->name('terusan.create');
-    Route::post('terusan/store', [DataTerusanController::class, 'store'])->name('terusan.store');
-    Route::get('terusan/{terusan}/edit', [DataTerusanController::class, 'edit'])->name('terusan.edit');
-    Route::put('terusan/{terusan}/update', [DataTerusanController::class, 'update'])->name('terusan.update');
-    Route::delete('terusan/{terusan}/destroy', [DataTerusanController::class, 'destroy'])->name('terusan.destroy');
+    Route::get('/terusan/create', [DataTerusanController::class, 'create'])->name('terusan.create');
+    Route::post('/terusan/store', [DataTerusanController::class, 'store'])->name('terusan.store');
+    Route::get('/terusan/{terusan}/edit', [DataTerusanController::class, 'edit'])->name('terusan.edit');
+    Route::put('/terusan/{terusan}/update', [DataTerusanController::class, 'update'])->name('terusan.update');
+    Route::delete('/terusan/{id}', [DataTerusanController::class, 'destroy'])->name('terusan.delete');
 });
 
 

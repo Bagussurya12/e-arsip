@@ -10,10 +10,10 @@ class DataTerusanController extends Controller
 
     public function index()
     {
-        $terusans = Terusan::orderBy('id', 'DESC')->get();
+        $terusan = Terusan::orderBy('id', 'DESC')->get();
 
         return inertia('Terusan/Index', [
-            'terusans' => $terusans,
+            'terusan' => $terusan,
         ]);
     }
 
@@ -57,11 +57,12 @@ class DataTerusanController extends Controller
             ->with('success', 'Data terusan berhasil diperbarui.');
     }
 
-    public function destroy(Terusan $terusan)
+    public function destroy($id)
     {
-        $terusan->delete();
+        $terusan = Terusan::findOrFail($id);
+        $terusan -> delete();
 
-        return redirect()->route('terusan.index')
+        return redirect()->route('terusan')
             ->with('success', 'Data terusan berhasil dihapus.');
     }
 }
