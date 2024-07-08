@@ -130,9 +130,7 @@ const menu = () => {
                                     </template>
 
                                     <template #content>
-                                        <DropdownLink
-                                            :href="route('terusan.index')"
-                                        >
+                                        <DropdownLink :href="route('terusan')">
                                             Terusan
                                         </DropdownLink>
                                         <DropdownLink :href="route('tema')">
@@ -266,7 +264,7 @@ const menu = () => {
                         </div>
 
                         <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('terusan.index')">
+                            <ResponsiveNavLink :href="route('terusan')">
                                 Terusan
                             </ResponsiveNavLink>
                             <ResponsiveNavLink :href="route('tema')">
