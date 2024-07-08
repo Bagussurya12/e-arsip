@@ -1,10 +1,10 @@
 <template>
-    <Head title="Tambah Data Terusan" />
+    <Head :title="'Edit Data Terusan - ' + terusan.value" />
 
     <AuthenticatedLayout>
         <template #header>
             <h3 class="font-semibold text-lg text-Dark leading-tight">
-                Tambah Data Terusan
+                Edit Data Terusan
             </h3>
         </template>
         <div class="py-12">
@@ -60,13 +60,17 @@ import { Inertia } from "@inertiajs/inertia";
 import TextInput from "@/Components/TextInput.vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
+import { defineProps } from "vue";
 
+const props = defineProps({
+    terusan: Object,
+});
 const form = useForm({
-    value: "",
+    value: props.terusan.value,
 });
 
 function submitForm() {
-    form.post(route("terusan.store"), {
+    form.put(route("terusan.update", props.terusan.id), {
         onSuccess: () => {
             Inertia.visit(route("terusan"));
         },

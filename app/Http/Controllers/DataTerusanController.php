@@ -53,7 +53,7 @@ class DataTerusanController extends Controller
             'value' => $request->value,
         ]);
 
-        return redirect()->route('terusan.index')
+        return redirect()->route('terusan')
             ->with('success', 'Data terusan berhasil diperbarui.');
     }
 
