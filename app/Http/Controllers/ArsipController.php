@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Models\Arsip;
 use App\Models\LokasiSimpan;
 use App\Models\Undangan;
+use App\Models\Terusan;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 
@@ -148,7 +149,8 @@ class ArsipController extends Controller
 
     public function create()
     {
-        return Inertia::render('Arsip/Create');
+        $terusan = Terusan::all();
+        return Inertia::render('Arsip/Create', ['terusan' => $terusan]);
     }
 
     public function edit($id)

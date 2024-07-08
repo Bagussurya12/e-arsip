@@ -306,17 +306,14 @@
                             <div
                                 class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
                             >
-                                <InputLabel
-                                    for="terusan"
-                                    value="Terusan Kepada"
-                                />
-                                <TextInput
-                                    id="terusan"
-                                    type="text"
-                                    class="mt-1 block w-full"
+                                <InputLabel for="terusan" value="Terusan" />
+                                <SelectBox
                                     v-model="form.terusan"
-                                    autocomplete="off"
-                                    placeholder="Masukan terusan"
+                                    :options="optionTerusan"
+                                    label="Terusan"
+                                    id="select-box"
+                                    name="selectBox"
+                                    placeholder="Pilih Terusan"
                                 />
                                 <InputError
                                     class="mt-2"
@@ -537,14 +534,21 @@
     </AuthenticatedLayout>
 </template>
 <script setup>
-import { Head, useForm } from "@inertiajs/vue3";
+import { Head, useForm, usePage } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import SelectBox from "@/Components/SelectBox.vue";
 import TextInput from "@/Components/TextInput.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import FormUndangan from "@/Components/FormUndangan.vue";
+import { defineProps, computed, watch, reactive } from "vue";
+
+const props = defineProps({
+    terusan: Array,
+});
+
+// Debugging
+// console.log("Props Terusan on Init:", props.terusan);
 
 const form = useForm({
     keterangan: "",
@@ -561,7 +565,7 @@ const form = useForm({
     jumlah: "",
     tingkat_perkembangan: "",
     disposisi: "",
-    terusan: "",
+    terusan: null,
     jenis_media: "",
     media: null,
     disposisi_acara: "",
@@ -570,6 +574,21 @@ const form = useForm({
     foto_kegiatan: null,
 });
 
+const optionTerusan = computed(() => {
+    if (props.terusan && Array.isArray(props.terusan)) {
+        return props.terusan.map((item) => ({
+            label: item.value,
+            value: item.value,
+        }));
+    } else {
+        return [];
+    }
+});
+
+// Debugging
+watch(optionTerusan, (newVal) => {
+    console.log("Options Terusan:", newVal);
+});
 const optionJenisSurat = [
     { value: "Peraturan Daerah", label: "Peraturan Daerah" },
     { value: "Peraturan Gubernur", label: "Peraturan Gubernur" },

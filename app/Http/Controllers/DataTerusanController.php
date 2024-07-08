@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Terusan;
+use Inertia\Inertia;
 
 class DataTerusanController extends Controller
 {
@@ -65,4 +66,5 @@ class DataTerusanController extends Controller
         return redirect()->route('terusan')
             ->with('success', 'Data terusan berhasil dihapus.');
     }
+    
 }
