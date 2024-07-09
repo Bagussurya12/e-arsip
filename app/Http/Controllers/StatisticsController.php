@@ -44,12 +44,22 @@ class StatisticsController extends Controller
             ->pluck('total', 'jenis_surat')
             ->toArray();
 
+        // Get data arsip with pagination
+        $dataArsip = Arsip::when($bulan, function ($query, $bulan) {
+                return $query->where('bulan', $bulan);
+            })
+            ->when($tahun, function ($query, $tahun) {
+                return $query->where('tahun', $tahun);
+            })
+            ->paginate(10);
+
         return Inertia::render('Statistic/Index', [
             'totalSuratMasuk' => $totalSuratMasuk,
             'totalSuratKeluar' => $totalSuratKeluar,
             'bulan' => $bulan,
             'tahun' => $tahun,
             'jenisSurat' => $jenisSurat,
+            'dataArsip' => $dataArsip,
         ]);
     }
 }

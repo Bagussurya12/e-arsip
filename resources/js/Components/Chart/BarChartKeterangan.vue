@@ -1,10 +1,8 @@
 <template>
     <div class="py-2">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-2">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <div class="flex justify-between items-center mb-4"></div>
-
                     <form
                         @submit.prevent="fetchStatistics"
                         class="flex justify-center flex-wrap w-full mx-auto"
@@ -47,25 +45,30 @@
                             Cari
                         </button>
                     </form>
-
-                    <div>
-                        <h2 class="mb-2 font-bold">
-                            Surat Masuk : {{ totalSuratMasuk }}
-                        </h2>
-                        <h2 class="mb-2 font-bold">
-                            Surat Keluar : {{ totalSuratKeluar }}
-                        </h2>
-                        <div class="chart-container">
-                            <Bar
-                                :data="chartData"
-                                :options="chartOptions"
-                            ></Bar>
+                    <h2 class="mb-2 font-bold">
+                        Surat Masuk : {{ totalSuratMasuk }}
+                    </h2>
+                    <h2 class="mb-2 font-bold">
+                        Surat Keluar : {{ totalSuratKeluar }}
+                    </h2>
+                    <div class="sm:flex sm:space-x-6">
+                        <!-- Chart Surat Masuk dan Surat Keluar -->
+                        <div class="sm:w-1/2 mb-4 sm:mb-0">
+                            <div class="chart-container">
+                                <Bar
+                                    :data="chartData"
+                                    :options="chartOptions"
+                                ></Bar>
+                            </div>
                         </div>
-                        <div class="chart-container mt-4">
-                            <Bar
-                                :data="chartDataJenisSurat"
-                                :options="chartOptions"
-                            ></Bar>
+                        <!-- Chart Jenis Surat -->
+                        <div class="sm:w-1/2">
+                            <div class="chart-container mt-4">
+                                <Line
+                                    :data="chartDataJenisSurat"
+                                    :options="chartOptions"
+                                ></Line>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -75,23 +78,33 @@
 </template>
 
 <script>
-import { Bar } from "vue-chartjs";
-import { Doughnut } from "vue-chartjs";
+import { Bar, Line } from "vue-chartjs";
 import TextInput from "@/Components/TextInput.vue";
 import {
     Chart as ChartJS,
     BarElement,
+    LineElement,
     CategoryScale,
     LinearScale,
     Tooltip,
     Legend,
+    PointElement,
 } from "chart.js";
 
-ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
+ChartJS.register(
+    BarElement,
+    LineElement,
+    CategoryScale,
+    LinearScale,
+    Tooltip,
+    Legend,
+    PointElement
+);
 
 export default {
     components: {
         Bar,
+        Line,
         TextInput,
     },
     props: {
@@ -147,51 +160,16 @@ export default {
         chartDataJenisSurat() {
             const labels = Object.keys(this.jenisSurat);
             const data = Object.values(this.jenisSurat);
-            const colors = [
-                "#1A237E",
-                "#004D40",
-                "#311B92",
-                "#1B5E20",
-                "#880E4F",
-                "#1A237E",
-                "#004D40",
-                "#311B92",
-                "#1B5E20",
-                "#880E4F",
-                "#1A237E",
-                "#004D40",
-                "#311B92",
-                "#1B5E20",
-                "#880E4F",
-                "#1A237E",
-                "#004D40",
-                "#311B92",
-                "#1B5E20",
-                "#880E4F",
-                "#1A237E",
-                "#004D40",
-                "#311B92",
-                "#1B5E20",
-                "#880E4F",
-                "#1A237E",
-                "#004D40",
-                "#311B92",
-                "#1B5E20",
-                "#880E4F",
-                "#1A237E",
-                "#004D40",
-                "#311B92",
-                "#1B5E20",
-                "#880E4F",
-            ];
+            const colors = ["#1A237E"];
 
             return {
                 labels: labels,
                 datasets: [
                     {
                         label: "Jumlah Surat per Jenis",
-                        backgroundColor: colors.slice(0, labels.length),
+                        borderColor: colors.slice(0, labels.length),
                         data: data,
+                        fill: false,
                     },
                 ],
             };
@@ -200,6 +178,14 @@ export default {
             return {
                 responsive: true,
                 maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1,
+                        },
+                    },
+                },
             };
         },
     },
