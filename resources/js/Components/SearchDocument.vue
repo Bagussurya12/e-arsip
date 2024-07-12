@@ -10,13 +10,13 @@
                 >
                     <!-- Select Naskah Dinas -->
                     <div
-                        class="w-full md:w-full lg:w-1/6 bg-white text-sm rounded-l-lg border-transparent border-none px-2 mb-5"
+                        class="w-full md:w-full lg:w-1/6 bg-white text-sm rounded-l-lg border-transparent border-0 px-2 mb-5"
                     >
                         <select
                             id="selectNaskah"
                             name="naskahDinas"
                             v-model="filters.naskahDinas"
-                            class="truncate w-full border-none focus:outline-none focus:ring-0"
+                            class="truncate w-full border-0 text-Dark focus:outline-none focus:ring-0"
                         >
                             <option disabled selected value="">
                                 Naskah Dinas
@@ -75,7 +75,7 @@
                             id="bulan"
                             name="optionBulan"
                             v-model="filters.filterBulan"
-                            class="truncate w-full border-none focus:outline-none focus:ring-0"
+                            class="truncate w-full border-none focus:outline-none focus:ring-0 text-Dark"
                         >
                             <option disabled selected value="">Bulan</option>
                             <option

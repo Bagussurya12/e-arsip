@@ -43,235 +43,243 @@
 
                     <div class="overflow-x-auto">
                         <!-- Tabel dengan garis pada header -->
-                        <table class="w-full">
-                            <thead class="mb-5">
-                                <tr class="border-b-2">
-                                    <th
-                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                        rowspan="2"
+                        <div class="table-container">
+                            <table class="w-full border-2 border-slate-500">
+                                <thead class="mb-5 border-2 border-slate-500">
+                                    <tr class="border-2 border-slate-500">
+                                        <th
+                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            rowspan="2"
+                                        >
+                                            No
+                                        </th>
+                                        <th
+                                            class="px-8 py-3 text-center text-lg font-medium text-Dark"
+                                            rowspan="2"
+                                        >
+                                            KETERANGAN <br />
+                                        </th>
+                                        <th
+                                            class="px-18 py-3 text-center text-lg font-medium text-Dark"
+                                            rowspan="2"
+                                        >
+                                            Jenis Surat
+                                        </th>
+                                        <th
+                                            class="px-32 py-3 text-center text-lg font-medium text-Dark"
+                                            rowspan="2"
+                                        >
+                                            Asal Surat
+                                        </th>
+                                        <th
+                                            class="px-18 py-3 text-center text-lg font-medium text-Dark"
+                                            rowspan="2"
+                                        >
+                                            Tanggal Surat
+                                        </th>
+                                        <th
+                                            class="px-64 py-3 text-center text-lg font-medium text-Dark"
+                                            rowspan="2"
+                                        >
+                                            Uraian Informasi Arsip
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            rowspan="2"
+                                        >
+                                            No Urut Perbulan
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            rowspan="2"
+                                        >
+                                            No Dokumen
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            colspan="3"
+                                        >
+                                            Lokasi Simpan
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            rowspan="2"
+                                        >
+                                            Jumlah
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            rowspan="2"
+                                        >
+                                            Tingkat Perkembangan
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            rowspan="2"
+                                        >
+                                            Jenis Media
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            rowspan="2"
+                                        >
+                                            Media
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            rowspan="2"
+                                        >
+                                            Disposisi
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            rowspan="2"
+                                        >
+                                            Diteruskan Kepada
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            rowspan="2"
+                                        >
+                                            #
+                                        </th>
+                                    </tr>
+                                    <tr
+                                        class="text-center border-2 border-slate-500"
                                     >
-                                        No
-                                    </th>
-                                    <th
-                                        class="px-8 py-3 text-center text-lg font-medium text-Dark"
-                                        rowspan="2"
+                                        <th
+                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                        >
+                                            Kolom Lemari
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                        >
+                                            Kotak A
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                        >
+                                            Kotak B
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <!-- Body Table -->
+                                <tbody class="border-2 border-slate-500">
+                                    <tr
+                                        v-for="(
+                                            arsipItem, index
+                                        ) in displayedArsip"
+                                        :key="arsipItem.id"
+                                        class="border-2 border-slate-500"
                                     >
-                                        KETERANGAN <br />
-                                    </th>
-                                    <th
-                                        class="px-18 py-3 text-center text-lg font-medium text-Dark"
-                                        rowspan="2"
-                                    >
-                                        Jenis Surat
-                                    </th>
-                                    <th
-                                        class="px-32 py-3 text-center text-lg font-medium text-Dark"
-                                        rowspan="2"
-                                    >
-                                        Asal Surat
-                                    </th>
-                                    <th
-                                        class="px-18 py-3 text-center text-lg font-medium text-Dark"
-                                        rowspan="2"
-                                    >
-                                        Tanggal Surat
-                                    </th>
-                                    <th
-                                        class="px-64 py-3 text-center text-lg font-medium text-Dark"
-                                        rowspan="2"
-                                    >
-                                        Uraian Informasi Arsip
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                        rowspan="2"
-                                    >
-                                        No Urut Perbulan
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                        rowspan="2"
-                                    >
-                                        No Dokumen
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                        colspan="3"
-                                    >
-                                        Lokasi Simpan
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                        rowspan="2"
-                                    >
-                                        Jumlah
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                        rowspan="2"
-                                    >
-                                        Tingkat Perkembangan
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                        rowspan="2"
-                                    >
-                                        Jenis Media
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                        rowspan="2"
-                                    >
-                                        Media
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                        rowspan="2"
-                                    >
-                                        Disposisi
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                        rowspan="2"
-                                    >
-                                        Diteruskan Kepada
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                        rowspan="2"
-                                    >
-                                        #
-                                    </th>
-                                </tr>
-                                <tr class="text-center border-b-2">
-                                    <th
-                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                    >
-                                        Kolom Lemari
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                    >
-                                        Kotak A
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                    >
-                                        Kotak B
-                                    </th>
-                                </tr>
-                            </thead>
-                            <!-- Body Table -->
-                            <tbody>
-                                <tr
-                                    v-for="(arsipItem, index) in displayedArsip"
-                                    :key="arsipItem.id"
-                                    class="border-b"
-                                >
-                                    <td class="px-6 py-4 text-center">
-                                        {{ index + 1 }}
-                                    </td>
-                                    <td class="px-6 py-4 text-center">
-                                        {{ arsipItem.keterangan }}
-                                    </td>
-                                    <td class="px-6 py-4 text-center">
-                                        {{ arsipItem.jenis_surat }}
-                                    </td>
-                                    <td class="px-6 py-4 text-center">
-                                        {{ arsipItem.asal_surat }}
-                                    </td>
-                                    <td class="px-6 py-4 text-center">
-                                        {{ arsipItem.tanggal }}/{{
-                                            arsipItem.bulan
-                                        }}/{{ arsipItem.tahun }}
-                                    </td>
-                                    <td class="px-6 py-4 text-center">
-                                        {{ arsipItem.uraian_informasi }}
-                                    </td>
-                                    <td class="px-6 py-4 text-center">
-                                        {{ arsipItem.nomor_urut_perbulan }}
-                                    </td>
-                                    <td class="px-6 py-2 text-center">
-                                        {{ arsipItem.nomor_dokumen }}
-                                    </td>
-                                    <td class="px-6 py-4 text-center">
-                                        {{
-                                            arsipItem.lokasi_simpan.kolom_lemari
-                                        }}
-                                    </td>
-                                    <td class="px-6 py-4 text-center">
-                                        <span
-                                            v-if="
+                                        <td class="px-6 py-4 text-center">
+                                            {{ index + 1 }}
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            {{ arsipItem.keterangan }}
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            {{ arsipItem.jenis_surat }}
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            {{ arsipItem.asal_surat }}
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            {{ arsipItem.tanggal }}/{{
+                                                arsipItem.bulan
+                                            }}/{{ arsipItem.tahun }}
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            {{ arsipItem.uraian_informasi }}
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            {{ arsipItem.nomor_urut_perbulan }}
+                                        </td>
+                                        <td class="px-6 py-2 text-center">
+                                            {{ arsipItem.nomor_dokumen }}
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            {{
                                                 arsipItem.lokasi_simpan
-                                                    .kotak === 'A'
-                                            "
-                                            >✔️</span
+                                                    .kolom_lemari
+                                            }}
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            <span
+                                                v-if="
+                                                    arsipItem.lokasi_simpan
+                                                        .kotak === 'A'
+                                                "
+                                                >✔️</span
+                                            >
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            <span
+                                                v-if="
+                                                    arsipItem.lokasi_simpan
+                                                        .kotak === 'B'
+                                                "
+                                                >✔️</span
+                                            >
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            {{ arsipItem.jumlah }}
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            {{ arsipItem.tingkat_perkembangan }}
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            {{ arsipItem.jenis_media }}
+                                        </td>
+                                        <td class="px-6 py-2 text-center">
+                                            <a
+                                                :href="`/storage/${arsipItem.media}`"
+                                                target="_blank"
+                                                class="text-blue-600 hover:underline"
+                                                >Lihat Media</a
+                                            >
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            {{ arsipItem.disposisi }}
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            {{ arsipItem.terusan }}
+                                        </td>
+                                        <td
+                                            class="px-6 py-4 text-center border-Dark flex space-x-2"
                                         >
-                                    </td>
-                                    <td class="px-6 py-4 text-center">
-                                        <span
-                                            v-if="
-                                                arsipItem.lokasi_simpan
-                                                    .kotak === 'B'
-                                            "
-                                            >✔️</span
-                                        >
-                                    </td>
-                                    <td class="px-6 py-4 text-center">
-                                        {{ arsipItem.jumlah }}
-                                    </td>
-                                    <td class="px-6 py-4 text-center">
-                                        {{ arsipItem.tingkat_perkembangan }}
-                                    </td>
-                                    <td class="px-6 py-4 text-center">
-                                        {{ arsipItem.jenis_media }}
-                                    </td>
-                                    <td class="px-6 py-2 text-center">
-                                        <a
-                                            :href="`/storage/${arsipItem.media}`"
-                                            target="_blank"
-                                            class="text-blue-600 hover:underline"
-                                            >Lihat Media</a
-                                        >
-                                    </td>
-                                    <td class="px-6 py-4 text-center">
-                                        {{ arsipItem.disposisi }}
-                                    </td>
-                                    <td class="px-6 py-4 text-center">
-                                        {{ arsipItem.terusan }}
-                                    </td>
-                                    <td
-                                        class="px-6 py-4 text-center border-Dark flex space-x-2"
-                                    >
-                                        <Link
-                                            :href="
-                                                route('arsip.edit', {
-                                                    arsipId: arsipItem.id,
-                                                })
-                                            "
-                                            class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
-                                            >Edit</Link
-                                        >
-                                        <button
-                                            @click="confirmDelete(arsipItem)"
-                                            class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
-                                        >
-                                            Hapus
-                                        </button>
-
-                                        <Link
-                                            :href="
-                                                route('arsip.detail', {
-                                                    arsipId: arsipItem.id,
-                                                })
-                                            "
-                                            class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
-                                            >Detail</Link
-                                        >
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                            <Link
+                                                :href="
+                                                    route('arsip.edit', {
+                                                        arsipId: arsipItem.id,
+                                                    })
+                                                "
+                                                class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
+                                                >Edit</Link
+                                            >
+                                            <button
+                                                @click="
+                                                    confirmDelete(arsipItem)
+                                                "
+                                                class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
+                                            >
+                                                Hapus
+                                            </button>
+                                            <Link
+                                                :href="
+                                                    route('arsip.detail', {
+                                                        arsipId: arsipItem.id,
+                                                    })
+                                                "
+                                                class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
+                                                >Detail</Link
+                                            >
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="mt-10">
                         <button
@@ -520,7 +528,25 @@ const handleSearch = (filters) => {
 };
 </script>
 <style>
-select {
-    color: black;
+.table-container {
+    overflow-y: auto;
+    height: 500px; /* Atur sesuai kebutuhan Anda */
+    position: relative;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    border: 2px solid #6b7280; /* border-slate-500 */
+}
+
+thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 </style>
