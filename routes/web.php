@@ -111,12 +111,17 @@ Route::middleware(['auth', 'admin'])->group(function(){
 });
 
 Route::middleware('auth')->group(function(){
-    Route::get('/format', [FormatSuratController::class, 'index'])->name('format.index');
+    Route::get('/format/user', [FormatSuratController::class, 'indexForUser'])->name('format.user.index');
 });
 
-
-
-
+Route::middleware(['auth', 'admin'])->group(function() {
+    Route::get('/format', [FormatSuratController::class, 'index'])->name('format.index');
+    Route::get('/format/create', [FormatSuratController::class, 'create'])->name('format.create');
+    Route::post('/format', [FormatSuratController::class, 'store'])->name('format.store');
+    Route::get('/format/{format}/edit', [FormatSuratController::class, 'edit'])->name('format.edit');
+    Route::put('/format/{format}', [FormatSuratController::class, 'update'])->name('format.update');
+    Route::delete('/format/{format}', [FormatSuratController::class, 'destroy'])->name('format.delete');
+});
 
 require __DIR__.'/auth.php';
 

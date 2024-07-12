@@ -33,9 +33,9 @@ const menu = () => {
                 current: route().current("arsip"),
             },
             {
-                name: "Pesan",
-                href: route("pesan"),
-                current: route().current("pesan"),
+                name: "Format (TND)",
+                href: route("format.index"),
+                current: route().current("format.index"),
             },
             {
                 name: "Statistik",
@@ -59,6 +59,11 @@ const menu = () => {
                 name: "Statistik",
                 href: route("statistic.page"),
                 current: route().current("statistic.page"),
+            },
+            {
+                name: "Format (TND)",
+                href: route("format.user.index"),
+                current: route().current("format.user.index"),
             },
         ];
     }
