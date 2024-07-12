@@ -42,71 +42,83 @@
                             </Link>
                         </div>
 
-                        <table class="min-w-full">
-                            <thead class="mb-5">
-                                <tr class="border-b-2">
-                                    <th
-                                        class="px-6 py-3 text-left text-lg font-medium text-black"
-                                    >
-                                        No
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-left text-lg font-medium text-black"
-                                    >
-                                        Id
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-left text-lg font-medium text-black"
-                                    >
-                                        Nama
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-left text-lg font-medium text-black"
-                                    >
-                                        Email
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-left text-lg font-medium text-black"
-                                    >
-                                        Role
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-left text-lg font-medium text-black"
-                                    >
-                                        #
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr
-                                    v-for="(user, index) in displayedUsers"
-                                    :key="user.id"
-                                    class="border-b"
-                                >
-                                    <td class="px-6 py-4">{{ index + 1 }}</td>
-                                    <td class="px-6 py-4">{{ user.id }}</td>
-                                    <td class="px-6 py-4">{{ user.name }}</td>
-                                    <td class="px-6 py-4">{{ user.email }}</td>
-                                    <td class="px-6 py-4">{{ user.role }}</td>
-                                    <td
-                                        class="px-6 py-4 text-center border-Dark flex space-x-2"
-                                    >
-                                        <Link
-                                            :href="route('users.edit', user.id)"
-                                            class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="mb-5">
+                                    <tr class="border-b-2">
+                                        <th
+                                            class="px-6 py-3 text-left text-lg font-medium text-black"
                                         >
-                                            Edit
-                                        </Link>
-                                        <button
-                                            @click="confirmDelete(user.id)"
-                                            class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
+                                            No
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-left text-lg font-medium text-black"
                                         >
-                                            Hapus
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                            Id
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-left text-lg font-medium text-black"
+                                        >
+                                            Nama
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-left text-lg font-medium text-black"
+                                        >
+                                            Email
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-left text-lg font-medium text-black"
+                                        >
+                                            Role
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-left text-lg font-medium text-black"
+                                        >
+                                            #
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                        v-for="(user, index) in displayedUsers"
+                                        :key="user.id"
+                                        class="border-b"
+                                    >
+                                        <td class="px-6 py-4">
+                                            {{ index + 1 }}
+                                        </td>
+                                        <td class="px-6 py-4">{{ user.id }}</td>
+                                        <td class="px-6 py-4">
+                                            {{ user.name }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ user.email }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ user.role }}
+                                        </td>
+                                        <td
+                                            class="px-6 py-4 text-center border-Dark flex space-x-2"
+                                        >
+                                            <Link
+                                                :href="
+                                                    route('users.edit', user.id)
+                                                "
+                                                class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
+                                            >
+                                                Edit
+                                            </Link>
+                                            <button
+                                                @click="confirmDelete(user.id)"
+                                                class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
+                                            >
+                                                Hapus
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <div class="mt-10">
                             <button
                                 @click="prevPage"
