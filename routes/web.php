@@ -13,6 +13,7 @@ use App\Http\Controllers\UndanganController;
 use App\Http\Controllers\TemaController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\DataTerusanController;
+use App\Http\Controllers\FormatSuratController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -107,6 +108,10 @@ Route::middleware(['auth', 'admin'])->group(function(){
     Route::get('/terusan/{terusan}/edit', [DataTerusanController::class, 'edit'])->name('terusan.edit');
     Route::put('/terusan/{terusan}/update', [DataTerusanController::class, 'update'])->name('terusan.update');
     Route::delete('/terusan/{id}', [DataTerusanController::class, 'destroy'])->name('terusan.delete');
+});
+
+Route::middleware('auth')->group(function(){
+    Route::get('/format', [FormatSuratController::class, 'index'])->name('format.index');
 });
 
 
