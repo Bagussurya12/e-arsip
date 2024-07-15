@@ -41,104 +41,106 @@
                         </Link>
                     </div>
 
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto table-container">
                         <!-- Tabel dengan garis pada header -->
-                        <div class="table-container">
+                        <div class="table-scroll">
                             <table class="w-full border-2 border-slate-500">
-                                <thead class="mb-5 border-2 border-slate-500">
+                                <thead
+                                    class="sticky-header top-0 bg-Biru text-white border-2 border-slate-500"
+                                >
                                     <tr class="border-2 border-slate-500">
                                         <th
-                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            class="px-6 py-3 text-center text-lg font-medium text-white"
                                             rowspan="2"
                                         >
                                             No
                                         </th>
                                         <th
-                                            class="px-8 py-3 text-center text-lg font-medium text-Dark"
+                                            class="px-8 py-3 text-center text-lg font-medium text-white"
                                             rowspan="2"
                                         >
                                             KETERANGAN <br />
                                         </th>
                                         <th
-                                            class="px-18 py-3 text-center text-lg font-medium text-Dark"
+                                            class="px-18 py-3 text-center text-lg font-medium text-white"
                                             rowspan="2"
                                         >
                                             Jenis Surat
                                         </th>
                                         <th
-                                            class="px-32 py-3 text-center text-lg font-medium text-Dark"
+                                            class="px-32 py-3 text-center text-lg font-medium text-white"
                                             rowspan="2"
                                         >
                                             Asal Surat
                                         </th>
                                         <th
-                                            class="px-18 py-3 text-center text-lg font-medium text-Dark"
+                                            class="px-18 py-3 text-center text-lg font-medium text-white"
                                             rowspan="2"
                                         >
                                             Tanggal Surat
                                         </th>
                                         <th
-                                            class="px-64 py-3 text-center text-lg font-medium text-Dark"
+                                            class="px-64 py-3 text-center text-lg font-medium text-white"
                                             rowspan="2"
                                         >
                                             Uraian Informasi Arsip
                                         </th>
                                         <th
-                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            class="px-6 py-3 text-center text-lg font-medium text-white"
                                             rowspan="2"
                                         >
                                             No Urut Perbulan
                                         </th>
                                         <th
-                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            class="px-6 py-3 text-center text-lg font-medium text-white"
                                             rowspan="2"
                                         >
                                             No Dokumen
                                         </th>
                                         <th
-                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            class="px-6 py-3 text-center text-lg font-medium text-white"
                                             colspan="3"
                                         >
                                             Lokasi Simpan
                                         </th>
                                         <th
-                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            class="px-6 py-3 text-center text-lg font-medium text-white"
                                             rowspan="2"
                                         >
                                             Jumlah
                                         </th>
                                         <th
-                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            class="px-6 py-3 text-center text-lg font-medium text-white"
                                             rowspan="2"
                                         >
                                             Tingkat Perkembangan
                                         </th>
                                         <th
-                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            class="px-6 py-3 text-center text-lg font-medium text-white"
                                             rowspan="2"
                                         >
                                             Jenis Media
                                         </th>
                                         <th
-                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            class="px-6 py-3 text-center text-lg font-medium text-white"
                                             rowspan="2"
                                         >
                                             Media
                                         </th>
                                         <th
-                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            class="px-6 py-3 text-center text-lg font-medium text-white"
                                             rowspan="2"
                                         >
                                             Disposisi
                                         </th>
                                         <th
-                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            class="px-6 py-3 text-center text-lg font-medium text-white"
                                             rowspan="2"
                                         >
                                             Diteruskan Kepada
                                         </th>
                                         <th
-                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            class="px-6 py-3 text-center text-lg font-medium text-white"
                                             rowspan="2"
                                         >
                                             #
@@ -148,17 +150,17 @@
                                         class="text-center border-2 border-slate-500"
                                     >
                                         <th
-                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            class="px-6 py-3 text-center text-lg font-medium text-white"
                                         >
                                             Kolom Lemari
                                         </th>
                                         <th
-                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            class="px-6 py-3 text-center text-lg font-medium text-white"
                                         >
                                             Kotak A
                                         </th>
                                         <th
-                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                            class="px-6 py-3 text-center text-lg font-medium text-white"
                                         >
                                             Kotak B
                                         </th>
@@ -247,7 +249,7 @@
                                             {{ arsipItem.terusan }}
                                         </td>
                                         <td
-                                            class="px-6 py-4 text-center border-Dark flex space-x-2"
+                                            class="px-6 py-4 text-center border-none flex space-x-2"
                                         >
                                             <Link
                                                 :href="
@@ -528,10 +530,27 @@ const handleSearch = (filters) => {
 };
 </script>
 <style>
+.sticky-header {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    border: 10px;
+    z-index: 10; /* Pastikan header tetap di atas konten lainnya */
+}
+
 .table-container {
     overflow-y: auto;
-    height: 500px; /* Atur sesuai kebutuhan Anda */
+    height: 650px; /* Atur sesuai kebutuhan Anda */
     position: relative;
+}
+.table-scroll {
+    max-height: 650px; /* Atur tinggi sesuai kebutuhan */
+    overflow-y: scroll; /* Mengaktifkan scroll vertikal */
+    scrollbar-width: thin; /* Untuk Firefox */
+}
+
+.table-scroll::-webkit-scrollbar {
+    width: 0; /* Menyembunyikan scrollbar di Chrome, Safari, dan Opera */
 }
 
 table {

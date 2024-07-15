@@ -98,6 +98,7 @@ class ArsipController extends Controller
         if ($request->has('tahun') && !empty($request->input('tahun'))) {
             $query->where('tahun', 'like', '%' . $request->input('tahun') . '%');
         }
+        $query->orderBy('tanggal', 'desc');
     
         $arsip = $query->paginate(20);
     

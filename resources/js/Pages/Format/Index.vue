@@ -63,7 +63,7 @@
                                         {{ formatSuratItem.title }}
                                     </td>
                                     <td
-                                        class="px-6 py-4 text-center border-Dark flex space-x-2"
+                                        class="px-6 py-4 text-center flex space-x-2"
                                     >
                                         <Link
                                             :href="
