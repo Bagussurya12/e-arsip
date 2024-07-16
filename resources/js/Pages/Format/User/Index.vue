@@ -19,15 +19,6 @@
                 <!-- Garis horizontal di atas tabel -->
                 <div class="w-full border-t border-slate-700"></div>
                 <div class="p-6 text-Dark overflow-auto">
-                    <div class="flex justify-between items-center mb-10">
-                        <Link
-                            :href="route('format.create')"
-                            class="bg-Orange hover:text-white text-white font-bold py-2 px-4 rounded"
-                        >
-                            Tambah Format Surat
-                        </Link>
-                    </div>
-
                     <div class="overflow-x-auto">
                         <table class="w-full">
                             <thead class="mb-5">
@@ -44,7 +35,9 @@
                                     </th>
                                     <th
                                         class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                    ></th>
+                                    >
+                                        #
+                                    </th>
                                 </tr>
                             </thead>
                             <!-- BODY TABLE -->
@@ -63,7 +56,7 @@
                                         {{ formatSuratItem.title }}
                                     </td>
                                     <td
-                                        class="px-6 py-4 text-center border-Dark flex space-x-2"
+                                        class="px-4 py-4 text-center self-center border-Dark space-x-2"
                                     >
                                         <a
                                             :href="`/storage/${formatSuratItem.file_surat}`"

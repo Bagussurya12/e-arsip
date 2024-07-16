@@ -44,7 +44,9 @@
                                     </th>
                                     <th
                                         class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                    ></th>
+                                    >
+                                        #
+                                    </th>
                                 </tr>
                             </thead>
                             <!-- BODY TABLE -->
@@ -63,7 +65,7 @@
                                         {{ formatSuratItem.title }}
                                     </td>
                                     <td
-                                        class="px-6 py-4 text-center flex space-x-2"
+                                        class="px-6 py-4 text-center self-center space-x-2"
                                     >
                                         <Link
                                             :href="
