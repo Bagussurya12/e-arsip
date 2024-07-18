@@ -9,95 +9,109 @@
         </template>
 
         <div class="py-12">
-            <div class="max-w-full mx-auto sm:px-6 lg:px-8">
-                <div class="p-6 m-6 text-Dark bg-transparent rounded-xl mb-5">
-                    <div class="justify-between items-center">
-                        Gunakan Format Surat Untuk Mempermudah dalam Membuat dan
-                        Mengarsipkan Surat ✨
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900">
+                        <div class="flex justify-between items-center">
+                            <h5 class="text-Dark text-center mb-10">
+                                Gunakan Format Surat Untuk Mempermudah dalam
+                                Membuat dan Mengarsipkan Surat ✨
+                            </h5>
+                            <input
+                                type="text"
+                                v-model="searchQuery"
+                                @input="search"
+                                @keyup.enter="search"
+                                placeholder="Cari Format Surat disini"
+                                class="ml-4 p-2 border border-Dark rounded min-w-[200px] focus:ring-black"
+                            />
+                        </div>
+                    </div>
+                    <div class="w-full border-t border-slate-700"></div>
+                    <div class="p-6 text-Dark overflow-auto">
+                        <div class="flex justify-between items-center mb-10">
+                            <Link
+                                :href="route('format.create')"
+                                class="bg-Orange hover:text-white text-white font-bold py-2 px-4 rounded"
+                            >
+                                Tambah Format Surat
+                            </Link>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="mb-5">
+                                    <tr class="border-b-2 border-slate-700">
+                                        <th
+                                            class="px-4 py-3 text-center text-lg font-medium text-Dark"
+                                        >
+                                            No
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                        >
+                                            Nama Format Surat
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                        >
+                                            #
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <!-- BODY TABLE -->
+                                <tbody>
+                                    <tr
+                                        v-for="(
+                                            formatSuratItem, index
+                                        ) in format_surat"
+                                        :key="formatSuratItem.id"
+                                        class="border-b"
+                                    >
+                                        <td class="px-4 py-2 text-center">
+                                            {{ index + 1 }}
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            {{ formatSuratItem.title }}
+                                        </td>
+                                        <td
+                                            class="px-6 py-4 text-center self-center space-x-2"
+                                        >
+                                            <Link
+                                                :href="
+                                                    route('format.edit', {
+                                                        format: formatSuratItem.id,
+                                                    })
+                                                "
+                                                class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
+                                                >Edit</Link
+                                            >
+                                            <button
+                                                @click="
+                                                    confirmDelete(
+                                                        formatSuratItem
+                                                    )
+                                                "
+                                                class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
+                                            >
+                                                Hapus
+                                            </button>
+
+                                            <a
+                                                :href="`/storage/${formatSuratItem.file_surat}`"
+                                                download
+                                                class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
+                                            >
+                                                Unduh
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <!-- Garis horizontal di atas tabel -->
-                <div class="w-full border-t border-slate-700"></div>
-                <div class="p-6 text-Dark overflow-auto">
-                    <div class="flex justify-between items-center mb-10">
-                        <Link
-                            :href="route('format.create')"
-                            class="bg-Orange hover:text-white text-white font-bold py-2 px-4 rounded"
-                        >
-                            Tambah Format Surat
-                        </Link>
-                    </div>
-
-                    <div class="overflow-x-auto">
-                        <table class="w-full">
-                            <thead class="mb-5">
-                                <tr class="border-b-2 border-slate-700">
-                                    <th
-                                        class="px-4 py-3 text-center text-lg font-medium text-Dark"
-                                    >
-                                        No
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                    >
-                                        Nama Format Surat
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                    >
-                                        #
-                                    </th>
-                                </tr>
-                            </thead>
-                            <!-- BODY TABLE -->
-                            <tbody>
-                                <tr
-                                    v-for="(
-                                        formatSuratItem, index
-                                    ) in format_surat"
-                                    :key="formatSuratItem.id"
-                                    class="border-b"
-                                >
-                                    <td class="px-4 py-2 text-center">
-                                        {{ index + 1 }}
-                                    </td>
-                                    <td class="px-6 py-4 text-center">
-                                        {{ formatSuratItem.title }}
-                                    </td>
-                                    <td
-                                        class="px-6 py-4 text-center self-center space-x-2"
-                                    >
-                                        <Link
-                                            :href="
-                                                route('format.edit', {
-                                                    format: formatSuratItem.id,
-                                                })
-                                            "
-                                            class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
-                                            >Edit</Link
-                                        >
-                                        <button
-                                            @click="
-                                                confirmDelete(formatSuratItem)
-                                            "
-                                            class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
-                                        >
-                                            Hapus
-                                        </button>
-
-                                        <a
-                                            :href="`/storage/${formatSuratItem.file_surat}`"
-                                            download
-                                            class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
-                                        >
-                                            Unduh
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
             </div>
             <!-- Modal Konfirmasi Hapus -->
             <div v-if="dialogDelete" class="fixed z-10 inset-0 overflow-y-auto">
@@ -187,7 +201,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watchEffect } from "vue";
 import { defineProps } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 import { Head, Link } from "@inertiajs/vue3";
@@ -198,10 +212,27 @@ const props = defineProps({
         type: Array,
         required: true,
     },
+    search: {
+        type: String,
+        default: "",
+    },
 });
 
+let searchQuery = ref(props.search);
 let dialogDelete = ref(false);
 let itemDelete = ref(null);
+
+watchEffect(() => {
+    searchQuery.value = props.search;
+});
+
+const search = () => {
+    Inertia.get(
+        route("format.index"),
+        { search: searchQuery.value },
+        { preserveState: true }
+    );
+};
 
 const confirmDelete = (formatSuratItem) => {
     itemDelete.value = formatSuratItem;

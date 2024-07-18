@@ -9,14 +9,24 @@ use Illuminate\Support\Facades\Storage;
 
 class FormatSuratController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $format_surat = FormatSurat::orderBy('id', 'DESC')->get();
-
+        $search = $request->input('search');
+    
+        $format_surat = FormatSurat::query()
+            ->when($search, function ($query, $search) {
+                return $query->where('title', 'like', "%{$search}%");
+            })
+            ->orderBy('id', 'DESC')
+            ->get();
+    
         return Inertia('Format/Index', [
-            'format_surat' => $format_surat
+            'format_surat' => $format_surat,
+            'search' => $search,
         ]);
     }
+    
+
 
     public function create()
     {
@@ -79,12 +89,20 @@ class FormatSuratController extends Controller
         return redirect()->route('format.index');
     }
 
-    public function indexForUser()
+    public function indexForUser(Request $request)
     {
-        $format_surat = FormatSurat::orderBy('id', 'DESC')->get();
-
+        $search = $request->input('search');
+    
+        $format_surat = FormatSurat::query()
+            ->when($search, function ($query, $search) {
+                return $query->where('title', 'like', "%{$search}%");
+            })
+            ->orderBy('id', 'DESC')
+            ->get();
+    
         return Inertia('Format/User/Index', [
-            'format_surat' => $format_surat
+            'format_surat' => $format_surat,
+            'search' => $search,
         ]);
     }
 
