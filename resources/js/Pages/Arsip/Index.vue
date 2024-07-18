@@ -59,7 +59,7 @@
                                             class="px-8 py-3 text-center text-lg font-medium text-white"
                                             rowspan="2"
                                         >
-                                            KETERANGAN <br />
+                                            Keterangan
                                         </th>
                                         <th
                                             class="px-18 py-3 text-center text-lg font-medium text-white"
