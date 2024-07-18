@@ -29,15 +29,6 @@
                     </div>
                     <div class="w-full border-t border-slate-700"></div>
                     <div class="p-6 text-Dark overflow-auto">
-                        <div class="flex justify-between items-center mb-10">
-                            <Link
-                                :href="route('format.create')"
-                                class="bg-Orange hover:text-white text-white font-bold py-2 px-4 rounded"
-                            >
-                                Tambah Format Surat
-                            </Link>
-                        </div>
-
                         <div class="overflow-x-auto">
                             <table class="w-full">
                                 <thead class="mb-5">

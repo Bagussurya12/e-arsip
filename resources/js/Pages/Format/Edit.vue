@@ -47,11 +47,32 @@
                                 type="file"
                                 id="file_surat"
                                 class="block w-full text-lg text-Dark file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-Biru file:text-white hover:file:bg-Orange"
+                                @change="handleFileChange"
                             />
                             <InputError
                                 class="mt-2"
                                 :message="errors.file_surat"
                             />
+                        </div>
+                        <!-- Tempat untuk pratinjau file -->
+                        <div v-if="previewUrl" class="mt-4">
+                            <h3 class="text-lg font-medium text-gray-700 mb-2">
+                                Pratinjau File
+                            </h3>
+                            <div v-if="isPdf">
+                                <iframe
+                                    :src="previewUrl"
+                                    width="100%"
+                                    height="600px"
+                                ></iframe>
+                            </div>
+                            <div v-else>
+                                <iframe
+                                    :src="googleDocViewerUrl"
+                                    width="100%"
+                                    height="600px"
+                                ></iframe>
+                            </div>
                         </div>
                         <div class="flex items-center justify-end mt-10">
                             <Link
@@ -75,7 +96,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, watch, computed } from "vue";
 import { defineProps } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 import { Head, Link } from "@inertiajs/vue3";
@@ -98,6 +119,34 @@ const form = reactive({
 
 const fileInput = ref(null);
 const errors = reactive({});
+const previewUrl = ref(null);
+const isPdf = ref(false);
+
+const handleFileChange = () => {
+    const file = fileInput.value.files[0];
+    if (file) {
+        const fileType = file.type;
+        if (fileType === "application/pdf") {
+            isPdf.value = true;
+        } else {
+            isPdf.value = false;
+        }
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            previewUrl.value = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+};
+
+const googleDocViewerUrl = computed(() => {
+    if (previewUrl.value && !isPdf.value) {
+        return `https://docs.google.com/gview?url=${encodeURIComponent(
+            previewUrl.value
+        )}&embedded=true`;
+    }
+    return null;
+});
 
 const updateFormatSurat = () => {
     const formData = new FormData();
@@ -117,9 +166,9 @@ const updateFormatSurat = () => {
             onSuccess: () => {
                 Inertia.visit(route("format.index"));
             },
-            onError: (errors) => {
-                Object.keys(errors).forEach((key) => {
-                    errors[key] = errors[key][0];
+            onError: (formErrors) => {
+                Object.keys(formErrors).forEach((key) => {
+                    errors[key] = formErrors[key][0];
                 });
             },
         }

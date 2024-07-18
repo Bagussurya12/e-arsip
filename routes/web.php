@@ -14,6 +14,7 @@ use App\Http\Controllers\TemaController;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\DataTerusanController;
 use App\Http\Controllers\FormatSuratController;
+use App\Http\Controllers\FileController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -121,6 +122,7 @@ Route::middleware(['auth', 'admin'])->group(function() {
     Route::get('/format/{format}/edit', [FormatSuratController::class, 'edit'])->name('format.edit');
     Route::put('/format/{format}', [FormatSuratController::class, 'update'])->name('format.update');
     Route::delete('/format/{format}', [FormatSuratController::class, 'destroy'])->name('format.delete');
+    Route::post('/upload-preview', [FileController::class, 'uploadPreview'])->name('upload.preview');
 });
 
 require __DIR__.'/auth.php';
