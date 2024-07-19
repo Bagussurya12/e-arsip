@@ -70,26 +70,19 @@
                                 />
                             </div>
                         </div>
-                        <div
-                            class="flex items-center text-center justify-center gap-2 mt-10"
-                        >
-                            <PrimaryButton
-                                :disabled="form.processing"
-                                class="w-full justify-center mt-10"
-                                >Simpan</PrimaryButton
+                        <div class="flex items-center justify-end mt-10">
+                            <Link
+                                :href="route('format.index')"
+                                class="bg-Biru text-white font-bold py-2 px-4 rounded mr-4"
                             >
-                            <Transition
-                                enter-from-class="opacity-0"
-                                leave-to-class="opacity-0"
-                                class="transition ease-in-out"
+                                Batal
+                            </Link>
+                            <button
+                                type="submit"
+                                class="bg-Orange hover:bg-Orange-dark text-white font-bold py-2 px-4 rounded"
                             >
-                                <p
-                                    v-if="form.recentlySuccessful"
-                                    class="text-sm text-gray-600"
-                                >
-                                    Data Berhasil Disimpan!
-                                </p>
-                            </Transition>
+                                Simpan
+                            </button>
                         </div>
                     </form>
                 </section>
@@ -99,7 +92,7 @@
 </template>
 
 <script setup>
-import { Head, useForm } from "@inertiajs/vue3";
+import { Head, useForm, Link } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";

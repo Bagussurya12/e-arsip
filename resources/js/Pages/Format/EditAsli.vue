@@ -96,12 +96,10 @@
 </template>
 
 <script setup>
-import { ref, reactive, watch } from "vue";
+import { ref, reactive, watch, computed } from "vue";
 import { defineProps } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 import { Head, Link } from "@inertiajs/vue3";
-import { computed } from "vue";
-import axios from "axios";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
@@ -124,27 +122,28 @@ const errors = reactive({});
 const previewUrl = ref(null);
 const isPdf = ref(false);
 
-const handleFileChange = async () => {
+const handleFileChange = () => {
     const file = fileInput.value.files[0];
     if (file) {
         const fileType = file.type;
         if (fileType === "application/pdf") {
             isPdf.value = true;
+        } else if (
+            fileType ===
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
+            fileType === "application/msword"
+        ) {
+            isPdf.value = false;
         } else {
             isPdf.value = false;
+            previewUrl.value = null;
+            return;
         }
-        const formData = new FormData();
-        formData.append("file", file);
-        try {
-            const response = await axios.post("/upload-preview", formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            });
-            previewUrl.value = response.data.url;
-        } catch (error) {
-            console.error("Error uploading file:", error);
-        }
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            previewUrl.value = e.target.result;
+        };
+        reader.readAsDataURL(file);
     }
 };
 
