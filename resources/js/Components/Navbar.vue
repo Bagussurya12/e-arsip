@@ -60,13 +60,6 @@
                                 >Login</a
                             >
                         </li>
-                        <li class="group">
-                            <a
-                                href="/kontak"
-                                class="text-base text-white font-bold py-2 mx-2 lg:mx-4 flex group-hover:text-Orange"
-                                >Kontak</a
-                            >
-                        </li>
                     </ul>
                 </nav>
             </div>
