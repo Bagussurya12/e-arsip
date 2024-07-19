@@ -248,9 +248,7 @@
                                         <td class="px-6 py-4 text-center">
                                             {{ arsipItem.terusan }}
                                         </td>
-                                        <td
-                                            class="px-6 py-4 text-center border-none flex space-x-2"
-                                        >
+                                        <td class="px-6 py-4 text-center">
                                             <Link
                                                 :href="
                                                     route('arsip.edit', {

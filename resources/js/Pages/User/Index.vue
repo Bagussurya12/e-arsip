@@ -47,32 +47,32 @@
                                 <thead class="mb-5">
                                     <tr class="border-b-2">
                                         <th
-                                            class="px-6 py-3 text-left text-lg font-medium text-black"
+                                            class="px-6 py-3 text-center text-lg font-medium text-black"
                                         >
                                             No
                                         </th>
                                         <th
-                                            class="px-6 py-3 text-left text-lg font-medium text-black"
+                                            class="px-6 py-3 text-center text-lg font-medium text-black"
                                         >
                                             Id
                                         </th>
                                         <th
-                                            class="px-6 py-3 text-left text-lg font-medium text-black"
+                                            class="px-6 py-3 text-center text-lg font-medium text-black"
                                         >
                                             Nama
                                         </th>
                                         <th
-                                            class="px-6 py-3 text-left text-lg font-medium text-black"
+                                            class="px-6 py-3 text-center text-lg font-medium text-black"
                                         >
                                             Email
                                         </th>
                                         <th
-                                            class="px-6 py-3 text-left text-lg font-medium text-black"
+                                            class="px-6 py-3 text-center text-lg font-medium text-black"
                                         >
                                             Role
                                         </th>
                                         <th
-                                            class="px-6 py-3 text-left text-lg font-medium text-black"
+                                            class="px-6 py-3 text-center text-lg font-medium text-black"
                                         >
                                             #
                                         </th>
@@ -97,23 +97,30 @@
                                         <td class="px-6 py-4">
                                             {{ user.role }}
                                         </td>
-                                        <td
-                                            class="px-6 py-4 text-center border-Dark flex space-x-2"
-                                        >
-                                            <Link
-                                                :href="
-                                                    route('users.edit', user.id)
-                                                "
-                                                class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
+                                        <td class="px-6 py-4 text-center">
+                                            <div
+                                                class="flex justify-center space-x-2"
                                             >
-                                                Edit
-                                            </Link>
-                                            <button
-                                                @click="confirmDelete(user.id)"
-                                                class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
-                                            >
-                                                Hapus
-                                            </button>
+                                                <Link
+                                                    :href="
+                                                        route(
+                                                            'users.edit',
+                                                            user.id
+                                                        )
+                                                    "
+                                                    class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
+                                                >
+                                                    Edit
+                                                </Link>
+                                                <button
+                                                    @click="
+                                                        confirmDelete(user.id)
+                                                    "
+                                                    class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
+                                                >
+                                                    Hapus
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>

@@ -74,36 +74,38 @@
                                         <td class="px-6 py-4 text-center">
                                             {{ formatSuratItem.title }}
                                         </td>
-                                        <td
-                                            class="px-6 py-4 text-center self-center space-x-2"
-                                        >
-                                            <Link
-                                                :href="
-                                                    route('format.edit', {
-                                                        format: formatSuratItem.id,
-                                                    })
-                                                "
-                                                class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
-                                                >Edit</Link
+                                        <td class="px-6 py-4 text-center">
+                                            <div
+                                                class="flex justify-center space-x-2"
                                             >
-                                            <button
-                                                @click="
-                                                    confirmDelete(
-                                                        formatSuratItem
-                                                    )
-                                                "
-                                                class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
-                                            >
-                                                Hapus
-                                            </button>
+                                                <Link
+                                                    :href="
+                                                        route('format.edit', {
+                                                            format: formatSuratItem.id,
+                                                        })
+                                                    "
+                                                    class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
+                                                    >Edit</Link
+                                                >
+                                                <button
+                                                    @click="
+                                                        confirmDelete(
+                                                            formatSuratItem
+                                                        )
+                                                    "
+                                                    class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
+                                                >
+                                                    Hapus
+                                                </button>
 
-                                            <a
-                                                :href="`/storage/${formatSuratItem.file_surat}`"
-                                                download
-                                                class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
-                                            >
-                                                Unduh
-                                            </a>
+                                                <a
+                                                    :href="`/storage/${formatSuratItem.file_surat}`"
+                                                    download
+                                                    class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
+                                                >
+                                                    Unduh
+                                                </a>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>

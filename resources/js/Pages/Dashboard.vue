@@ -59,27 +59,37 @@ onMounted(() => {
                             <thead>
                                 <tr>
                                     <th
-                                        class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                        class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
                                     >
                                         Jenis Surat
                                     </th>
                                     <th
-                                        class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                        class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
                                     >
                                         Asal Surat
                                     </th>
                                     <th
-                                        class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                        class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
                                     >
                                         Tanggal
                                     </th>
                                     <th
-                                        class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                        class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
                                     >
                                         Uraian Informasi
                                     </th>
                                     <th
-                                        class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                        class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    >
+                                        Disposisi
+                                    </th>
+                                    <th
+                                        class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    >
+                                        Terusan
+                                    </th>
+                                    <th
+                                        class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
                                     >
                                         Lokasi Simpan
                                     </th>
@@ -90,21 +100,27 @@ onMounted(() => {
                                     v-for="arsip in props.arsipTerbaru"
                                     :key="arsip.id"
                                 >
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 text-center">
                                         {{ arsip.jenis_surat }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 text-center">
                                         {{ arsip.asal_surat }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 text-center">
                                         {{ arsip.tanggal }}-{{ arsip.bulan }}-{{
                                             arsip.tahun
                                         }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 text-center">
                                         {{ arsip.uraian_informasi }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-6 py-4 text-center">
+                                        {{ arsip.disposisi }}
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        {{ arsip.terusan }}
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
                                         <div v-if="arsip.lokasi_simpan">
                                             Kolom:
                                             {{
