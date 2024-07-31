@@ -176,7 +176,12 @@
                                         class="border-2 border-slate-500"
                                     >
                                         <td class="px-6 py-4 text-center">
-                                            {{ index + 1 }}
+                                            {{
+                                                (props.arsip.current_page - 1) *
+                                                    props.arsip.per_page +
+                                                index +
+                                                1
+                                            }}
                                         </td>
                                         <td class="px-6 py-4 text-center">
                                             {{ arsipItem.keterangan }}

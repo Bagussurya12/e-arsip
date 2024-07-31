@@ -25,7 +25,7 @@ export default {
             setInterval(() => {
                 this.currentIndex =
                     (this.currentIndex + 1) % this.images.length;
-            }, 120000);
+            }, 60000);
         },
     },
 };
