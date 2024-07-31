@@ -32,7 +32,7 @@
                         <div class="flex justify-between items-center mb-10">
                             <Link
                                 :href="route('format.create')"
-                                class="bg-Orange hover:text-white text-white font-bold py-2 px-4 rounded"
+                                class="bg-Orange hover:text-white text-white font-bold py-2 px-4 rounded hover:bg-Biru"
                             >
                                 Tambah Format Surat
                             </Link>

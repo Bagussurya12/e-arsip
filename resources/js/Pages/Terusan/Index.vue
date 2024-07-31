@@ -9,81 +9,86 @@
         </template>
         <div class="py-12">
             <div class="max-w-full mx-auto sm:px-6 lg:px-8">
-                <div class="p-6 text-Dark overflow-auto">
-                    <div class="flex justify-between items-center mb-10">
-                        <div class="flex items-center">
-                            <label class="mr-2">
-                                Total Data Terusan: {{ terusan.length }}
-                            </label>
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-Dark overflow-auto">
+                        <div class="flex justify-between items-center mb-10">
+                            <div class="flex items-center">
+                                <label class="mr-2">
+                                    Total Data Terusan: {{ terusan.length }}
+                                </label>
+                            </div>
+                            <Link
+                                :href="route('terusan.create')"
+                                class="bg-Orange hover:text-white text-white font-bold py-2 px-4 rounded"
+                            >
+                                Tambah Data Terusan
+                            </Link>
                         </div>
-                        <Link
-                            :href="route('terusan.create')"
-                            class="bg-Orange hover:text-white text-white font-bold py-2 px-4 rounded"
-                        >
-                            Tambah Data Terusan
-                        </Link>
-                    </div>
 
-                    <div class="overflow-x-auto">
-                        <table class="w-full">
-                            <thead class="mb-5">
-                                <tr class="border-b-2">
-                                    <th
-                                        class="px-2 py-3 text-center text-lg font-medium text-Dark"
-                                    >
-                                        No
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                    >
-                                        Nama Data
-                                    </th>
-                                    <th
-                                        class="px-6 py-3 text-center text-lg font-medium text-Dark"
-                                    >
-                                        Aksi
-                                    </th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr
-                                    v-for="(terusanItem, index) in terusan"
-                                    :key="terusanItem.id"
-                                >
-                                    <td class="px-2 py-4 text-center">
-                                        {{ index + 1 }}
-                                    </td>
-                                    <td class="px-6 py-4 text-center">
-                                        {{ terusanItem.value }}
-                                    </td>
-                                    <td class="px-6 py-4 text-center">
-                                        <div
-                                            class="flex justify-center space-x-2"
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="mb-5">
+                                    <tr class="border-b-2">
+                                        <th
+                                            class="px-2 py-3 text-center text-lg font-medium text-Dark"
                                         >
-                                            <Link
-                                                :href="
-                                                    route('terusan.edit', {
-                                                        terusan: terusanItem.id,
-                                                    })
-                                                "
-                                                class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
+                                            No
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                        >
+                                            Nama Data
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                        >
+                                            #
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr
+                                        v-for="(terusanItem, index) in terusan"
+                                        :key="terusanItem.id"
+                                    >
+                                        <td class="px-2 py-4 text-center">
+                                            {{ index + 1 }}
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            {{ terusanItem.value }}
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            <div
+                                                class="flex justify-center space-x-2"
                                             >
-                                                Edit
-                                            </Link>
-                                            <button
-                                                @click="
-                                                    confirmDelete(terusanItem)
-                                                "
-                                                class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
-                                            >
-                                                Delete
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                                <Link
+                                                    :href="
+                                                        route('terusan.edit', {
+                                                            terusan:
+                                                                terusanItem.id,
+                                                        })
+                                                    "
+                                                    class="bg-Biru hover:text-Orange text-white font-base py-2 px-6 rounded"
+                                                >
+                                                    Edit
+                                                </Link>
+                                                <button
+                                                    @click="
+                                                        confirmDelete(
+                                                            terusanItem
+                                                        )
+                                                    "
+                                                    class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
+                                                >
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

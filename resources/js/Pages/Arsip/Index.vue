@@ -35,7 +35,7 @@
                         </div>
                         <Link
                             :href="route('arsip.create')"
-                            class="bg-Orange hover:text-white text-white font-bold py-2 px-4 rounded"
+                            class="bg-Orange hover:text-white text-white font-bold py-2 px-4 rounded hover:bg-Biru"
                         >
                             Tambah Data Arsip
                         </Link>
@@ -290,14 +290,14 @@
                         <button
                             @click="prevPage"
                             :disabled="!arsip.prev_page_url"
-                            class="px-4 py-2 mr-2 bg-Orange text-white rounded"
+                            class="px-4 py-2 mr-2 bg-Orange hover:bg-Biru text-white rounded"
                         >
                             Sebelumnya
                         </button>
                         <button
                             @click="nextPage"
                             :disabled="!arsip.next_page_url"
-                            class="px-4 py-2 bg-Orange text-white rounded"
+                            class="px-4 py-2 bg-Orange hover:bg-Biru text-white rounded"
                         >
                             Selanjutnya
                         </button>

@@ -36,7 +36,7 @@
                             </div>
                             <Link
                                 :href="route('users.create')"
-                                class="bg-Orange hover:text-Hijau text-white font-bold py-2 px-4 rounded"
+                                class="bg-Orange hover:bg-Biru text-white font-bold py-2 px-4 rounded"
                             >
                                 Tambah Pengguna
                             </Link>

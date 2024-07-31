@@ -102,14 +102,14 @@
                             <button
                                 @click="prevPage"
                                 :disabled="!dataArsip.prev_page_url"
-                                class="px-4 py-2 mr-2 bg-Orange text-white rounded"
+                                class="px-4 py-2 mr-2 bg-Orange text-white rounded hover:bg-Biru"
                             >
                                 Sebelumnya
                             </button>
                             <button
                                 @click="nextPage"
                                 :disabled="!dataArsip.next_page_url"
-                                class="px-4 py-2 bg-Orange text-white rounded"
+                                class="px-4 py-2 bg-Orange text-white rounded hover:bg-Biru"
                             >
                                 Selanjutnya
                             </button>
