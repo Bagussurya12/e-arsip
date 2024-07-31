@@ -55,25 +55,7 @@
                             />
                         </div>
                         <!-- Tempat untuk pratinjau file -->
-                        <div v-if="previewUrl" class="mt-4">
-                            <h3 class="text-lg font-medium text-gray-700 mb-2">
-                                Pratinjau File
-                            </h3>
-                            <div v-if="isPdf">
-                                <iframe
-                                    :src="previewUrl"
-                                    width="100%"
-                                    height="600px"
-                                ></iframe>
-                            </div>
-                            <div v-else>
-                                <iframe
-                                    :src="googleDocViewerUrl"
-                                    width="100%"
-                                    height="600px"
-                                ></iframe>
-                            </div>
-                        </div>
+
                         <div class="flex items-center justify-end mt-10">
                             <Link
                                 :href="route('format.index')"
@@ -121,7 +103,6 @@ const form = reactive({
 
 const fileInput = ref(null);
 const errors = reactive({});
-const previewUrl = ref(null);
 const isPdf = ref(false);
 
 const handleFileChange = async () => {
@@ -147,15 +128,6 @@ const handleFileChange = async () => {
         }
     }
 };
-
-const googleDocViewerUrl = computed(() => {
-    if (previewUrl.value && !isPdf.value) {
-        return `https://docs.google.com/gview?url=${encodeURIComponent(
-            previewUrl.value
-        )}&embedded=true`;
-    }
-    return null;
-});
 
 const updateFormatSurat = () => {
     const formData = new FormData();

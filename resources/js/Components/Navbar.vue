@@ -48,13 +48,6 @@
                     >
                         <li class="group">
                             <a
-                                href="/"
-                                class="text-base text-white font-bold py-2 mx-2 lg:mx-4 flex group-hover:text-Orange"
-                                >Beranda</a
-                            >
-                        </li>
-                        <li class="group">
-                            <a
                                 href="/login"
                                 class="text-base text-white font-bold py-2 mx-2 lg:mx-4 flex group-hover:text-Orange"
                                 >Login</a

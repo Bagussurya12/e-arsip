@@ -84,7 +84,7 @@
                                                             format: formatSuratItem.id,
                                                         })
                                                     "
-                                                    class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
+                                                    class="bg-Biru hover:text-Orange text-white font-base py-2 px-6 rounded"
                                                     >Edit</Link
                                                 >
                                                 <button
