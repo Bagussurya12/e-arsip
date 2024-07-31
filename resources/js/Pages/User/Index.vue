@@ -84,8 +84,13 @@
                                         :key="user.id"
                                         class="border-b"
                                     >
-                                        <td class="px-6 py-4">
-                                            {{ index + 1 }}
+                                        <td class="px-6 py-4 text-center">
+                                            {{
+                                                (props.users.current_page - 1) *
+                                                    props.users.per_page +
+                                                index +
+                                                1
+                                            }}
                                         </td>
                                         <td class="px-6 py-4">{{ user.id }}</td>
                                         <td class="px-6 py-4">
