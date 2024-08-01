@@ -254,32 +254,38 @@
                                             {{ arsipItem.terusan }}
                                         </td>
                                         <td class="px-6 py-4 text-center">
-                                            <Link
-                                                :href="
-                                                    route('arsip.edit', {
-                                                        arsipId: arsipItem.id,
-                                                    })
-                                                "
-                                                class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
-                                                >Edit</Link
+                                            <div
+                                                class="flex justify-center space-x-2"
                                             >
-                                            <button
-                                                @click="
-                                                    confirmDelete(arsipItem)
-                                                "
-                                                class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
-                                            >
-                                                Hapus
-                                            </button>
-                                            <Link
-                                                :href="
-                                                    route('arsip.detail', {
-                                                        arsipId: arsipItem.id,
-                                                    })
-                                                "
-                                                class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
-                                                >Detail</Link
-                                            >
+                                                <Link
+                                                    :href="
+                                                        route('arsip.edit', {
+                                                            arsipId:
+                                                                arsipItem.id,
+                                                        })
+                                                    "
+                                                    class="bg-Biru hover:text-Orange text-white font-base py-2 px-6 rounded"
+                                                    >Edit</Link
+                                                >
+                                                <button
+                                                    @click="
+                                                        confirmDelete(arsipItem)
+                                                    "
+                                                    class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
+                                                >
+                                                    Hapus
+                                                </button>
+                                                <Link
+                                                    :href="
+                                                        route('arsip.detail', {
+                                                            arsipId:
+                                                                arsipItem.id,
+                                                        })
+                                                    "
+                                                    class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
+                                                    >Detail</Link
+                                                >
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
