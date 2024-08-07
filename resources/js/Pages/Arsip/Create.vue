@@ -475,7 +475,7 @@
                                         class="mt-1 block w-full"
                                         v-model="form.keterangan_undangan"
                                         autocomplete="on"
-                                        placeholder="Masukan keterangan_undangan"
+                                        placeholder="Masukan Keterangan Undangan"
                                     />
                                     <InputError
                                         class="mt-2"
@@ -617,6 +617,7 @@ const optionJenisSurat = [
     { value: "Perjanjian Kerja Sama", label: "Perjanjian Kerja Sama" },
     { value: "Surat Keterangan", label: "Surat Keterangan" },
     { value: "Surat Kuasa", label: "Surat Kuasa" },
+    { value: "Surat Permohonan", label: "Surat Permohonan" },
     { value: "Berita Acara", label: "Berita Acara" },
     { value: "Pengumuman", label: "Pengumuman" },
     { value: "Surat Pengantar", label: "Surat Pengantar" },
@@ -635,6 +636,7 @@ const optionJenisSurat = [
         label: "Surat Keterangan Melaksanakan Tugas",
     },
     { value: "Rekomendasi", label: "Rekomendasi" },
+    { value: "Lain-lain", label: "Lain-lain" },
 ];
 
 const optionBulan = [
