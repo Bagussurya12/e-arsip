@@ -12,7 +12,7 @@
             <div class="max-w-full mx-auto sm:px-6 lg:px-8">
                 <div class="p-6 m-6 text-white bg-Biru rounded-xl mb-5">
                     <div class="justify-between items-center">
-                        <h5 class="text-white text-center mb-10">
+                        <h5 class="text-white text-center mb-5">
                             Kelola Data Arsip Untuk Menyimpan dan menjaga
                             konsistensi Data 🤞
                         </h5>

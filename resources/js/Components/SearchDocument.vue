@@ -1,9 +1,9 @@
 <template>
     <div
-        class="pencarian w-full text-center mt-10 md:mt-24 lg:mt-10 items-center"
+        class="pencarian w-full text-center mt-10 md:mt-10 lg:mt-10 items-center"
     >
         <div class="container mx-auto">
-            <div class="w-full py-10 px-5 rounded-lg bg-Biru">
+            <div class="w-full py-5 px-5 rounded-lg bg-Biru">
                 <form
                     @submit.prevent="submitSearch"
                     class="flex justify-center flex-wrap w-full mx-auto"
