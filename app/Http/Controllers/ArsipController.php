@@ -13,6 +13,44 @@ use Carbon\Carbon;
 
 class ArsipController extends Controller
 {
+    public function index(Request $request)
+    {
+        $query = Arsip::with('lokasiSimpan');
+    
+        // Memeriksa apakah ada parameter pencarian dan memastikan nilainya tidak kosong
+        if ($request->has('naskahDinas') && !empty($request->input('naskahDinas'))) {
+            $query->where('jenis_surat', 'like', '%' . $request->input('naskahDinas') . '%');
+        }
+    
+        if ($request->has('asalSurat') && !empty($request->input('asalSurat'))) {
+            $query->where('asal_surat', 'like', '%' . $request->input('asalSurat') . '%');
+        }
+    
+        if ($request->has('uraianInformasi') && !empty($request->input('uraianInformasi'))) {
+            $query->where('uraian_informasi', 'like', '%' . $request->input('uraianInformasi') . '%');
+        }
+    
+        if ($request->has('tanggal') && !empty($request->input('tanggal'))) {
+            $query->where('tanggal', 'like', '%' . $request->input('tanggal') . '%');
+        }
+    
+        if ($request->has('filterBulan') && !empty($request->input('filterBulan'))) {
+            $query->where('bulan', 'like', '%' . $request->input('filterBulan') . '%');
+        }
+    
+        if ($request->has('tahun') && !empty($request->input('tahun'))) {
+            $query->where('tahun', 'like', '%' . $request->input('tahun') . '%');
+        }
+        $query->orderBy('tanggal', 'desc');
+    
+        $arsip = $query->paginate(20);
+    
+        return Inertia::render('Arsip/Index', [
+            'arsip' => $arsip,
+            'filters' => $request->all(), // Mengirimkan filter yang diterapkan ke frontend
+        ]);
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -68,44 +106,6 @@ class ArsipController extends Controller
         ]);
     
         return redirect()->route('arsip')->with('success', 'Arsip berhasil ditambahkan.');
-    }
-    
-    public function index(Request $request)
-    {
-        $query = Arsip::with('lokasiSimpan');
-    
-        // Memeriksa apakah ada parameter pencarian dan memastikan nilainya tidak kosong
-        if ($request->has('naskahDinas') && !empty($request->input('naskahDinas'))) {
-            $query->where('jenis_surat', 'like', '%' . $request->input('naskahDinas') . '%');
-        }
-    
-        if ($request->has('asalSurat') && !empty($request->input('asalSurat'))) {
-            $query->where('asal_surat', 'like', '%' . $request->input('asalSurat') . '%');
-        }
-    
-        if ($request->has('uraianInformasi') && !empty($request->input('uraianInformasi'))) {
-            $query->where('uraian_informasi', 'like', '%' . $request->input('uraianInformasi') . '%');
-        }
-    
-        if ($request->has('tanggal') && !empty($request->input('tanggal'))) {
-            $query->where('tanggal', 'like', '%' . $request->input('tanggal') . '%');
-        }
-    
-        if ($request->has('filterBulan') && !empty($request->input('filterBulan'))) {
-            $query->where('bulan', 'like', '%' . $request->input('filterBulan') . '%');
-        }
-    
-        if ($request->has('tahun') && !empty($request->input('tahun'))) {
-            $query->where('tahun', 'like', '%' . $request->input('tahun') . '%');
-        }
-        $query->orderBy('tanggal', 'desc');
-    
-        $arsip = $query->paginate(20);
-    
-        return Inertia::render('Arsip/Index', [
-            'arsip' => $arsip,
-            'filters' => $request->all(), // Mengirimkan filter yang diterapkan ke frontend
-        ]);
     }
     
     public function getDataArsip(Request $request)
