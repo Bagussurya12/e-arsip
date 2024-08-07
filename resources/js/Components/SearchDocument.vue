@@ -74,7 +74,7 @@
                         <select
                             id="bulan"
                             name="optionBulan"
-                            v-model="filters.filterBulan"
+                            v-model="filters.bulan"
                             class="truncate w-full border-none focus:outline-none focus:ring-0 text-Dark"
                         >
                             <option disabled selected value="">Bulan</option>
@@ -98,6 +98,12 @@
                             class="w-full border-none focus:outline-none focus:ring-0 text-Dark"
                             placeholder="Tahun"
                         />
+                    </div>
+
+                    <div
+                        class="w-full md:w-full lg:w-1/12 lg:mx-5 p-2 px-5 bg-Orange text-sm rounded-lg border-transparent border-none mb-5"
+                    >
+                        <button type="submit" class="text-base">Cari</button>
                     </div>
                 </form>
             </div>
@@ -165,7 +171,10 @@ export default {
     },
     methods: {
         submitSearch() {
-            this.$emit("search", this.filters); // Mengirim event 'search' dengan data filters ke komponen induk
+            this.$inertia.get(route("arsip"), this.filters, {
+                preserveState: true,
+                preserveScroll: true,
+            });
         },
     },
 };

@@ -449,34 +449,27 @@ const closeDelete = () => {
 };
 
 const search = () => {
-    // Pastikan searchFilters dan searchQuery terdefinisi dengan benar
     const queryParams = {
-        naskahDinas:
-            searchFilters && searchFilters.naskahDinas
-                ? searchFilters.naskahDinas
-                : "",
         searchQuery: searchQuery ? searchQuery : "",
-        filterBulan:
-            searchFilters && searchFilters.filterBulan
-                ? searchFilters.filterBulan
-                : "",
-        tahun: searchFilters && searchFilters.tahun ? searchFilters.tahun : "",
-        filterMediaArsip:
-            searchFilters && searchFilters.filterMediaArsip
-                ? searchFilters.filterMediaArsip
-                : "",
+        naskahDinas: searchFilters.value.naskahDinas || "",
+        asalSurat: searchFilters.value.asalSurat || "",
+        uraianInformasi: searchFilters.value.uraianInformasi || "",
+        tanggal: searchFilters.value.tanggal || "",
+        bulan: searchFilters.value.bulan || "",
+        tahun: searchFilters.value.tahun || "",
     };
 
     const queryString = new URLSearchParams(queryParams).toString();
-    Inertia.visit(route("arsip.index") + "?" + queryString);
+    Inertia.visit(route("arsip") + "?" + queryString);
 };
 
 const searchQuery = ref("");
 const searchFilters = ref({
     naskahDinas: "",
+    asalSurat: "",
     uraianInformasi: "",
     tanggal: "",
-    filterBulan: "",
+    bulan: "",
     tahun: "",
 });
 
@@ -487,7 +480,7 @@ const displayedArsip = computed(() => {
         searchFilters.value.asalSurat === "" &&
         searchFilters.value.uraianInformasi === "" &&
         searchFilters.value.tanggal === "" &&
-        searchFilters.value.filterBulan === "" &&
+        searchFilters.value.bulan === "" &&
         searchFilters.value.tahun === ""
     ) {
         return props.arsip.data;
@@ -513,8 +506,8 @@ const displayedArsip = computed(() => {
                 arsip.tanggal === searchFilters.value.tanggal;
 
             const filterBulan =
-                !searchFilters.value.filterBulan ||
-                arsip.bulan === searchFilters.value.filterBulan;
+                !searchFilters.value.bulan ||
+                arsip.bulan === searchFilters.value.bulan;
 
             const filterTahun =
                 searchFilters.value.tahun === "" ||

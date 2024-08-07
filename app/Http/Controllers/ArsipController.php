@@ -15,8 +15,9 @@ class ArsipController extends Controller
 {
     public function index(Request $request)
     {
+        // Membuat query dasar untuk model Arsip dan menyertakan relasi 'lokasiSimpan'
         $query = Arsip::with('lokasiSimpan');
-    
+        
         // Memeriksa apakah ada parameter pencarian dan memastikan nilainya tidak kosong
         if ($request->has('naskahDinas') && !empty($request->input('naskahDinas'))) {
             $query->where('jenis_surat', 'like', '%' . $request->input('naskahDinas') . '%');
@@ -34,22 +35,27 @@ class ArsipController extends Controller
             $query->where('tanggal', 'like', '%' . $request->input('tanggal') . '%');
         }
     
-        if ($request->has('filterBulan') && !empty($request->input('filterBulan'))) {
-            $query->where('bulan', 'like', '%' . $request->input('filterBulan') . '%');
+        if ($request->has('bulan') && !empty($request->input('bulan'))) {
+            $query->where('bulan', 'like', '%' . $request->input('bulan') . '%');
         }
     
         if ($request->has('tahun') && !empty($request->input('tahun'))) {
             $query->where('tahun', 'like', '%' . $request->input('tahun') . '%');
         }
+        
+        // Mengurutkan hasil berdasarkan kolom 'created_at' dari yang terbaru ke yang terlama
         $query->orderBy('created_at', 'desc');
     
+        // Mengambil hasil pencarian dengan paginasi, 20 item per halaman
         $arsip = $query->paginate(20);
     
+        // Mengirimkan hasil pencarian dan filter yang diterapkan ke tampilan frontend dengan Inertia.js
         return Inertia::render('Arsip/Index', [
             'arsip' => $arsip,
             'filters' => $request->all(), // Mengirimkan filter yang diterapkan ke frontend
         ]);
     }
+    
 
     public function store(Request $request)
     {
