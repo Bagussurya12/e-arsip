@@ -61,12 +61,28 @@
                                 </thead>
                                 <!-- BODY TABLE -->
                                 <tbody>
+                                    <tr v-if="format_surat.length === 0">
+                                        <td colspan="3" class="text-center">
+                                            <p
+                                                class="font-bold text-xl font-mono text-center mt-10"
+                                            >
+                                                Tidak ada format surat yang
+                                                ditemukan.
+                                            </p>
+                                            <img
+                                                src="../../../../assets/img/bingung.png"
+                                                alt="Confused Image"
+                                                class="max-w-[400px] mt-4 mx-auto"
+                                            />
+                                        </td>
+                                    </tr>
                                     <tr
                                         v-for="(
                                             formatSuratItem, index
                                         ) in format_surat"
                                         :key="formatSuratItem.id"
                                         class="border-b"
+                                        v-else
                                     >
                                         <td class="px-4 py-2 text-center">
                                             {{ index + 1 }}

@@ -38,13 +38,13 @@ onMounted(() => {
                                 props.arsipTerbaru &&
                                 props.arsipTerbaru.length === 0
                             "
-                            class="flex flex-col items-center justify-center"
+                            class="flex flex-col items-center justify-center mt-10"
                         >
                             <h1 class="font-bold text-2xl">
                                 Belum Ada Data Arsip Terbaru
                             </h1>
                             <img
-                                src="../../../assets/img/confused.jpg"
+                                src="../../../assets/img/bingung.png"
                                 alt="Confused Image"
                                 class="max-w-[300px] mt-4"
                             />

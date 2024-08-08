@@ -43,93 +43,109 @@
                         </div>
 
                         <div class="overflow-x-auto">
-                            <table class="w-full">
-                                <thead class="mb-5">
-                                    <tr class="border-b-2">
-                                        <th
-                                            class="px-6 py-3 text-center text-lg font-medium text-black"
-                                        >
-                                            No
-                                        </th>
-                                        <th
-                                            class="px-6 py-3 text-center text-lg font-medium text-black"
-                                        >
-                                            Id
-                                        </th>
-                                        <th
-                                            class="px-6 py-3 text-center text-lg font-medium text-black"
-                                        >
-                                            Nama
-                                        </th>
-                                        <th
-                                            class="px-6 py-3 text-center text-lg font-medium text-black"
-                                        >
-                                            Email
-                                        </th>
-                                        <th
-                                            class="px-6 py-3 text-center text-lg font-medium text-black"
-                                        >
-                                            Role
-                                        </th>
-                                        <th
-                                            class="px-6 py-3 text-center text-lg font-medium text-black"
-                                        >
-                                            #
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr
-                                        v-for="(user, index) in displayedUsers"
-                                        :key="user.id"
-                                        class="border-b"
-                                    >
-                                        <td class="px-6 py-4 text-center">
-                                            {{
-                                                (props.users.current_page - 1) *
-                                                    props.users.per_page +
-                                                index +
-                                                1
-                                            }}
-                                        </td>
-                                        <td class="px-6 py-4">{{ user.id }}</td>
-                                        <td class="px-6 py-4">
-                                            {{ user.name }}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {{ user.email }}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {{ user.role }}
-                                        </td>
-                                        <td class="px-6 py-4 text-center">
-                                            <div
-                                                class="flex justify-center space-x-2"
+                            <div
+                                v-if="!displayedUsers.length"
+                                class="flex flex-col items-center justify-center mt-10"
+                            >
+                                <h1
+                                    class="font-bold text-2xl font-mono text-center"
+                                >
+                                    Data Pengguna Tidak Ditemukan <br />
+                                </h1>
+                                <img
+                                    src="../../../../assets/img/bingung.png"
+                                    alt="Confused Image"
+                                    class="max-w-[400px] mt-4"
+                                />
+                            </div>
+                            <div v-else>
+                                <table class="w-full">
+                                    <thead class="mb-5">
+                                        <tr class="border-b-2">
+                                            <th
+                                                class="px-6 py-3 text-center text-lg font-medium text-black"
                                             >
-                                                <Link
-                                                    :href="
-                                                        route(
-                                                            'users.edit',
-                                                            user.id
-                                                        )
-                                                    "
-                                                    class="bg-Biru hover:text-Orange text-white font-base py-2 px-6 rounded"
+                                                No
+                                            </th>
+                                            <th
+                                                class="px-6 py-3 text-center text-lg font-medium text-black"
+                                            >
+                                                Nama
+                                            </th>
+                                            <th
+                                                class="px-6 py-3 text-center text-lg font-medium text-black"
+                                            >
+                                                Email
+                                            </th>
+                                            <th
+                                                class="px-6 py-3 text-center text-lg font-medium text-black"
+                                            >
+                                                Role
+                                            </th>
+                                            <th
+                                                class="px-6 py-3 text-center text-lg font-medium text-black"
+                                            >
+                                                #
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            v-for="(
+                                                user, index
+                                            ) in displayedUsers"
+                                            :key="user.id"
+                                            class="border-b"
+                                        >
+                                            <td class="px-6 py-4 text-center">
+                                                {{
+                                                    (props.users.current_page -
+                                                        1) *
+                                                        props.users.per_page +
+                                                    index +
+                                                    1
+                                                }}
+                                            </td>
+                                            <td class="px-6 py-4 text-center">
+                                                {{ user.name }}
+                                            </td>
+                                            <td class="px-6 py-4 text-center">
+                                                {{ user.email }}
+                                            </td>
+                                            <td class="px-6 py-4 text-center">
+                                                {{ user.role }}
+                                            </td>
+                                            <td class="px-6 py-4 text-center">
+                                                <div
+                                                    class="flex justify-center space-x-2"
                                                 >
-                                                    Edit
-                                                </Link>
-                                                <button
-                                                    @click="
-                                                        confirmDelete(user.id)
-                                                    "
-                                                    class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
-                                                >
-                                                    Hapus
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                                    <Link
+                                                        :href="
+                                                            route(
+                                                                'users.edit',
+                                                                user.id
+                                                            )
+                                                        "
+                                                        class="bg-Biru hover:text-Orange text-white font-base py-2 px-6 rounded"
+                                                    >
+                                                        Edit
+                                                    </Link>
+                                                    <button
+                                                        @click="
+                                                            confirmDelete(
+                                                                user.id
+                                                            )
+                                                        "
+                                                        class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
+                                                    >
+                                                        Hapus
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <div class="mt-10">
                             <button
@@ -137,14 +153,14 @@
                                 :disabled="!users.prev_page_url"
                                 class="px-4 py-2 mr-2 bg-Orange text-white rounded"
                             >
-                                Previous
+                                Sebelumnya
                             </button>
                             <button
                                 @click="nextPage"
                                 :disabled="!users.next_page_url"
                                 class="px-4 py-2 bg-Orange text-white rounded"
                             >
-                                Next
+                                Selanjutnya
                             </button>
                         </div>
                     </div>
