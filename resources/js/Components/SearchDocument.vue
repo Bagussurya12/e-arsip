@@ -10,7 +10,7 @@
                 >
                     <!-- Select Naskah Dinas -->
                     <div
-                        class="w-full md:w-full lg:w-1/6 bg-white text-sm rounded-l-lg border-transparent border-0 px-2 mb-5"
+                        class="w-full md:w-full lg:w-1/6 bg-white text-sm rounded-l-lg border-transparent border-0 mb-5 sm:px-2"
                     >
                         <select
                             id="selectNaskah"
@@ -103,7 +103,12 @@
                     <div
                         class="w-full md:w-full lg:w-1/12 lg:mx-5 p-2 px-5 bg-Orange text-sm rounded-lg border-transparent border-none mb-5"
                     >
-                        <button type="submit" class="text-base">Cari</button>
+                        <button
+                            type="submit"
+                            class="text-base hover:text-Dark hover:font-bold"
+                        >
+                            Cari
+                        </button>
                     </div>
                 </form>
             </div>
@@ -140,6 +145,7 @@ export default {
                 "Perjanjian Kerja Sama",
                 "Surat Keterangan",
                 "Surat Kuasa",
+                "Surat Permohonan",
                 "Berita Acara",
                 "Pengumuman",
                 "Surat Pengantar",
