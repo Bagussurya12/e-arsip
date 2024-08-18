@@ -17,6 +17,7 @@ return new class extends Migration
         Schema::create('nota_dinas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('arsip_id')->constrained('arsip')->onDelete('cascade');
+            $table->string('nomor_dokumen')->nullable();
             $table->date('tanggal')->nullable();
             $table->string('perihal')->nullable();
             $table->string('kepada')->nullable();
