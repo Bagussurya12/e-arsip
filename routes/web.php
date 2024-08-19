@@ -128,6 +128,7 @@ Route::middleware(['auth', 'admin'])->group(function() {
 
 Route::middleware('auth')->group(function(){
     Route::get('/NotaDinas/{arsipId}/Create', [NotaDinasController::class, 'create'])->name('nota-dinas.create');
+    Route::post('/NotaDinas/store', [NotaDinasController::class, 'store'])->name('nota-dinas.store');
 });
 
 require __DIR__.'/auth.php';
