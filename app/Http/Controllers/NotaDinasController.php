@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\NotaDinas;
+use App\Models\Arsip;
+use Inertia\Inertia;
 
 class NotaDinasController extends Controller
 {
@@ -22,10 +24,15 @@ class NotaDinasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $arsip = Arsip::find($id); // Menggunakan '::' daripada '->'
+        return Inertia::render('NotaDinas/Create', [
+            'arsip' => $arsip,
+            'arsip_id' => $id
+        ]);
     }
+
 
     /**
      * Store a newly created resource in storage.

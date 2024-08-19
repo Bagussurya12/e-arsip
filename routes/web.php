@@ -15,6 +15,7 @@ use App\Http\Controllers\MasterController;
 use App\Http\Controllers\DataTerusanController;
 use App\Http\Controllers\FormatSuratController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\NotaDinasController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -123,6 +124,10 @@ Route::middleware(['auth', 'admin'])->group(function() {
     Route::put('/format/{format}', [FormatSuratController::class, 'update'])->name('format.update');
     Route::delete('/format/{format}', [FormatSuratController::class, 'destroy'])->name('format.delete');
     Route::post('/upload-preview', [FormatSuratController::class, 'uploadPreview'])->name('upload.preview');
+});
+
+Route::middleware('auth')->group(function(){
+    Route::get('/NotaDinas/{arsipId}/Create', [NotaDinasController::class, 'create'])->name('nota-dinas.create');
 });
 
 require __DIR__.'/auth.php';
