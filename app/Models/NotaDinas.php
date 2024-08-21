@@ -23,6 +23,11 @@ class NotaDinas extends Model
         'foto'
     ];
 
+    public function arsip()
+    {
+        return $this->belongsTo(Arsip::class, 'arsip_id');
+    }
+
     // Tipe kolom yang perlu dikonversi ke tipe data tertentu
     protected $casts = [
         'tanggal' => 'date',

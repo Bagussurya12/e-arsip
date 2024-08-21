@@ -26,6 +26,6 @@ class Arsip extends Model
     }
     public function notaDinas()
     {
-        return $this->hasOne(NotaDinas::class, 'arsip_id');
+        return $this->hasOne(notaDinas::class, 'arsip_id');
     }
 }

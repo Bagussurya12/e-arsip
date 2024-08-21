@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Arsip;
 use App\Models\LokasiSimpan;
+use App\Models\NotaDinas;
 use App\Models\Undangan;
 use App\Models\Terusan;
 use Illuminate\Support\Facades\Storage;
@@ -148,7 +149,7 @@ class ArsipController extends Controller
 
     public function detail($id)
     {
-        $arsip = Arsip::with('lokasiSimpan')->find($id);
+        $arsip = Arsip::with('lokasiSimpan', 'notaDinas')->find($id);
 
         return Inertia::render('detail', [
             'arsip' => $arsip
@@ -172,7 +173,7 @@ class ArsipController extends Controller
     }
     public function arsip_detail($id)
     {
-        $arsip = Arsip::with('lokasiSimpan', 'undangan')->find($id);
+        $arsip = Arsip::with('lokasiSimpan', 'undangan', 'notaDinas')->find($id);
         return Inertia::render('Arsip/Detail', [
             'arsip' => $arsip
         ]);

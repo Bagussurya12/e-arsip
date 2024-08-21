@@ -84,7 +84,11 @@ class NotaDinasController extends Controller
      */
     public function edit($id)
     {
-        //
+        $nota_dinas = NotaDinas::find($id); // Menggunakan '::' untuk metode statis
+        return Inertia::render('NotaDinas/Create', [
+            'nota_dinas' => $nota_dinas,
+        
+        ]);
     }
 
     /**
