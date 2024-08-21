@@ -24,4 +24,8 @@ class Arsip extends Model
     {
         return $this->hasOne(Undangan::class, 'arsip_id');
     }
+    public function notaDinas()
+    {
+        return $this->hasOne(NotaDinas::class, 'arsip_id');
+    }
 }

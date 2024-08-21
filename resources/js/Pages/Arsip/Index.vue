@@ -312,7 +312,12 @@
                                                         class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
                                                         >Detail</Link
                                                     >
+
+                                                    <!-- Tambahkan pengecekan di sini -->
                                                     <Link
+                                                        v-if="
+                                                            !arsipItem.nota_dinas
+                                                        "
                                                         :href="
                                                             route(
                                                                 'nota-dinas.create',

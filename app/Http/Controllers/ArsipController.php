@@ -16,7 +16,8 @@ class ArsipController extends Controller
     public function index(Request $request)
     {
         // Membuat query dasar untuk model Arsip dan menyertakan relasi 'lokasiSimpan'
-        $query = Arsip::with('lokasiSimpan');
+        $query = Arsip::with(['lokasiSimpan', 'notaDinas']);
+
         
         // Memeriksa apakah ada parameter pencarian dan memastikan nilainya tidak kosong
         if ($request->has('naskahDinas') && !empty($request->input('naskahDinas'))) {
