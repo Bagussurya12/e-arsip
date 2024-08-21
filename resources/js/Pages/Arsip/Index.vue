@@ -272,7 +272,7 @@
                                             <td class="px-6 py-4 text-center">
                                                 {{ arsipItem.terusan }}
                                             </td>
-                                            <td class="px-6 py-4 text-center">
+                                            <td class="px-12 py-4 text-center">
                                                 <div
                                                     class="flex justify-center space-x-2"
                                                 >
@@ -311,6 +311,19 @@
                                                         "
                                                         class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
                                                         >Detail</Link
+                                                    >
+                                                    <Link
+                                                        :href="
+                                                            route(
+                                                                'nota-dinas.create',
+                                                                {
+                                                                    arsipId:
+                                                                        arsipItem.id,
+                                                                }
+                                                            )
+                                                        "
+                                                        class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
+                                                        >N.D</Link
                                                     >
                                                 </div>
                                             </td>
