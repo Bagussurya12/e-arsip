@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\NotaDinas;
 use App\Models\Arsip;
+use Illuminate\Support\Facades\Storage;
+
 use Inertia\Inertia;
 
 class NotaDinasController extends Controller
@@ -85,7 +87,7 @@ class NotaDinasController extends Controller
     public function edit($id)
     {
         $nota_dinas = NotaDinas::find($id); // Menggunakan '::' untuk metode statis
-        return Inertia::render('NotaDinas/Create', [
+        return Inertia::render('NotaDinas/Edit', [
             'nota_dinas' => $nota_dinas,
         
         ]);
@@ -100,17 +102,30 @@ class NotaDinasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'tanggal' => 'nullable|date',
+            'perihal' => 'nullable|string|max:255',
+            'kepada' => 'nullable|string|max:255',
+            'dari' => 'nullable|string|max:255',
+            'isi' => 'nullable|string|max:65535',
+            'tembusan' => 'nullable|string|max:65535',
+            'foto' => 'nullable|file|mimes:jpg,png,jpeg,pdf,mp4,mp3|max:2048',
+        ]);
+    
+        $nota_dinas = NotaDinas::find($id);
+    
+        if ($request->hasFile('foto')) {
+            if ($nota_dinas->foto) {
+                Storage::delete($nota_dinas->foto);
+            }
+            $validated['foto'] = $request->file('foto')->store('assets_Arsip_NotaDinas', 'public');
+        } else {
+            $validated['foto'] = $nota_dinas->foto;
+        }
+    
+        $nota_dinas->update($validated);
+    
+        return redirect()->route('arsip');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    
 }

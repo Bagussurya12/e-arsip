@@ -309,8 +309,8 @@
                                 </a>
                                 <Link
                                     :href="
-                                        route('arsip.detail', {
-                                            arsipId: arsipItem.id,
+                                        route('nota-dinas.edit', {
+                                            notaDinasId: arsip.nota_dinas.id,
                                         })
                                     "
                                     class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded mx-5"
