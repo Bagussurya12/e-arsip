@@ -221,10 +221,14 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { defineProps } from "vue";
 
 const props = defineProps({
-    arsip: Array,
+    arsip: Object, // Pastikan arsip diterima sebagai object
+    arsip_id: Number,
+    nomor_dokumen: String,
 });
 
 const form = useForm({
+    arsip_id: props.arsip_id, // Isi secara otomatis dari props
+    nomor_dokumen: props.nomor_dokumen, // Isi secara otomatis dari props
     tanggal: "",
     perihal: "",
     kepada: "",

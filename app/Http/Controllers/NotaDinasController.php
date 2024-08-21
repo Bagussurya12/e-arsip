@@ -26,10 +26,12 @@ class NotaDinasController extends Controller
      */
     public function create($id)
     {
-        $arsip = Arsip::find($id); // Menggunakan '::' daripada '->'
+        $arsip = Arsip::find($id); // Menggunakan '::' untuk metode statis
+        // Anda tidak perlu `dd($id)` jika Anda ingin melanjutkan eksekusi
         return Inertia::render('NotaDinas/Create', [
             'arsip' => $arsip,
-            'arsip_id' => $id
+            'arsip_id' => $arsip->id,  // Arsip ID yang diteruskan ke frontend
+            'nomor_dokumen' => $arsip->nomor_dokumen,  // Nomor dokumen yang diteruskan ke frontend
         ]);
     }
 
@@ -42,24 +44,25 @@ class NotaDinasController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-        'nomor_dokumen'=> 'nullable|string|max:255',
-        'tanggal'=> 'nullable|date|max:255',
-        'perihal'=> 'nullable|string|max:255',
-        'kepada'=> 'nullable|string|max:255',
-        'dari'=> 'nullable|string|max:255',
-        'isi'=> 'nullable|string|max:255',
-        'tembusan'=> 'nullable|string|max:255',
-        'foto' => 'nullable|file|mimes:jpg,png,jpeg,pdf,mp4,mp3|max:2048',
+         $validated = $request->validate([
+                'arsip_id' => 'required|exists:arsip,id',  // Pastikan arsip_id valid
+                'nomor_dokumen'=> 'nullable|string|max:255',
+                'tanggal'=> 'nullable|date|max:255',
+                'perihal'=> 'nullable|string|max:255',
+                'kepada'=> 'nullable|string|max:255',
+                'dari'=> 'nullable|string|max:255',
+                'isi'=> 'nullable|string|max:255',
+                'tembusan'=> 'nullable|string|max:255',
+                'foto' => 'nullable|file|mimes:jpg,png,jpeg,pdf,mp4,mp3|max:2048',
         ]);
 
-        if ($request->hasFile('foto')) {
-            $validated['foto'] = $request->file('foto')->store('assets_Arsip_NotaDinas', 'public');
-        }
+    if ($request->hasFile('foto')) {
+        $validated['foto'] = $request->file('foto')->store('assets_Arsip_NotaDinas', 'public');
+    }
 
-        $nota_dinas = NotaDinas::create($validated);
+    $nota_dinas = NotaDinas::create($validated);
 
-        return redirect()->back()->with('success', 'Data Nota Dinas berhasil disimpan!');
+    return redirect()->route('arsip')->with('success', 'Data Nota Dinas berhasil disimpan!');
     }
 
     /**
