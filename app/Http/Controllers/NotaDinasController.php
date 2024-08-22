@@ -103,13 +103,13 @@ class NotaDinasController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'tanggal' => 'nullable|date',
-            'perihal' => 'nullable|string|max:255',
-            'kepada' => 'nullable|string|max:255',
-            'dari' => 'nullable|string|max:255',
-            'isi' => 'nullable|string|max:65535',
-            'tembusan' => 'nullable|string|max:65535',
-            'foto' => 'nullable|file|mimes:jpg,png,jpeg,pdf,mp4,mp3|max:2048',
+            'tanggal' => 'date',
+            'perihal' => 'string|max:255',
+            'kepada' => 'string|max:255',
+            'dari' => 'string|max:255',
+            'isi' => 'string|max:65535',
+            'tembusan' => 'string|max:65535',
+            'foto' => 'nullable|file|mimes:jpg,png,jpeg,pdf,mp4,mp3',
         ]);
     
         $nota_dinas = NotaDinas::find($id);
@@ -123,6 +123,7 @@ class NotaDinasController extends Controller
             $validated['foto'] = $nota_dinas->foto;
         }
     
+        // Simpan data yang sudah divalidasi ke dalam database
         $nota_dinas->update($validated);
     
         return redirect()->route('arsip');

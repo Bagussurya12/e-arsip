@@ -166,7 +166,7 @@
                                     id="foto"
                                     type="file"
                                     class="block w-full text-lg text-Dark file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-Biru file:text-white hover:file:bg-Orange"
-                                    @change="handleFileUpload"
+                                    @input="handleFileUpload"
                                     placeholder="Masukkan File Media"
                                     name="foto"
                                 />
@@ -174,6 +174,11 @@
                                     class="mt-2"
                                     :message="form.errors.foto"
                                 />
+                                <div v-if="form.old_media">
+                                    <p class="mt-2 text-sm text-gray-600">
+                                        File Lama: {{ form.old_media }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
 
@@ -224,13 +229,13 @@ const props = defineProps({
 
 const form = useForm({
     tanggal: format(parseISO(props.nota_dinas.tanggal), "yyyy-MM-dd"),
-    perihal: props.nota_dinas.perihal || "",
-    kepada: props.nota_dinas.kepada || "",
-    dari: props.nota_dinas.dari || "",
-    isi: props.nota_dinas.isi || "",
-    tembusan: props.nota_dinas.tembusan || "",
+    perihal: props.nota_dinas.perihal ?? "",
+    kepada: props.nota_dinas.kepada ?? "",
+    dari: props.nota_dinas.dari ?? "",
+    isi: props.nota_dinas.isi ?? "",
+    tembusan: props.nota_dinas.tembusan ?? "",
     foto: null,
-    old_foto: props.nota_dinas.foto || "",
+    old_foto: props.nota_dinas.foto ?? "",
     _method: "put",
 });
 
@@ -239,31 +244,9 @@ const handleFileUpload = (event) => {
 };
 
 const submitForm = () => {
-    const formData = new FormData();
-    formData.append("arsip_id", props.nota_dinas.arsip_id);
-    formData.append("nomor_dokumen", props.nota_dinas.nomor_dokumen);
-
-    Object.keys(form).forEach((key) => {
-        formData.append(key, form[key]);
-    });
-
-    // Debugging log
-    for (const [key, value] of formData.entries()) {
-        console.log(`${key}: ${value}`);
-    }
-
-    form.put(route("nota-dinas.update", props.nota_dinas.id), {
-        data: formData,
-        forceFormData: true,
-        headers: {
-            "X-HTTP-Method-Override": "PUT",
-        },
-        onSuccess: () => {
-            Inertia.visit(route("arsip"));
-        },
-        onError: (errors) => {
-            console.log("Form submission errors:", errors);
-        },
+    form.post(route("nota-dinas.update", props.nota_dinas.id), {
+        preserveState: true,
+        preserveScroll: true,
     });
 };
 </script>
