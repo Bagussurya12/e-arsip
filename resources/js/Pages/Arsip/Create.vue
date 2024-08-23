@@ -342,6 +342,7 @@
                                     v-model="form.kolom_lemari"
                                     autocomplete="off"
                                     placeholder="Masukan Kolom Lemari"
+                                    min="0"
                                 />
                                 <InputError
                                     class="mt-2"
