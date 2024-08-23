@@ -99,7 +99,7 @@
                             </div>
                         </div>
 
-                        <div
+ <div
                             class="mb-4 flex flex-wrap md:flex-nowrap md:space-x-6 mt-5"
                         >
                             <!-- TANGGAL -->
@@ -115,6 +115,7 @@
                                     required
                                     autocomplete="off"
                                     placeholder="Masukan tanggal"
+                                    min="0"
                                 />
                                 <InputError
                                     class="mt-2"
@@ -153,6 +154,7 @@
                                     required
                                     autocomplete="off"
                                     placeholder="Masukan Tahun"
+                                    min="0"
                                 />
                                 <InputError
                                     class="mt-2"

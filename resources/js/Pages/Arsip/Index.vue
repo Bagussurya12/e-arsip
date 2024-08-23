@@ -39,6 +39,11 @@
                             alt="Confused Image"
                             class="max-w-[400px] mt-4"
                         />
+                        <Link
+                            :href="route('arsip.create')"
+                            class="bg-Orange hover:text-white text-white font-bold py-2 px-24 text-center rounded hover:bg-Biru">
+                            Tambah Data Arsip
+                        </Link>
                     </div>
                     <div v-else>
                         <div class="flex justify-between items-center mb-10">
