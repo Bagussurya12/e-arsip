@@ -193,6 +193,133 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Nota Dinas -->
+                <div
+                    v-if="
+                        arsip.nota_dinas &&
+                        arsip.nota_dinas.arsip_id === arsip.id
+                    "
+                    class="mb-10"
+                >
+                    <div class="items-center m-20 text-center">
+                        <div class="w-full border-t border-slate-700 my-10" />
+                        <h1 class="text-2xl font-bold text-Biru">Nota Dinas</h1>
+                    </div>
+                    <div class="flex flex-col md:flex-row">
+                        <div
+                            class="w-full md:w-1/2 self-center px-4 mb-4 md:mb-0"
+                        >
+                            <iframe
+                                :src="`/storage/${arsip.nota_dinas.foto}`"
+                                width="100%"
+                                height="600px"
+                                style="border: none"
+                                class="w-full h-[600px] border-none rounded-md"
+                            ></iframe>
+                        </div>
+
+                        <!-- K -->
+                        <div class="w-full md:w-1/2 self-start px-4">
+                            <div class="flex mb-4">
+                                <strong class="w-1/3">Nomor Surat Arsip</strong>
+                                <span class="w-2/3"
+                                    >:
+                                    {{
+                                        arsip.nota_dinas.nomor_dokumen
+                                            ? arsip.nota_dinas.nomor_dokumen
+                                            : "-"
+                                    }}</span
+                                >
+                            </div>
+                            <div class="flex mb-4">
+                                <strong class="w-1/3"
+                                    >Tanggal Nota Dinas:</strong
+                                >
+                                <span class="w-2/3">
+                                    {{
+                                        arsip.nota_dinas.tanggal
+                                            ? formatDate(
+                                                  arsip.nota_dinas.tanggal
+                                              )
+                                            : "-"
+                                    }}
+                                </span>
+                            </div>
+
+                            <div class="flex mb-4">
+                                <strong class="w-1/3">Perihal</strong>
+                                <span class="w-2/3"
+                                    >:
+                                    {{
+                                        arsip.nota_dinas.perihal
+                                            ? arsip.nota_dinas.perihal
+                                            : "-"
+                                    }}</span
+                                >
+                            </div>
+                            <div class="flex mb-4">
+                                <strong class="w-1/3">Kepada</strong>
+                                <span class="w-2/3"
+                                    >:
+                                    {{
+                                        arsip.nota_dinas.kepada
+                                            ? arsip.nota_dinas.kepada
+                                            : "-"
+                                    }}</span
+                                >
+                            </div>
+                            <div class="flex mb-4">
+                                <strong class="w-1/3">Isi</strong>
+                                <span class="w-2/3"
+                                    >:
+                                    {{
+                                        arsip.nota_dinas.isi
+                                            ? arsip.nota_dinas.isi
+                                            : "-"
+                                    }}</span
+                                >
+                            </div>
+                            <div class="flex mb-4">
+                                <strong class="w-1/3">Tembusan</strong>
+                                <span class="w-2/3"
+                                    >:
+                                    {{
+                                        arsip.nota_dinas.tembusan
+                                            ? arsip.nota_dinas.tembusan
+                                            : "-"
+                                    }}</span
+                                >
+                            </div>
+
+                            <div class="flex mt-20">
+                                <a
+                                    :href="`/storage/${arsip.nota_dinas.foto}`"
+                                    target="_blank"
+                                    class="bg-Biru text-white font-bold py-2 px-4 rounded mr-4 hover:bg-Orange"
+                                >
+                                    Lihat Foto
+                                </a>
+                                <a
+                                    :href="`/storage/${arsip.nota_dinas.foto}`"
+                                    download
+                                    class="bg-Orange text-white font-bold py-2 px-4 rounded hover:bg-Biru"
+                                >
+                                    Unduh Foto
+                                </a>
+                                <Link
+                                    :href="
+                                        route('nota-dinas.edit', {
+                                            notaDinasId: arsip.nota_dinas.id,
+                                        })
+                                    "
+                                    class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded mx-5"
+                                    >Update Nota Dinas</Link
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </AuthenticatedLayout>
@@ -200,10 +327,15 @@
 
 <script setup>
 import { defineProps } from "vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, Link } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import { format } from "date-fns";
 
 const props = defineProps({
     arsip: Object,
 });
+const formatDate = (date) => {
+    return format(new Date(date), "yyyy-MM-dd");
+};
+// console.log(props.arsip.nota_dinas);
 </script>
