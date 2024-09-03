@@ -1,4 +1,5 @@
 /node_modules
+/storage/app/public
 /public
 /public/storage
 /storage/app/public
