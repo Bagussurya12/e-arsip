@@ -89,7 +89,7 @@ class NotaDinasController extends Controller
         $nota_dinas = NotaDinas::find($id); // Menggunakan '::' untuk metode statis
         return Inertia::render('NotaDinas/Edit', [
             'nota_dinas' => $nota_dinas,
-        
+
         ]);
     }
 
@@ -111,9 +111,9 @@ class NotaDinasController extends Controller
             'tembusan' => 'string|max:65535',
             'foto' => 'nullable|file|mimes:jpg,png,jpeg,pdf,mp4,mp3',
         ]);
-    
+
         $nota_dinas = NotaDinas::find($id);
-    
+
         if ($request->hasFile('foto')) {
             if ($nota_dinas->foto) {
                 Storage::delete($nota_dinas->foto);
@@ -122,11 +122,11 @@ class NotaDinasController extends Controller
         } else {
             $validated['foto'] = $nota_dinas->foto;
         }
-    
+
         // Simpan data yang sudah divalidasi ke dalam database
         $nota_dinas->update($validated);
-    
+
         return redirect()->route('arsip');
     }
-    
+
 }
