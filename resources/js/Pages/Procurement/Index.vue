@@ -205,8 +205,8 @@ const hapus = (pengdaaanItem) => {
 };
 
 // fungsi untuk menghapus data terusan
-const deletePengdaaan = (pengadaanId) => {
-    Inertia.delete(route("pengadaan.delete", { id: pengadaanId })).then(() => {
+const deletePengdaaan = (procurementId) => {
+    Inertia.delete(route("procurement.delete", { id: procurementId })).then(() => {
         Inertia.reload();
     });
     closeDelete();
