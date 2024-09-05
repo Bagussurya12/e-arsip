@@ -16,6 +16,7 @@ use App\Http\Controllers\DataTerusanController;
 use App\Http\Controllers\FormatSuratController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\NotaDinasController;
+use App\Http\Controllers\ProcurementController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -33,8 +34,8 @@ Route::get('/dashboard', function () {
 
 
 Route::middleware(['auth', 'admin'])->group(function() {
-    Route::get('/users', [UserController::class, 'index'])->name('users'); 
-    Route::get('/users/create', [UserController::class, 'create'])->name('users.create'); 
+    Route::get('/users', [UserController::class, 'index'])->name('users');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
     Route::get('/users/edit/{user}', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
@@ -49,7 +50,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth') -> group(function(){
     Route::get('/arsip', [ArsipController::class, 'index'])-> name('arsip');
-    Route::get('/arsip/create', [ArsipController::class, 'create'])->name('arsip.create'); 
+    Route::get('/arsip/create', [ArsipController::class, 'create'])->name('arsip.create');
     Route::post('/arsip/store', [ArsipController::class, 'store'])->name('arsip.store');
     Route::get('/arsip/edit/{arsipId}', [ArsipController::class, 'edit'])->name('arsip.edit');
     Route::get('/arsip/detail/{arsipId}', [ArsipController::class, 'arsip_detail'])->name('arsip.detail');
@@ -66,7 +67,7 @@ Route::middleware('auth')->group(function(){
 Route::get('/', [ArsipController::class, 'getDataArsip'])->name('get.data.arsip');
 Route::get('detail/{id}', [ArsipController::class, 'detail'])->name('detail.arsip');
 
-// KONTAK 
+// KONTAK
 // Route::middleware(['auth', 'admin'])->group(function(){
 //     Route::get('/pesan', [ContactController::class, 'index'])->name('pesan');
 //     Route::delete('/pesan/{id}', [ContactController::class, 'destroy'])->name('pesan.delete');
@@ -131,6 +132,13 @@ Route::middleware('auth')->group(function(){
     Route::get('/NotaDinas/edit/{notaDinasId}', [NotaDinasController::class, 'edit'])->name('nota-dinas.edit');
     Route::post('/NotaDinas/store', [NotaDinasController::class, 'store'])->name('nota-dinas.store');
     Route::put('/NotaDinas/{notaDinasId}', [NotaDinasController::class, 'update'])->name('nota-dinas.update');
+});
+
+Route::middleware('auth')->group(function(){
+    Route::get('/Procurement/create', [ProcurementController::class, 'create'])->name('procurement.create');
+    Route::get('/Procurement/edit/{ProcurementId}', [ProcurementController::class, 'edit'])->name('procurement.edit');
+    Route::post('/Procurement/store', [ProcurementController::class, 'store'])->name('procurement.store');
+    Route::put('/Procurement/{ProcurementId}', [ProcurementController::class, 'update'])->name('procurement.update');
 });
 
 require __DIR__.'/auth.php';
