@@ -1,19 +1,98 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Procurement;
 
+use App\Models\Procurement;
 use Illuminate\Http\Request;
 
 class ProcurementController extends Controller
 {
-    //
+    /**
+     * Display a listing of procurements.
+     */
     public function index()
     {
-        $procurement = Procurement::orderBy('id', 'DESC')->get();
+        $procurements = Procurement::orderBy('id', 'DESC')->get();
 
         return inertia('Procurement/Index', [
+            'procurements' => $procurements,
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new procurement.
+     */
+    public function create()
+    {
+        return inertia('Procurement/Create');
+    }
+
+    /**
+     * Show the form for editing the specified procurement.
+     */
+    public function edit($id)
+    {
+        $procurement = Procurement::findOrFail($id);
+
+        return inertia('Procurement/Edit', [
             'procurement' => $procurement,
         ]);
+    }
+
+    /**
+     * Store a newly created procurement in the database.
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => 'nullable|string',
+            'tanggal' => 'nullable|integer',
+            'bulan' => 'nullable|string',
+            'tahun' => 'nullable|integer',
+            'division' => 'nullable|string',
+            'status' => 'nullable|string',
+            'procurement_number' => 'nullable|string|unique:procurements,procurement_number',
+            'remarks' => 'nullable|string',
+        ]);
+
+        Procurement::create($validated);
+
+        return redirect()->route('procurement.index')
+            ->with('success_message', 'Procurement created successfully!');
+    }
+
+    /**
+     * Update the specified procurement in the database.
+     */
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'title' => 'nullable|string',
+            'tanggal' => 'nullable|integer',
+            'bulan' => 'nullable|string',
+            'tahun' => 'nullable|integer',
+            'division' => 'nullable|string',
+            'status' => 'nullable|string',
+            'procurement_number' => 'nullable|string|unique:procurements,procurement_number,' . $id,
+            'remarks' => 'nullable|string',
+        ]);
+
+        $procurement = Procurement::findOrFail($id);
+        $procurement->update($validated);
+
+        return redirect()->route('procurement.index')
+            ->with('success_message', 'Procurement updated successfully!');
+    }
+
+    /**
+     * Remove the specified procurement from the database.
+     */
+    public function destroy($id)
+    {
+        $procurement = Procurement::findOrFail($id);
+        $procurement->delete();
+
+        return redirect()->route('procurement.index')
+            ->with('success_message', 'Procurement deleted successfully!');
     }
 }
