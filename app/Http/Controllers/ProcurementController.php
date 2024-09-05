@@ -13,7 +13,6 @@ class ProcurementController extends Controller
     public function index()
     {
         $procurements = Procurement::orderBy('id', 'DESC')->get();
-
         return inertia('Procurement/Index', [
             'procurements' => $procurements,
         ]);
@@ -25,18 +24,6 @@ class ProcurementController extends Controller
     public function create()
     {
         return inertia('Procurement/Create');
-    }
-
-    /**
-     * Show the form for editing the specified procurement.
-     */
-    public function edit($id)
-    {
-        $procurement = Procurement::findOrFail($id);
-
-        return inertia('Procurement/Edit', [
-            'procurement' => $procurement,
-        ]);
     }
 
     /**
@@ -59,6 +46,18 @@ class ProcurementController extends Controller
 
         return redirect()->route('procurement.index')
             ->with('success_message', 'Procurement created successfully!');
+    }
+
+        /**
+     * Show the form for editing the specified procurement.
+     */
+    public function edit($id)
+    {
+        $procurement = Procurement::findOrFail($id);
+
+        return inertia('Procurement/Edit', [
+            'procurement' => $procurement,
+        ]);
     }
 
     /**

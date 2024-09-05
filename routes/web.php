@@ -137,9 +137,9 @@ Route::middleware('auth')->group(function(){
 Route::middleware('auth')->group(function(){
     Route::get('/Procurement', [ProcurementController::class, 'index'])->name('procurement.index');
     Route::get('/Procurement/create', [ProcurementController::class, 'create'])->name('procurement.create');
-    Route::get('/Procurement/edit/{ProcurementId}', [ProcurementController::class, 'edit'])->name('procurement.edit');
+    Route::get('/Procurement/edit/{procurementId}', [ProcurementController::class, 'edit'])->name('procurement.edit');
     Route::post('/Procurement/store', [ProcurementController::class, 'store'])->name('procurement.store');
-    Route::put('/Procurement/{ProcurementId}', [ProcurementController::class, 'update'])->name('procurement.update');
+    Route::put('/Procurement/{procurementId}', [ProcurementController::class, 'update'])->name('procurement.update');
 });
 
 require __DIR__.'/auth.php';

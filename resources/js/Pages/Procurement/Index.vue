@@ -87,7 +87,7 @@
                                                 <Link
                                                     :href="
                                                         route('procurement.edit', {
-                                                            procurement: procurementItem.id,
+                                                            procurementId: procurementItem.id,
                                                         })
                                                     "
                                                     class="bg-Biru hover:text-Orange text-white font-base py-2 px-6 rounded"
