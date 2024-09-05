@@ -98,7 +98,7 @@
                                                     @click="confirmDelete(procurementItem)"
                                                     class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
                                                 >
-                                                    Delete
+                                                    Hapus
                                                 </button>
                                             </div>
                                         </td>

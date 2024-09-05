@@ -76,11 +76,10 @@ class ProcurementController extends Controller
             'remarks' => 'nullable|string',
         ]);
 
-        $procurement = Procurement::findOrFail($id);
+        $procurement = Procurement::find($id);
         $procurement->update($validated);
 
-        return redirect()->route('procurement.index')
-            ->with('success_message', 'Procurement updated successfully!');
+        return redirect()->route('procurement.index');
     }
 
     /**
