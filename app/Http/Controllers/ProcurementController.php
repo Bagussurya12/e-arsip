@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Procurement;
+use App\Models\Arsip;
 use Illuminate\Http\Request;
 
 class ProcurementController extends Controller
@@ -92,5 +93,20 @@ class ProcurementController extends Controller
 
         return redirect()->route('procurement.index')
             ->with('success_message', 'Procurement deleted successfully!');
+    }
+
+
+    // Details
+    public function details($id)
+    {
+        $procurement = Procurement::findOrFail($id);
+        $arsip = Arsip::where('procurement_id', $id)->get();
+
+        // Urutkan bulan_options berdasarkan urutan bulan standar
+
+        return Inertia('Procurement/Details', [
+            'procurement' => $procurement,
+            'arsip' => $arsip
+        ]);
     }
 }

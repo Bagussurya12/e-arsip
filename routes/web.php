@@ -141,6 +141,7 @@ Route::middleware('auth')->group(function(){
     Route::post('/procurement/store', [ProcurementController::class, 'store'])->name('procurement.store');
     Route::put('/procurement/{procurementId}', [ProcurementController::class, 'update'])->name('procurement.update');
     Route::delete('/procurement/{procurementId}', [ProcurementController::class, 'destroy'])->name('procurement.delete');
+    Route::get('/procurement/{procurementId}', [ProcurementController::class, 'details'])->name('procurement.details');
 });
 
 require __DIR__.'/auth.php';

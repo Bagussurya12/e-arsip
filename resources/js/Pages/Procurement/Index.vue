@@ -100,6 +100,16 @@
                                                 >
                                                     Hapus
                                                 </button>
+                                                <Link
+                                                    :href="
+                                                        route('procurement.details', {
+                                                            procurementId: procurementItem.id,
+                                                        })
+                                                    "
+                                                    class="bg-Biru hover:text-Orange text-white font-base py-2 px-6 rounded"
+                                                >
+                                                    Detail
+                                                </Link>
                                             </div>
                                         </td>
                                     </tr>
