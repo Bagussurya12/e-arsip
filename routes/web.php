@@ -135,12 +135,12 @@ Route::middleware('auth')->group(function(){
 });
 
 Route::middleware('auth')->group(function(){
-    Route::get('/Procurement', [ProcurementController::class, 'index'])->name('procurement.index');
-    Route::get('/Procurement/create', [ProcurementController::class, 'create'])->name('procurement.create');
-    Route::get('/Procurement/edit/{procurementId}', [ProcurementController::class, 'edit'])->name('procurement.edit');
-    Route::post('/Procurement/store', [ProcurementController::class, 'store'])->name('procurement.store');
-    Route::put('/Procurement/{procurementId}', [ProcurementController::class, 'update'])->name('procurement.update');
-    Route::delete('/Procurement/{procurementId}', [ProcurementController::class, 'destroy'])->name('procurement.delete');
+    Route::get('/procurement', [ProcurementController::class, 'index'])->name('procurement.index');
+    Route::get('/procurement/create', [ProcurementController::class, 'create'])->name('procurement.create');
+    Route::get('/procurement/edit/{procurementId}', [ProcurementController::class, 'edit'])->name('procurement.edit');
+    Route::post('/procurement/store', [ProcurementController::class, 'store'])->name('procurement.store');
+    Route::put('/procurement/{procurementId}', [ProcurementController::class, 'update'])->name('procurement.update');
+    Route::delete('/procurement/{procurementId}', [ProcurementController::class, 'destroy'])->name('procurement.delete');
 });
 
 require __DIR__.'/auth.php';
