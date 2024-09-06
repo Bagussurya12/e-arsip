@@ -148,6 +148,10 @@ Route::middleware('auth')->group(function(){
 Route::middleware('auth')->group(function(){
     Route::get('/procurement/surat/{procurement_id}/create', [ArsipProcurementController::class, 'create'])->name('procurement.surat.create');
     Route::post('/procurement/surat/store', [ArsipProcurementController::class, 'store'])->name('procurement.surat.store');
+    Route::put('/procurement/surat/update/{arsipId}', [ArsipProcurementController::class,'update'])->name('procurement.surat.update');
+    Route::get('/procurement/surat/edit/{arsipId}', [ArsipProcurementController::class, 'edit'])->name('procurement.surat.edit');
+    Route::delete('/procurement/surat/delete/{id}', [ArsipProcurementController::class, 'destroy'])->name('procurement.surat.delete');
+
 });
 
 require __DIR__.'/auth.php';

@@ -88,7 +88,7 @@
                                                 <Link
                                                         :href="
                                                             route(
-                                                                'arsip.edit',
+                                                                'procurement.surat.edit',
                                                                 {
                                                                     arsipId:
                                                                         arsipItem.id,
@@ -223,9 +223,8 @@ const hapus = (arsipItem) => {
     deleteArsip(arsipItem.id); // Menggunakan arsipItem.id karena sudah sesuai
 };
 
-// fungsi untuk menghapus data terusan
 const deleteArsip = (arsipId) => {
-    Inertia.delete(route("procurement.delete", { id: arsipId })).then(() => {
+    Inertia.delete(route("procurement.surat.delete", { id: arsipId })).then(() => {
         Inertia.reload();
     });
     closeDelete();
