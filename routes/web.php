@@ -154,5 +154,15 @@ Route::middleware('auth')->group(function(){
 
 });
 
-require __DIR__.'/auth.php';
+use App\Http\Controllers\DokumentasiController;
 
+Route::middleware('auth')->group(function(){
+    Route::get('/dokumentasi', [DokumentasiController::class, 'index'])->name('dokumentasi.index');
+    Route::get('/dokumentasi/create', [DokumentasiController::class, 'create'])->name('dokumentasi.create');
+    Route::post('/dokumentasi/store', [DokumentasiController::class, 'store'])->name('dokumentasi.store');
+    Route::get('/dokumentasi/edit/{dokumentasi}', [DokumentasiController::class, 'edit'])->name('dokumentasi.edit');
+    Route::put('/dokumentasi/update/{dokumentasi}', [DokumentasiController::class, 'update'])->name('dokumentasi.update');
+    Route::delete('/dokumentasi/delete/{dokumentasi}', [DokumentasiController::class, 'destroy'])->name('dokumentasi.destroy');
+});
+
+require __DIR__.'/auth.php';
