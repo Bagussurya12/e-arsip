@@ -62,4 +62,9 @@ class Procurement extends Model
     {
         $this->attributes['procurement_number'] = strtoupper($value);
     }
+    public function arsip()
+    {
+        return $this->hasOne(Arsip::class, 'procurement_id'); // Menghubungkan ke foreign key procurement_id di arsip
+    }
+
 }

@@ -11,15 +11,10 @@
             <div class="max-w-full mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-Dark overflow-auto">
-                        <div class="flex justify-between items-center mb-10">
-                            <div class="flex items-center">
-                                <label class="mr-2">
-                                    Total Data Pengadaan: {{ procurement.length ?? '-' }}
-                                </label>
-                            </div>
+                        <div class="flex justify-end items-center mb-10">
                             <Link
-                                :href="route('procurement.create')"
-                                class="bg-Orange hover:text-white text-white font-bold py-2 px-4 rounded"
+                                :href="route('procurement.surat.create', { id: procurement.id })"
+                                class="bg-Biru hover:text-white text-white font-bold py-2 px-4 rounded mx-5"
                             >
                                 Tambah Surat
                             </Link>
@@ -77,29 +72,32 @@
                                             {{ index + 1 }}
                                         </td>
                                         <td class="px-6 py-4 text-center">
-                                            {{ arsipItem.title }}
+                                            {{ arsipItem.jenis_surat }}
                                         </td>
                                         <td class="px-6 py-4 text-center">
-                                            {{ arsipItem.procurement_number }} <!-- perbaikan nama properti -->
+                                            {{ arsipItem.nomor_dokumen }}
                                         </td>
                                         <td class="px-6 py-4 text-center">
                                             {{ arsipItem.tanggal }} {{ arsipItem.bulan }} {{ arsipItem.tahun }}
                                         </td>
                                         <td class="px-6 py-4 text-center">
-                                            {{ arsipItem.status }}
+                                            {{ arsipItem.asal_surat }}
                                         </td>
                                         <td class="px-6 py-4 text-center">
                                             <div class="flex justify-center space-x-2">
                                                 <Link
-                                                    :href="
-                                                        route('procurement.edit', {
-                                                            arsipItem: arsipItem.id,
-                                                        })
-                                                    "
-                                                    class="bg-Biru hover:text-Orange text-white font-base py-2 px-6 rounded"
-                                                >
-                                                    Edit
-                                                </Link>
+                                                        :href="
+                                                            route(
+                                                                'arsip.edit',
+                                                                {
+                                                                    arsipId:
+                                                                        arsipItem.id,
+                                                                }
+                                                            )
+                                                        "
+                                                        class="bg-Biru hover:text-Orange text-white font-base py-2 px-6 rounded"
+                                                        >Edit</Link
+                                                    >
                                                 <button
                                                     @click="confirmDelete(arsipItem)"
                                                     class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
@@ -107,15 +105,18 @@
                                                     Hapus
                                                 </button>
                                                 <Link
-                                                    :href="
-                                                        route('procurement.details', {
-                                                            arsipId: arsipItem.id,
-                                                        })
-                                                    "
-                                                    class="bg-Biru hover:text-Orange text-white font-base py-2 px-6 rounded"
-                                                >
-                                                    Detail
-                                                </Link>
+                                                        :href="
+                                                            route(
+                                                                'arsip.detail',
+                                                                {
+                                                                    arsipId:
+                                                                        arsipItem.id,
+                                                                }
+                                                            )
+                                                        "
+                                                        class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
+                                                        >Detail</Link
+                                                    >
                                             </div>
                                         </td>
                                     </tr>

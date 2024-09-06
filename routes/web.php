@@ -17,6 +17,7 @@ use App\Http\Controllers\FormatSuratController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\NotaDinasController;
 use App\Http\Controllers\ProcurementController;
+use App\Http\Controllers\ArsipProcurementController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -142,6 +143,11 @@ Route::middleware('auth')->group(function(){
     Route::put('/procurement/{procurementId}', [ProcurementController::class, 'update'])->name('procurement.update');
     Route::delete('/procurement/{procurementId}', [ProcurementController::class, 'destroy'])->name('procurement.delete');
     Route::get('/procurement/{procurementId}', [ProcurementController::class, 'details'])->name('procurement.details');
+});
+
+Route::middleware('auth')->group(function(){
+    Route::get('/procurement/surat/{procurement_id}/create', [ArsipProcurementController::class, 'create'])->name('procurement.surat.create');
+    Route::post('/procurement/surat/store', [ArsipProcurementController::class, 'store'])->name('procurement.surat.store');
 });
 
 require __DIR__.'/auth.php';
