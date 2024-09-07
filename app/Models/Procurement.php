@@ -66,5 +66,8 @@ class Procurement extends Model
     {
         return $this->hasOne(Arsip::class, 'procurement_id'); // Menghubungkan ke foreign key procurement_id di arsip
     }
-
+    public function dokumentasi()
+    {
+        return $this->hasOne(Dokumentasi::class, 'procurement_id');
+    }
 }

@@ -19,7 +19,7 @@
                                 Tambah Surat
                             </Link>
                             <Link
-                                :href="route('procurement.create')"
+                                :href="route('procurement.dokumentasi.create', { id: procurement.id })"
                                 class="bg-Orange hover:text-white text-white font-bold py-2 px-4 rounded"
                             >
                                 Tambah Dokumentasi

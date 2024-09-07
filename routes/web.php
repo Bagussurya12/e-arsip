@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+use App\Http\Controllers\DokumentasiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArsipController;
 use App\Http\Controllers\ContactController;
@@ -154,15 +155,13 @@ Route::middleware('auth')->group(function(){
 
 });
 
-use App\Http\Controllers\DokumentasiController;
 
 Route::middleware('auth')->group(function(){
-    Route::get('/dokumentasi', [DokumentasiController::class, 'index'])->name('dokumentasi.index');
-    Route::get('/dokumentasi/create', [DokumentasiController::class, 'create'])->name('dokumentasi.create');
-    Route::post('/dokumentasi/store', [DokumentasiController::class, 'store'])->name('dokumentasi.store');
-    Route::get('/dokumentasi/edit/{dokumentasi}', [DokumentasiController::class, 'edit'])->name('dokumentasi.edit');
-    Route::put('/dokumentasi/update/{dokumentasi}', [DokumentasiController::class, 'update'])->name('dokumentasi.update');
-    Route::delete('/dokumentasi/delete/{dokumentasi}', [DokumentasiController::class, 'destroy'])->name('dokumentasi.destroy');
+    Route::get('/procurement/dokumentasi/{procurementId}/create', [DokumentasiController::class, 'create'])->name('procurement.dokumentasi.create');
+    Route::post('/procurement/dokumentasi/store', [DokumentasiController::class, 'store'])->name('procurement.dokumentasi.store');
+    Route::get('/procurement/dokumentasi/edit/{dokumentasi}', [DokumentasiController::class, 'edit'])->name('procurement.dokumentasi.edit');
+    Route::put('/procurement/dokumentasi/update/{dokumentasi}', [DokumentasiController::class, 'update'])->name('procurement.dokumentasi.update');
+    Route::delete('/procurement/dokumentasi/delete/{dokumentasi}', [DokumentasiController::class, 'destroy'])->name('procurement.dokumentasi.destroy');
 });
 
 require __DIR__.'/auth.php';

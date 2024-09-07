@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Dokumentasi;
 use App\Models\Procurement;
+use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class DokumentasiController extends Controller
 {
@@ -26,12 +29,13 @@ class DokumentasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request, $id)
     {
-        // Ambil data procurement untuk digunakan di form
-        $procurements = Procurement::all();
+        $procurement_id = (int) $request->procurement_id; // Cast to integer
+        return Inertia::render('Procurement/Dokumentasi/Create', [
+            'procurement_id' => $id,
 
-        return view('dokumentasi.create', compact('procurements'));
+        ]);
     }
 
     /**
@@ -43,12 +47,13 @@ class DokumentasiController extends Controller
     public function store(Request $request)
     {
         // Validasi input
+        // dd($request->all());
         $validated = $request->validate([
-            'procurement_id' => 'required|exists:procurements,id',
-            'title' => 'nullable|string|max:255',
-            'tanggal' => 'nullable|date',
-            'deskripsi' => 'nullable|string',
-            'foto' => 'nullable|file|mimes:jpg,png,jpeg|max:2048',
+            'procurement_id' => 'exists:procurements,id',
+            'title' => 'string|max:255',
+            'tanggal' => 'date',
+            'deskripsi' => 'string',
+            'foto' => 'file|mimes:jpg,png,jpeg|max:2048',
         ]);
 
         // Menyimpan file foto jika ada
@@ -60,9 +65,10 @@ class DokumentasiController extends Controller
         $validated['user_id'] = auth()->user()->id;
 
         // Buat dokumentasi baru
-        Dokumentasi::create($validated);
+         Dokumentasi::create($validated);
+        return redirect()->route('procurement.details', ['procurementId' => $validated['procurement_id']])
+        ->with('success', 'Dokumentasi berhasil disimpan!');
 
-        return redirect()->route('dokumentasi.index')->with('success', 'Dokumentasi berhasil ditambahkan.');
     }
 
     /**

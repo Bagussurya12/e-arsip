@@ -28,13 +28,15 @@ class Dokumentasi extends Model
         'tanggal',
         'deskripsi',
         'foto',
+        'created_at',
+        'updated_at'
     ];
 
     /**
      * Relasi ke model Procurement.
      * Dokumentasi terkait dengan satu procurement.
      */
-    public function procurement()
+    public function procurements()
     {
         return $this->belongsTo(Procurement::class);
     }

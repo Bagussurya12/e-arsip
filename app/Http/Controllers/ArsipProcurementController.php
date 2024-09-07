@@ -25,7 +25,7 @@ class ArsipProcurementController extends Controller
         ]);
     }
 
-    public function store(Request $request, )
+    public function store(Request $request)
     {
         $validated = $request->validate([
             'procurement_id' => 'integer|exists:procurements,id',
