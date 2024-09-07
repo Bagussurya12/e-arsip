@@ -81,7 +81,7 @@ class ProcurementController extends Controller
             'tahun' => 'nullable|integer',
             'division' => 'nullable|string',
             'status' => 'nullable|string',
-            'procurement_number' => 'nullable|string|unique:procurements,procurement_number',
+            'procurement_number' => 'string',
             'remarks' => 'nullable|string',
         ]);
 
@@ -90,6 +90,7 @@ class ProcurementController extends Controller
         return redirect()->route('procurement.index')
             ->with('success_message', 'Procurement created successfully!');
     }
+
 
         /**
      * Show the form for editing the specified procurement.

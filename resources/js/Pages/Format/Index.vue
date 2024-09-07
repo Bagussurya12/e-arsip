@@ -27,7 +27,6 @@
                             />
                         </div>
                     </div>
-                    <div class="w-full border-t border-slate-700"></div>
                     <div class="p-6 text-Dark overflow-auto">
                         <div class="flex justify-between items-center mb-10">
                             <Link

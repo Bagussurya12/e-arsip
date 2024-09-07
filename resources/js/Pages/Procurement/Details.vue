@@ -3,9 +3,29 @@
 
     <AuthenticatedLayout>
         <template #header>
-            <h3 class="font-semibold text-lg text-Dark leading-tight">
-                Detail Data Pengadaan: {{ procurement.title }} |  {{ procurement.procurement_number }}
+            <h3 class="font-semibold text-lg text-Dark leading-tight mt-5 text-center mb-5">
+                Detail Data Pengadaan
             </h3>
+            <div class="flex mb-4">
+                <strong class="w-1/3">Judul Pengadaan</strong>
+                    <span class="w-2/3">: {{ procurement.title }}</span>
+             </div>
+            <div class="flex mb-4">
+                <strong class="w-1/3">Nomor Pengadaan</strong>
+                    <span class="w-2/3">: {{ procurement.procurement_number }}</span>
+             </div>
+            <div class="flex mb-4">
+                <strong class="w-1/3">Status Pengadaan</strong>
+                    <span class="w-2/3">: {{ procurement.status }}</span>
+             </div>
+            <div class="flex mb-4">
+                <strong class="w-1/3">Tanggal Pengadaan</strong>
+                    <span class="w-2/3">: {{ procurement.tanggal }} {{ procurement.bulan }} {{ procurement.tahun }}</span>
+             </div>
+             <div class="flex mb-4">
+                <strong class="w-1/3">Deskripsi Pengadaan</strong>
+                    <span class="w-2/3">: {{ procurement.remarks }}</span>
+             </div>
         </template>
         <div class="py-12">
             <div class="max-w-full mx-auto sm:px-6 lg:px-8">

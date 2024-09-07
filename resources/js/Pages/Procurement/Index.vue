@@ -34,7 +34,7 @@
                         />
                         <Link
                             :href="route('procurement.create')"
-                            class="bg-Orange hover:text-white text-white font-bold py-2 px-24 text-center rounded hover:bg-Biru">
+                            class="bg-Biru  hover:text-white text-white font-bold py-2 px-24 text-center rounded hover:bg-Orange">
                             Tambah Data Pengadaan
                         </Link>
                     </div>

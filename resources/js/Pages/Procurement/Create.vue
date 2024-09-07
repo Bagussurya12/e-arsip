@@ -175,6 +175,7 @@ import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import SelectBox from "@/Components/SelectBox.vue";
 import TextInput from "@/Components/TextInput.vue";
+import { Transition } from "vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 const form = useForm({
