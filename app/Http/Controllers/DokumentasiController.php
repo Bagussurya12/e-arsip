@@ -11,18 +11,6 @@ use Carbon\Carbon;
 
 class DokumentasiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        // Mengambil semua dokumentasi
-        $dokumentasi = Dokumentasi::with('procurement', 'user')->get();
-
-        return view('dokumentasi.index', compact('dokumentasi'));
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -77,14 +65,13 @@ class DokumentasiController extends Controller
      * @param  \App\Models\Dokumentasi  $dokumentasi
      * @return \Illuminate\Http\Response
      */
-    public function edit(Dokumentasi $dokumentasi)
+    public function edit($id)
     {
-        // Ambil data procurement untuk digunakan di form
-        $procurements = Procurement::all();
-
-        return view('dokumentasi.edit', compact('dokumentasi', 'procurements'));
+        $dokumentasi = Dokumentasi::find($id);
+        return Inertia::render('Procurement/Dokumentasi/Edit', [
+            'dokumentasi' => $dokumentasi
+        ]);
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -96,7 +83,6 @@ class DokumentasiController extends Controller
     {
         // Validasi input
         $validated = $request->validate([
-            'procurement_id' => 'required|exists:procurements,id',
             'title' => 'nullable|string|max:255',
             'tanggal' => 'nullable|date',
             'deskripsi' => 'nullable|string',
@@ -106,15 +92,18 @@ class DokumentasiController extends Controller
         // Jika ada file foto yang diunggah, simpan file baru dan hapus file lama
         if ($request->hasFile('foto')) {
             if ($dokumentasi->foto) {
-                \Storage::delete($dokumentasi->foto); // Hapus file lama
+                Storage::delete($dokumentasi->foto); // Hapus file lama
             }
             $validated['foto'] = $request->file('foto')->store('dokumentasi-foto');
+        }else{
+            $validated['foto'] = $dokumentasi -> foto;
         }
+        $validated['user_id'] = auth()->user()->id;
 
+        $procurement_id = $dokumentasi -> procurement_id;
         // Update data dokumentasi
         $dokumentasi->update($validated);
-
-        return redirect()->route('dokumentasi.index')->with('success', 'Dokumentasi berhasil diperbarui.');
+        return redirect()->route('procurement.details', ['procurementId' => $procurement_id]);
     }
 
     /**
@@ -123,16 +112,23 @@ class DokumentasiController extends Controller
      * @param  \App\Models\Dokumentasi  $dokumentasi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Dokumentasi $dokumentasi)
+    public function destroy($id)
     {
+        $dokumentasi = Dokumentasi::findOrFail($id);
         // Hapus foto jika ada
         if ($dokumentasi->foto) {
-            \Storage::delete($dokumentasi->foto);
+            Storage::delete($dokumentasi->foto);
         }
-
+        $procurementId = $dokumentasi -> procurement_id;
         // Hapus data dokumentasi
         $dokumentasi->delete();
 
-        return redirect()->route('dokumentasi.index')->with('success', 'Dokumentasi berhasil dihapus.');
+        return redirect()->route('procurement.details', ['procurementId' => $procurementId]);
+    }
+    public function detail($id){
+        $dokumentasi = Dokumentasi::findOrFail($id);
+        return Inertia::render('Procurement/Dokumentasi/Detail', [
+            'dokumentasi' => $dokumentasi
+        ]);
     }
 }

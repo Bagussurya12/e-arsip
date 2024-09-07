@@ -158,10 +158,11 @@ Route::middleware('auth')->group(function(){
 
 Route::middleware('auth')->group(function(){
     Route::get('/procurement/dokumentasi/{procurementId}/create', [DokumentasiController::class, 'create'])->name('procurement.dokumentasi.create');
+    Route::get('/procurement/dokumentasi/detail/{dokumentasiId}', [DokumentasiController::class, 'detail'])->name('procurement.dokumentasi.detail');
     Route::post('/procurement/dokumentasi/store', [DokumentasiController::class, 'store'])->name('procurement.dokumentasi.store');
     Route::get('/procurement/dokumentasi/edit/{dokumentasiId}', [DokumentasiController::class, 'edit'])->name('procurement.dokumentasi.edit');
     Route::put('/procurement/dokumentasi/update/{dokumentasi}', [DokumentasiController::class, 'update'])->name('procurement.dokumentasi.update');
-    Route::delete('/procurement/dokumentasi/delete/{dokumentasi}', [DokumentasiController::class, 'destroy'])->name('procurement.dokumentasi.destroy');
+    Route::delete('/procurement/dokumentasi/delete/{dokumentasiId}', [DokumentasiController::class, 'destroy'])->name('procurement.dokumentasi.delete');
 });
 
 require __DIR__.'/auth.php';

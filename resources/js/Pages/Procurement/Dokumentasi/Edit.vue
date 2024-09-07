@@ -1,9 +1,9 @@
 <template>
-    <Head title="Tambah Dokumentasi" />
+    <Head title="Edit Dokumentasi" />
     <AuthenticatedLayout class="w-full">
         <template #header>
             <h2 class="font-semibold text-lg text-gray-800 leading-tight">
-                Tambah Dokumentasi
+                Edit Dokumentasi
             </h2>
         </template>
 
@@ -12,10 +12,10 @@
                 <section class="bg-white py-10">
                     <header class="m-6 space-y-6">
                         <h2 class="text-lg font-medium text-gray-900">
-                            Tambah Dokumentasi Baru
+                            Edit Dokumentasi
                         </h2>
                         <p class="mt-1 text-sm text-gray-600">
-                            Tambah dokumentasi untuk mencatat setiap proses dengan baik ✨
+                            Edit dokumentasi untuk memperbarui data proses ✨
                         </p>
                         <div class="w-full border-t border-slate-700 my-10"></div>
                     </header>
@@ -29,7 +29,6 @@
                                 type="text"
                                 class="mt-1 block w-full"
                                 v-model="form.title"
-                                required
                                 placeholder="Masukkan judul dokumentasi"
                             />
                             <InputError class="mt-2" :message="form.errors.title" />
@@ -43,7 +42,6 @@
                                 type="date"
                                 class="mt-1 block w-full"
                                 v-model="form.tanggal"
-                                required
                             />
                             <InputError class="mt-2" :message="form.errors.tanggal" />
                         </div>
@@ -71,6 +69,18 @@
                                 name="foto"
                             />
                             <InputError class="mt-2" :message="form.errors.foto" />
+                            <div v-if="form.old_media">
+                                     <a
+                                        :href="`/storage/${form.old_media}`"
+                                        target="_blank"
+                                        class="text-blue-600 hover:underline"
+                                        >
+                                            <p class="mt-2 text-sm text-gray-600">
+                                            File Lama: {{ form.old_media }}
+                                            </p>
+                                    </a
+                                    >
+                                </div>
                         </div>
 
                         <!-- Submit Button -->
@@ -79,7 +89,7 @@
                                 :disabled="form.processing"
                                 class="w-full justify-center"
                             >
-                                Simpan Dokumentasi
+                                Perbarui Dokumentasi
                             </PrimaryButton>
                             <Transition
                                 enter-from-class="opacity-0"
@@ -87,7 +97,7 @@
                                 class="transition ease-in-out"
                             >
                                 <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">
-                                    Data Berhasil Disimpan!
+                                    Data Berhasil Diperbarui!
                                 </p>
                             </Transition>
                         </div>
@@ -108,17 +118,17 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { ref } from "vue";
 
 const props = defineProps({
-    procurement_id: {
-        type: Number,
-        required: true,
-    },
+    dokumentasi: Object,
 });
+
 const form = useForm({
-    procurement_id: props.procurement_id,
-    title: "",
-    tanggal:"",
-    deskripsi:"",
+    procurement_id: props.dokumentasi.procurement_id,
+    title: props.dokumentasi.title || "",
+    tanggal: props.dokumentasi.tanggal || "",
+    deskripsi: props.dokumentasi.deskripsi || "",
     foto: null,
+    old_media: props.dokumentasi.foto || "",
+    _method: "put",
 });
 
 const handleFileUpload = (event) => {
@@ -126,12 +136,11 @@ const handleFileUpload = (event) => {
 };
 
 const submitForm = () => {
-    form.post(route("procurement.dokumentasi.store"), {
+    form.post(route("procurement.dokumentasi.update", { dokumentasi: props.dokumentasi.id }), {
         forceFormData: true,
         onSuccess: () => {
             form.reset();
         },
     });
 };
-
 </script>

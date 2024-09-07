@@ -93,12 +93,12 @@
                                                         class="bg-Biru hover:text-Orange text-white font-base py-2 px-6 rounded"
                                                         >Edit</Link
                                                     >
-                                                <button
-                                                    @click="confirmDelete(arsipItem)"
-                                                    class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
-                                                >
-                                                    Hapus
-                                                </button>
+                                                    <button
+                                                        @click="confirmDelete(arsipItem, 'surat')"
+                                                        class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
+                                                    >
+                                                        Hapus
+                                                    </button>
                                                 <Link
                                                         :href="
                                                             route(
@@ -205,18 +205,18 @@
                                                         class="bg-Biru hover:text-Orange text-white font-base py-2 px-6 rounded"
                                                         >Edit</Link
                                                     >
-                                                <button
-                                                    @click="confirmDelete(dokumentasiItem)"
-                                                    class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
-                                                >
-                                                    Hapus
-                                                </button>
+                                                    <button
+                                                        @click="confirmDelete(dokumentasiItem, 'dokumentasi')"
+                                                        class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
+                                                    >
+                                                        Hapus
+                                                    </button>
                                                 <Link
                                                         :href="
                                                             route(
-                                                                'arsip.detail',
+                                                                'procurement.dokumentasi.detail',
                                                                 {
-                                                                    arsipId:
+                                                                    dokumentasiId:
                                                                         dokumentasiItem.id,
                                                                 }
                                                             )
@@ -321,20 +321,30 @@ const props = defineProps({
 // ref untuk modal konfirmasi hapus
 let dialogDelete = ref(false);
 let itemDelete = ref(null);
+let deleteType = ref('');
 
 // fungsi untuk menampilkan modal konfirmasi hapus
-const confirmDelete = (arsipItem) => {
-    itemDelete.value = arsipItem;
+const confirmDelete = (item, type) => {
+    itemDelete.value = item;
+    deleteType.value = type; // Simpan tipe data yang akan dihapus (surat/dokumentasi)
     dialogDelete.value = true;
 };
-const hapus = (arsipItem) => {
-    deleteArsip(arsipItem.id); // Menggunakan arsipItem.id karena sudah sesuai
+
+const hapus = () => {
+    deleteItem(itemDelete.value.id, deleteType.value); // Panggil fungsi universal dengan id item dan tipe data
 };
 
-const deleteArsip = (arsipId) => {
-    Inertia.delete(route("procurement.surat.delete", { id: arsipId })).then(() => {
-        Inertia.reload();
-    });
+const deleteItem = (itemId, type) => {
+    // Tentukan rute berdasarkan tipe data yang dihapus
+    if (type === 'surat') {
+        Inertia.delete(route("procurement.surat.delete", { id: itemId })).then(() => {
+            Inertia.reload();
+        });
+    } else if (type === 'dokumentasi') {
+        Inertia.delete(route("procurement.dokumentasi.delete", { id: itemId })).then(() => {
+            Inertia.reload();
+        });
+    }
     closeDelete();
 };
 
@@ -342,5 +352,6 @@ const deleteArsip = (arsipId) => {
 const closeDelete = () => {
     dialogDelete.value = false;
     itemDelete.value = null;
+    deleteType.value = ''; // Reset tipe data
 };
 </script>
