@@ -18,14 +18,9 @@
                             >
                                 Tambah Surat
                             </Link>
-                            <Link
-                                :href="route('procurement.dokumentasi.create', { id: procurement.id })"
-                                class="bg-Orange hover:text-white text-white font-bold py-2 px-4 rounded"
-                            >
-                                Tambah Dokumentasi
-                            </Link>
-                        </div>
 
+                        </div>
+                        <!-- Surat -->
                         <div class="overflow-x-auto">
                             <table class="w-full">
                                 <thead class="mb-5">
@@ -123,6 +118,118 @@
                                 </tbody>
                             </table>
                         </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dokumentasi -->
+            <div class="max-w-full mx-auto sm:px-6 lg:px-8 py-10">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-Dark overflow-auto">
+                        <div class="flex justify-end items-center mb-10">
+                            <Link
+                                :href="route('procurement.dokumentasi.create', { id: procurement.id })"
+                                class="bg-Orange hover:text-white text-white font-bold py-2 px-4 rounded"
+                            >
+                                Tambah Dokumentasi
+                            </Link>
+                        </div>
+                         <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="mb-5">
+                                    <tr class="border-b-2">
+                                        <th
+                                            class="px-2 py-3 text-center text-lg font-medium text-Dark"
+                                        >
+                                            No
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                        >
+                                            Nama Dokumentasi
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                        >
+                                            Tanggal
+                                        </th>
+                                        <th
+                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                        >
+                                        Media
+                                        </th>
+
+                                        <th
+                                            class="px-6 py-3 text-center text-lg font-medium text-Dark"
+                                        >
+                                            #
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr
+                                        v-for="(dokumentasiItem, index) in dokumentasi"
+                                        :key="dokumentasiItem.id"
+                                    >
+                                        <td class="px-2 py-4 text-center">
+                                            {{ index + 1 }}
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            {{ dokumentasiItem.title }}
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            {{ dokumentasiItem.tanggal }}
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            <a
+                                                    :href="`/storage/${dokumentasiItem.foto}`"
+                                                    target="_blank"
+                                                    class="text-blue-600 hover:underline"
+                                                    >Lihat Media</a
+                                                >
+                                        </td>
+                                        <td class="px-6 py-4 text-center">
+                                            <div class="flex justify-center space-x-2">
+                                                <Link
+                                                        :href="
+                                                            route(
+                                                                'procurement.dokumentasi.edit',
+                                                                {
+                                                                    dokumentasiId:
+                                                                        dokumentasiItem.id,
+                                                                }
+                                                            )
+                                                        "
+                                                        class="bg-Biru hover:text-Orange text-white font-base py-2 px-6 rounded"
+                                                        >Edit</Link
+                                                    >
+                                                <button
+                                                    @click="confirmDelete(dokumentasiItem)"
+                                                    class="bg-Orange hover:text-Biru text-white font-base py-2 px-4 rounded"
+                                                >
+                                                    Hapus
+                                                </button>
+                                                <Link
+                                                        :href="
+                                                            route(
+                                                                'arsip.detail',
+                                                                {
+                                                                    arsipId:
+                                                                        dokumentasiItem.id,
+                                                                }
+                                                            )
+                                                        "
+                                                        class="bg-Biru hover:text-Orange text-white font-base py-2 px-4 rounded"
+                                                        >Detail</Link
+                                                    >
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -207,6 +314,7 @@ import { Inertia } from "@inertiajs/inertia";
 const props = defineProps({
     procurement: Object,
     arsip: Object,
+    dokumentasi: Object,
 
 });
 
