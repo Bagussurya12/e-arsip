@@ -19,45 +19,45 @@ class ArsipController extends Controller
         // Membuat query dasar untuk model Arsip dan menyertakan relasi 'lokasiSimpan'
         $query = Arsip::with(['lokasiSimpan', 'notaDinas']);
 
-        
+
         // Memeriksa apakah ada parameter pencarian dan memastikan nilainya tidak kosong
         if ($request->has('naskahDinas') && !empty($request->input('naskahDinas'))) {
             $query->where('jenis_surat', 'like', '%' . $request->input('naskahDinas') . '%');
         }
-    
+
         if ($request->has('asalSurat') && !empty($request->input('asalSurat'))) {
             $query->where('asal_surat', 'like', '%' . $request->input('asalSurat') . '%');
         }
-    
+
         if ($request->has('uraianInformasi') && !empty($request->input('uraianInformasi'))) {
             $query->where('uraian_informasi', 'like', '%' . $request->input('uraianInformasi') . '%');
         }
-    
+
         if ($request->has('tanggal') && !empty($request->input('tanggal'))) {
             $query->where('tanggal', 'like', '%' . $request->input('tanggal') . '%');
         }
-    
+
         if ($request->has('bulan') && !empty($request->input('bulan'))) {
             $query->where('bulan', 'like', '%' . $request->input('bulan') . '%');
         }
-    
+
         if ($request->has('tahun') && !empty($request->input('tahun'))) {
             $query->where('tahun', 'like', '%' . $request->input('tahun') . '%');
         }
-        
+
         // Mengurutkan hasil berdasarkan kolom 'created_at' dari yang terbaru ke yang terlama
         $query->orderBy('created_at', 'desc');
-    
+
         // Mengambil hasil pencarian dengan paginasi, 20 item per halaman
         $arsip = $query->paginate(20);
-    
+
         // Mengirimkan hasil pencarian dan filter yang diterapkan ke tampilan frontend dengan Inertia.js
         return Inertia::render('Arsip/Index', [
             'arsip' => $arsip,
             'filters' => $request->all(), // Mengirimkan filter yang diterapkan ke frontend
         ]);
     }
-    
+
 
     public function store(Request $request)
     {
@@ -84,16 +84,18 @@ class ArsipController extends Controller
             'keterangan' => 'nullable|string|max:255',
             'foto_kegiatan' => 'nullable|file|mimes:jpg,png,jpeg,pdf,mp4,mp3|max:2048',
         ]);
-    
+
         // Menyimpan media jika ada
         if ($request->file('media')) {
             $validated['media'] = $request->file('media')->store('assets-arsip');
         }
-    
+
+        $validated['user_id'] = auth()->user()->id;
+
         $arsip = Arsip::create($validated);
-    
+
         $jenis_surat = $request->input('jenis_surat');
-    
+
         // Menangani surat undangan secara terpisah
         if ($jenis_surat === 'Surat Undangan') {
             $undangan = new Undangan();
@@ -106,16 +108,16 @@ class ArsipController extends Controller
             }
             $undangan->save();
         }
-    
+
         LokasiSimpan::create([
             'arsip_id' => $arsip->id,
             'kolom_lemari' => $request->kolom_lemari,
             'kotak' => $request->kotak
         ]);
-    
+
         return redirect()->route('arsip')->with('success', 'Arsip berhasil ditambahkan.');
     }
-    
+
     public function getDataArsip(Request $request)
     {
         $query = Arsip::with('lokasiSimpan');
@@ -149,10 +151,11 @@ class ArsipController extends Controller
 
     public function detail($id)
     {
-        $arsip = Arsip::with('lokasiSimpan', 'notaDinas')->find($id);
+        $arsip = Arsip::with('lokasiSimpan', 'notaDinas', 'user')->find($id);
 
         return Inertia::render('detail', [
-            'arsip' => $arsip
+            'arsip' => $arsip,
+            'user_name' => $arsip -> user -> name
         ]);
     }
 
@@ -173,9 +176,10 @@ class ArsipController extends Controller
     }
     public function arsip_detail($id)
     {
-        $arsip = Arsip::with('lokasiSimpan', 'undangan', 'notaDinas')->find($id);
+        $arsip = Arsip::with('lokasiSimpan', 'undangan', 'notaDinas', 'user')->find($id);
         return Inertia::render('Arsip/Detail', [
-            'arsip' => $arsip
+            'arsip' => $arsip,
+            'user_name' => $arsip -> user -> name
         ]);
     }
 
@@ -215,6 +219,8 @@ class ArsipController extends Controller
         } else {
             $validated['media'] = $arsip->media;
         }
+
+        $validated['user_id'] = auth()->user()->id;
 
         $arsip->update($validated);
 

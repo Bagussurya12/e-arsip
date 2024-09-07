@@ -93,6 +93,10 @@
                                 >: {{ arsip.lokasi_simpan.kotak }}</span
                             >
                         </div>
+                        <div class="flex mb-4">
+                            <strong class="w-1/3">Dibuat/Diubah Oleh:</strong>
+                            <span class="w-2/3">: {{ user_name }} | {{ formatDate(arsip.updated_at) }}</span>
+                        </div>
                         <div class="flex mt-20">
                             <a
                                 :href="`/storage/${arsip.media}`"
@@ -333,6 +337,7 @@ import { format } from "date-fns";
 
 const props = defineProps({
     arsip: Object,
+    user_name : String
 });
 const formatDate = (date) => {
     return format(new Date(date), "yyyy-MM-dd");

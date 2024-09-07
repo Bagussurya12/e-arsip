@@ -12,13 +12,54 @@ class ProcurementController extends Controller
     /**
      * Display a listing of procurements.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $procurements = Procurement::orderBy('id', 'DESC')->get();
+        // Inisialisasi query dari model Procurement
+        $query = Procurement::query();
+
+        // Filter berdasarkan 'judul'
+        if ($request->has('judul') && !empty($request->input('judul'))) {
+            $query->where('title', 'like', '%' . $request->input('judul') . '%');
+        }
+
+        // Filter berdasarkan 'status'
+        if ($request->has('status') && !empty($request->input('status'))) {
+            $query->where('status', 'like', '%' . $request->input('status') . '%');
+        }
+
+        // Filter berdasarkan 'catatan'
+        if ($request->has('catatan') && !empty($request->input('catatan'))) {
+            $query->where('remarks', 'like', '%' . $request->input('catatan') . '%');
+        }
+
+        // Filter berdasarkan 'tanggal'
+        if ($request->has('tanggal') && !empty($request->input('tanggal'))) {
+            $query->where('tanggal', 'like', '%' . $request->input('tanggal') . '%');
+        }
+
+        // Filter berdasarkan 'bulan'
+        if ($request->has('bulan') && !empty($request->input('bulan'))) {
+            $query->where('bulan', 'like', '%' . $request->input('bulan') . '%');
+        }
+
+        // Filter berdasarkan 'tahun'
+        if ($request->has('tahun') && !empty($request->input('tahun'))) {
+            $query->where('tahun', 'like', '%' . $request->input('tahun') . '%');
+        }
+
+        // Urutkan berdasarkan 'created_at' secara descending
+        $query->orderBy('created_at', 'desc');
+
+        // Paginate hasilnya
+        $procurements = $query->paginate(20);
+
+        // Kembalikan ke view dengan hasil dan filter yang diterapkan
         return inertia('Procurement/Index', [
             'procurements' => $procurements,
+            'filters' => $request->all(),
         ]);
     }
+
 
     /**
      * Show the form for creating a new procurement.
