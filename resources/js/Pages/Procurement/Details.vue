@@ -12,6 +12,9 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-Dark overflow-auto">
                         <div class="flex justify-end items-center mb-10">
+                            <div class="flex-1 text-center">
+                                <h4 class="font-bold text-xl">Surat</h4>
+                            </div>
                             <Link
                                 :href="route('procurement.surat.create', { id: procurement.id })"
                                 class="bg-Biru hover:text-white text-white font-bold py-2 px-4 rounded mx-5"
@@ -128,6 +131,9 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-Dark overflow-auto">
                         <div class="flex justify-end items-center mb-10">
+                            <div class="flex-1 text-center">
+                                <h4 class="font-bold text-xl">Dokumentasi</h4>
+                            </div>
                             <Link
                                 :href="route('procurement.dokumentasi.create', { id: procurement.id })"
                                 class="bg-Orange hover:text-white text-white font-bold py-2 px-4 rounded"

@@ -125,10 +125,13 @@ class DokumentasiController extends Controller
 
         return redirect()->route('procurement.details', ['procurementId' => $procurementId]);
     }
-    public function detail($id){
-        $dokumentasi = Dokumentasi::findOrFail($id);
+// app/Http/Controllers/DokumentasiController.php
+    public function detail($id)
+    {
+        $dokumentasi = Dokumentasi::with('user')->findOrFail($id);
         return Inertia::render('Procurement/Dokumentasi/Detail', [
-            'dokumentasi' => $dokumentasi
+                'dokumentasi' => $dokumentasi,
+                'user_name' => $dokumentasi->user->name  // Pastikan 'name' adalah kolom di tabel users
         ]);
     }
 }
