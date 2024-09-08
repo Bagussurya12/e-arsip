@@ -16,8 +16,8 @@
                 <div
                     class="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center space-y-2 text-center"
                 >
-                    <h1 class="text-xl text-white font-bold mx-10">
-                        E-Arsip Dispusip DKI Jakarta
+                    <h1 class="text-4xl text-white font-bold mx-10">
+                        Cari Arsip Ku
                     </h1>
                     <h3
                         ref="typewriterText"

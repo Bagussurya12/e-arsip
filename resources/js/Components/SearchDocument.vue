@@ -158,6 +158,7 @@ export default {
                 "Memo",
                 "Surat Keterangan Melaksanakan Tugas",
                 "Rekomendasi",
+                "Lain-lain",
             ],
             optionBulan: [
                 "Januari",

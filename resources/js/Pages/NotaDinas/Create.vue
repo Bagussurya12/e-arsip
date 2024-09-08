@@ -12,8 +12,10 @@
                 <section class="bg-white py-10">
                     <header class="m-6 space-y-6">
                         <h2 class="text-lg font-medium text-gray-900">
-                            Tambah Data Nota Dinas
+                            Tambah Data Nota Dinas: <br />
                         </h2>
+                        <p>Jenis Surat: {{ arsip.jenis_surat }}</p>
+                        <p>Jenis Surat: {{ arsip.nomor_dokumen }}</p>
                         <p class="mt-1 text-sm text-gray-600">
                             Tambah Data Nota Dinas Untuk Menyimpan Data Nota
                             Dinas Agar Selalu Konsisten ✨
