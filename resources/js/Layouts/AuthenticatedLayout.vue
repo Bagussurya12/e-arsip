@@ -42,6 +42,11 @@ const menu = () => {
                 href: route("statistic.page"),
                 current: route().current("statistic.page"),
             },
+            {
+                name: "Pengadaan",
+                href: route("procurement.index"),
+                current: route().current("procurement.index"),
+            },
         ];
     } else {
         return [
@@ -64,6 +69,11 @@ const menu = () => {
                 name: "Format (TND)",
                 href: route("format.user.index"),
                 current: route().current("format.user.index"),
+            },
+            {
+                name: "Pengadaan",
+                href: route("procurement.index"),
+                current: route().current("procurement.index"),
             },
         ];
     }

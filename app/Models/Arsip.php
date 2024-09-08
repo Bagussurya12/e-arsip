@@ -13,7 +13,7 @@ class Arsip extends Model
         'keterangan',
         'jenis_surat',
         'asal_surat', 'tanggal', 'bulan', 'tahun', 'uraian_informasi', 'nomor_urut_perbulan',
-        'nomor_dokumen', 'jumlah', 'tingkat_perkembangan', 'disposisi', 'terusan', 'jenis_media', 'media', 'created_at', 'updated_at'
+        'nomor_dokumen', 'jumlah', 'tingkat_perkembangan', 'disposisi', 'terusan', 'jenis_media', 'media', 'created_at', 'updated_at', 'procurement_id', 'user_id'
     ];
 
     public function lokasiSimpan()
@@ -26,6 +26,11 @@ class Arsip extends Model
     }
     public function notaDinas()
     {
-        return $this->hasOne(notaDinas::class, 'arsip_id');
+        return $this->hasOne(NotaDinas::class, 'arsip_id');
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 }

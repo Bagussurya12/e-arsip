@@ -66,5 +66,5 @@ class DataTerusanController extends Controller
         return redirect()->route('terusan')
             ->with('success', 'Data terusan berhasil dihapus.');
     }
-    
+
 }

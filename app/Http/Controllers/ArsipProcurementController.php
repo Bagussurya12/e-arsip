@@ -1,67 +1,34 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 use Inertia\Inertia;
+
 use App\Models\Arsip;
 use App\Models\LokasiSimpan;
 use App\Models\NotaDinas;
 use App\Models\Undangan;
 use App\Models\Terusan;
+use App\Models\Procurement;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 
-class ArsipController extends Controller
+class ArsipProcurementController extends Controller
 {
-    public function index(Request $request)
+    public function create(Request $request)
     {
-        // Membuat query dasar untuk model Arsip dan menyertakan relasi 'lokasiSimpan'
-        $query = Arsip::with(['lokasiSimpan', 'notaDinas']);
-
-
-        // Memeriksa apakah ada parameter pencarian dan memastikan nilainya tidak kosong
-        if ($request->has('naskahDinas') && !empty($request->input('naskahDinas'))) {
-            $query->where('jenis_surat', 'like', '%' . $request->input('naskahDinas') . '%');
-        }
-
-        if ($request->has('asalSurat') && !empty($request->input('asalSurat'))) {
-            $query->where('asal_surat', 'like', '%' . $request->input('asalSurat') . '%');
-        }
-
-        if ($request->has('uraianInformasi') && !empty($request->input('uraianInformasi'))) {
-            $query->where('uraian_informasi', 'like', '%' . $request->input('uraianInformasi') . '%');
-        }
-
-        if ($request->has('tanggal') && !empty($request->input('tanggal'))) {
-            $query->where('tanggal', 'like', '%' . $request->input('tanggal') . '%');
-        }
-
-        if ($request->has('bulan') && !empty($request->input('bulan'))) {
-            $query->where('bulan', 'like', '%' . $request->input('bulan') . '%');
-        }
-
-        if ($request->has('tahun') && !empty($request->input('tahun'))) {
-            $query->where('tahun', 'like', '%' . $request->input('tahun') . '%');
-        }
-
-        // Mengurutkan hasil berdasarkan kolom 'created_at' dari yang terbaru ke yang terlama
-        $query->orderBy('created_at', 'desc');
-
-        // Mengambil hasil pencarian dengan paginasi, 20 item per halaman
-        $arsip = $query->paginate(20);
-
-        // Mengirimkan hasil pencarian dan filter yang diterapkan ke tampilan frontend dengan Inertia.js
-        return Inertia::render('Arsip/Index', [
-            'arsip' => $arsip,
-            'filters' => $request->all(), // Mengirimkan filter yang diterapkan ke frontend
+        $procurement_id = (int) $request->procurement_id; // Cast to integer
+        $terusan = Terusan::all();
+        return inertia('Procurement/Surat/Create', [
+            'procurement_id' => $procurement_id,
+            'terusan' => $terusan,
         ]);
     }
-
 
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'procurement_id' => 'integer|exists:procurements,id',
             'keterangan' => 'string|in:Surat Masuk,Surat Keluar',
             'jenis_surat' => 'string',
             'asal_surat' => 'string',
@@ -85,12 +52,12 @@ class ArsipController extends Controller
             'foto_kegiatan' => 'nullable|file|mimes:jpg,png,jpeg,pdf,mp4,mp3|max:2048',
         ]);
 
+        $validated['user_id'] = auth()->user()->id;
+
         // Menyimpan media jika ada
         if ($request->file('media')) {
             $validated['media'] = $request->file('media')->store('assets-arsip');
         }
-
-        $validated['user_id'] = auth()->user()->id;
 
         $arsip = Arsip::create($validated);
 
@@ -115,75 +82,28 @@ class ArsipController extends Controller
             'kotak' => $request->kotak
         ]);
 
-        return redirect()->route('arsip')->with('success', 'Arsip berhasil ditambahkan.');
-    }
-
-    public function getDataArsip(Request $request)
-    {
-        $query = Arsip::with('lokasiSimpan');
-
-        if ($request->has('naskahDinas')) {
-            $query->where('jenis_arsip', 'like', '%' . $request->input('naskahDinas') . '%');
-        }
-
-        if ($request->has('searchQuery')) {
-            $query->where('uraian_informasi', 'like', '%' . $request->input('searchQuery') . '%');
-        }
-
-        if ($request->has('filterBulan')) {
-            $query->where('map_bulan', 'like', '%' . $request->input('filterBulan') . '%');
-        }
-
-        if ($request->has('filterTahun')) {
-            $query->where('tahun', $request->input('filterTahun'));
-        }
-
-        if ($request->has('filterMediaArsip')) {
-            $query->where('jenis_media', 'like', '%' . $request->input('filterMediaArsip') . '%');
-        }
-
-        $arsip = $query->paginate(9);
-
-        return Inertia::render('Welcome', [
-            'arsip' => $arsip
+        return redirect()->route('procurement.details', [
+            'procurementId' => $validated['procurement_id']
         ]);
-    }
-
-    public function detail($id)
-    {
-        $arsip = Arsip::with('lokasiSimpan', 'notaDinas', 'user')->find($id);
-
-        return Inertia::render('detail', [
-            'arsip' => $arsip,
-            'user_name' => $arsip -> user -> name
-        ]);
-    }
-
-    public function create()
-    {
-        $terusan = Terusan::all();
-        return Inertia::render('Arsip/Create', ['terusan' => $terusan]);
     }
 
     public function edit($id)
     {
         $arsip = Arsip::with('lokasiSimpan', 'undangan')->find($id);
         $terusan = Terusan::all();
-        return Inertia::render('Arsip/Edit', [
+        return Inertia::render('Procurement/Surat/Edit', [
             'arsip' => $arsip,
             'terusan' => $terusan
         ]);
     }
     public function arsip_detail($id)
     {
-        $arsip = Arsip::with('lokasiSimpan', 'undangan', 'notaDinas', 'user')->find($id);
+        $arsip = Arsip::with('lokasiSimpan', 'undangan', 'notaDinas')->find($id);
         return Inertia::render('Arsip/Detail', [
-            'arsip' => $arsip,
-            'user_name' => $arsip -> user -> name
+            'arsip' => $arsip
         ]);
     }
-
-    public function update(Request $request, $id)
+    public function update(Request $request, Procurement $procurement, $id)
     {
         $validated = $request->validate([
             'keterangan' => 'string|in:Surat Masuk,Surat Keluar',
@@ -264,10 +184,10 @@ class ArsipController extends Controller
             }
         }
 
-            return redirect()->route('arsip')->with('success', 'Data arsip berhasil diperbarui');
+
+            $procurement_id = $arsip-> procurement_id;
+            return redirect()->route('procurement.details', ['procurementId' => $procurement_id]);
     }
-
-
     public function destroy($id)
     {
         $arsip = Arsip::findOrFail($id);
@@ -275,22 +195,9 @@ class ArsipController extends Controller
         if ($arsip->media) {
             Storage::delete($arsip->media);
         }
-
+        $procurementId = $arsip -> procurement_id;
         $arsip->delete();
 
-        return redirect(route('arsip'))->with('success', 'Data arsip berhasil dihapus');
-    }
-
-    // Method untuk mengambil arsip terbaru dalam 3 hari terakhir
-    public function getArsipTerbaru()
-    {
-        $threeDaysAgo = Carbon::now()->subDays(3);
-        $arsipTerbaru = Arsip::with('lokasiSimpan', 'undangan')
-            ->where('created_at', '>=', $threeDaysAgo)
-            ->get();
-
-        return Inertia::render('Dashboard', [
-            'arsipTerbaru' => $arsipTerbaru
-        ]);
+        return redirect()->route('procurement.details', ['procurementId' => $procurementId]);
     }
 }

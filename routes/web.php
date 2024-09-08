@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+use App\Http\Controllers\DokumentasiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArsipController;
 use App\Http\Controllers\ContactController;
@@ -16,6 +17,8 @@ use App\Http\Controllers\DataTerusanController;
 use App\Http\Controllers\FormatSuratController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\NotaDinasController;
+use App\Http\Controllers\ProcurementController;
+use App\Http\Controllers\ArsipProcurementController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -33,8 +36,8 @@ Route::get('/dashboard', function () {
 
 
 Route::middleware(['auth', 'admin'])->group(function() {
-    Route::get('/users', [UserController::class, 'index'])->name('users'); 
-    Route::get('/users/create', [UserController::class, 'create'])->name('users.create'); 
+    Route::get('/users', [UserController::class, 'index'])->name('users');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
     Route::get('/users/edit/{user}', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
@@ -49,7 +52,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth') -> group(function(){
     Route::get('/arsip', [ArsipController::class, 'index'])-> name('arsip');
-    Route::get('/arsip/create', [ArsipController::class, 'create'])->name('arsip.create'); 
+    Route::get('/arsip/create', [ArsipController::class, 'create'])->name('arsip.create');
     Route::post('/arsip/store', [ArsipController::class, 'store'])->name('arsip.store');
     Route::get('/arsip/edit/{arsipId}', [ArsipController::class, 'edit'])->name('arsip.edit');
     Route::get('/arsip/detail/{arsipId}', [ArsipController::class, 'arsip_detail'])->name('arsip.detail');
@@ -66,7 +69,7 @@ Route::middleware('auth')->group(function(){
 Route::get('/', [ArsipController::class, 'getDataArsip'])->name('get.data.arsip');
 Route::get('detail/{id}', [ArsipController::class, 'detail'])->name('detail.arsip');
 
-// KONTAK 
+// KONTAK
 // Route::middleware(['auth', 'admin'])->group(function(){
 //     Route::get('/pesan', [ContactController::class, 'index'])->name('pesan');
 //     Route::delete('/pesan/{id}', [ContactController::class, 'destroy'])->name('pesan.delete');
@@ -133,5 +136,33 @@ Route::middleware('auth')->group(function(){
     Route::put('/NotaDinas/{notaDinasId}', [NotaDinasController::class, 'update'])->name('nota-dinas.update');
 });
 
-require __DIR__.'/auth.php';
+Route::middleware('auth')->group(function(){
+    Route::get('/procurement', [ProcurementController::class, 'index'])->name('procurement.index');
+    Route::get('/procurement/create', [ProcurementController::class, 'create'])->name('procurement.create');
+    Route::get('/procurement/edit/{procurementId}', [ProcurementController::class, 'edit'])->name('procurement.edit');
+    Route::post('/procurement/store', [ProcurementController::class, 'store'])->name('procurement.store');
+    Route::put('/procurement/{procurementId}', [ProcurementController::class, 'update'])->name('procurement.update');
+    Route::delete('/procurement/{procurementId}', [ProcurementController::class, 'destroy'])->name('procurement.delete');
+    Route::get('/procurement/{procurementId}', [ProcurementController::class, 'details'])->name('procurement.details');
+});
 
+Route::middleware('auth')->group(function(){
+    Route::get('/procurement/surat/{procurement_id}/create', [ArsipProcurementController::class, 'create'])->name('procurement.surat.create');
+    Route::post('/procurement/surat/store', [ArsipProcurementController::class, 'store'])->name('procurement.surat.store');
+    Route::put('/procurement/surat/update/{arsipId}', [ArsipProcurementController::class,'update'])->name('procurement.surat.update');
+    Route::get('/procurement/surat/edit/{arsipId}', [ArsipProcurementController::class, 'edit'])->name('procurement.surat.edit');
+    Route::delete('/procurement/surat/delete/{id}', [ArsipProcurementController::class, 'destroy'])->name('procurement.surat.delete');
+
+});
+
+
+Route::middleware('auth')->group(function(){
+    Route::get('/procurement/dokumentasi/{procurementId}/create', [DokumentasiController::class, 'create'])->name('procurement.dokumentasi.create');
+    Route::get('/procurement/dokumentasi/detail/{dokumentasiId}', [DokumentasiController::class, 'detail'])->name('procurement.dokumentasi.detail');
+    Route::post('/procurement/dokumentasi/store', [DokumentasiController::class, 'store'])->name('procurement.dokumentasi.store');
+    Route::get('/procurement/dokumentasi/edit/{dokumentasiId}', [DokumentasiController::class, 'edit'])->name('procurement.dokumentasi.edit');
+    Route::put('/procurement/dokumentasi/update/{dokumentasi}', [DokumentasiController::class, 'update'])->name('procurement.dokumentasi.update');
+    Route::delete('/procurement/dokumentasi/delete/{dokumentasiId}', [DokumentasiController::class, 'destroy'])->name('procurement.dokumentasi.delete');
+});
+
+require __DIR__.'/auth.php';

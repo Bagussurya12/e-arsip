@@ -1,10 +1,10 @@
 <template>
-    <Head title="Tambah Data Arsip" />
+    <Head title="Edit Data Arsip" />
 
     <AuthenticatedLayout class="w-full">
         <template #header>
             <h2 class="font-semibold text-lg text-gray-800 leading-tight">
-                Tambah Data Arsip
+                Edit Data Arsip / Pengadaan
             </h2>
         </template>
 
@@ -13,10 +13,10 @@
                 <section>
                     <header class="m-6 space-y-6">
                         <h2 class="text-lg font-medium text-gray-900">
-                            Tambah Data Arsip
+                            Edit Data Arsip
                         </h2>
                         <p class="mt-1 text-sm text-gray-600">
-                            Tambah Data Arsip Untuk Menyimpan Data Arsip Agar
+                            Edit Data Arsip Untuk Memperbarui Data Arsip Agar
                             Selalu Konsisten ✨
                         </p>
                         <div
@@ -24,7 +24,7 @@
                         ></div>
                     </header>
                     <form
-                        @submit.prevent="submitForm"
+                        @submit.prevent="updateArsip"
                         enctype="multipart/form-data"
                         class="m-6 space-y-6"
                     >
@@ -99,11 +99,7 @@
                             </div>
                         </div>
 
-<<<<<<< HEAD
                         <div
-=======
-                         <div
->>>>>>> 33864e9a59e456cf74bf25dbb97d3a747782dc6e
                             class="mb-4 flex flex-wrap md:flex-nowrap md:space-x-6 mt-5"
                         >
                             <!-- TANGGAL -->
@@ -119,7 +115,6 @@
                                     required
                                     autocomplete="off"
                                     placeholder="Masukan tanggal"
-                                    min="0"
                                 />
                                 <InputError
                                     class="mt-2"
@@ -158,7 +153,6 @@
                                     required
                                     autocomplete="off"
                                     placeholder="Masukan Tahun"
-                                    min="0"
                                 />
                                 <InputError
                                     class="mt-2"
@@ -166,7 +160,6 @@
                                 />
                             </div>
                         </div>
-
                         <div
                             class="mb-4 flex flex-wrap md:flex-nowrap md:space-x-6 mt-5"
                         >
@@ -346,8 +339,7 @@
                                     class="mt-1 block w-full"
                                     v-model="form.kolom_lemari"
                                     autocomplete="off"
-                                    placeholder="Masukan Kolom Lemari"
-                                    min="0"
+                                    placeholder="Masukan kolom_lemari"
                                 />
                                 <InputError
                                     class="mt-2"
@@ -418,14 +410,18 @@
                                     class="mt-2"
                                     :message="form.errors.media"
                                 />
+                                <div v-if="form.old_media">
+                                    <p class="mt-2 text-sm text-gray-600">
+                                        File Lama: {{ form.old_media }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                        <div
-                            class="w-full border-t border-slate-700 my-10"
-                        ></div>
-
                         <div v-if="form.jenis_surat === 'Surat Undangan'">
                             <div class="items-center m-20 text-center">
+                                <div
+                                    class="w-full border-t border-slate-700 my-10"
+                                ></div>
                                 <h1 class="text-2xl font-bold text-Biru">
                                     Dokumentasi Kegiatan Acara
                                 </h1>
@@ -445,7 +441,7 @@
                                         type="text"
                                         class="mt-1 block w-full"
                                         v-model="form.disposisi_acara"
-                                        autocomplete="on"
+                                        autocomplete="off"
                                         placeholder="Masukan Disposisi Acara"
                                     />
                                     <InputError
@@ -462,7 +458,7 @@
                                         type="text"
                                         class="mt-1 block w-full rounded-lg border-gray-300 focus:ring-Dark focus:border-Dark"
                                         v-model="form.notulen"
-                                        autocomplete="on"
+                                        autocomplete="off"
                                         placeholder="Masukan Notulen"
                                     />
                                     <InputError
@@ -487,7 +483,7 @@
                                         type="text"
                                         class="mt-1 block w-full"
                                         v-model="form.keterangan_undangan"
-                                        autocomplete="on"
+                                        autocomplete="off"
                                         placeholder="Masukan Keterangan Undangan"
                                     />
                                     <InputError
@@ -516,6 +512,12 @@
                                         class="mt-2"
                                         :message="form.errors.foto_kegiatan"
                                     />
+                                    <div v-if="form.old_foto_kegiatan">
+                                        <p class="mt-2 text-sm text-gray-600">
+                                            File Lama:
+                                            {{ form.old_foto_kegiatan }}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -534,7 +536,7 @@
                             >
                                 <p
                                     v-if="form.recentlySuccessful"
-                                    class="text-sm text-gray-600"
+                                    class="text-sm text-white"
                                 >
                                     Data Berhasil Disimpan!
                                 </p>
@@ -546,47 +548,50 @@
         </div>
     </AuthenticatedLayout>
 </template>
+
 <script setup>
-import { Head, useForm, usePage } from "@inertiajs/vue3";
+import { Inertia } from "@inertiajs/inertia";
+import { ref, watch, computed } from "vue";
+import { Head, useForm, Link } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
-import SelectBox from "@/Components/SelectBox.vue";
 import TextInput from "@/Components/TextInput.vue";
+import InputError from "@/Components/InputError.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import { defineProps, computed, watch, reactive } from "vue";
+import SelectBox from "@/Components/SelectBox.vue";
 
 const props = defineProps({
+    arsip: Object,
     terusan: Array,
 });
 
-// Debugging
-// console.log("Props Terusan on Init:", props.terusan);
-
+// Initialize form using `useForm` with initial values.
 const form = useForm({
-    keterangan: "",
-    jenis_surat: "",
-    asal_surat: "",
-    tanggal: "",
-    bulan: "",
-    tahun: "",
-    uraian_informasi: "",
-    nomor_urut_perbulan: "",
-    nomor_dokumen: "",
-    kolom_lemari: "",
-    kotak: "",
-    jumlah: "",
-    tingkat_perkembangan: "",
-    disposisi: "",
-    terusan: null,
-    jenis_media: "",
+    keterangan: props.arsip.keterangan,
+    jenis_surat: props.arsip.jenis_surat ?? "",
+    asal_surat: props.arsip.asal_surat ?? "",
+    tanggal: props.arsip.tanggal ?? "",
+    bulan: props.arsip.bulan ?? "",
+    tahun: props.arsip.tahun ?? "",
+    uraian_informasi: props.arsip.uraian_informasi ?? "",
+    nomor_urut_perbulan: props.arsip.nomor_urut_perbulan ?? "",
+    nomor_dokumen: props.arsip.nomor_dokumen ?? "",
+    kolom_lemari: props.arsip.lokasi_simpan.kolom_lemari ?? "",
+    kotak: props.arsip.lokasi_simpan.kotak ?? "",
+    jumlah: props.arsip.jumlah ?? "",
+    tingkat_perkembangan: props.arsip.tingkat_perkembangan ?? "",
+    disposisi: props.arsip.disposisi ?? "",
+    terusan: props.arsip.terusan ?? "",
+    jenis_media: props.arsip.jenis_media ?? "",
     media: null,
-    disposisi_acara: "",
-    notulen: "",
-    keterangan_undangan: "",
-    foto_kegiatan: null,
+    old_media: props.arsip.media, // Store the old media file name.
+    _method: "put",
+    disposisi_acara: "" ?? props.arsip.undangan.disposisi_acara,
+    notulen: "" ?? props.arsip.undangan.notulen,
+    keterangan_undangan: "" ?? props.arsip.undangan.keterangan_undangan,
+    foto_kegiatan: "" ?? null,
+    old_foto_kegiatan: "" ?? props.arsip.undangan.foto_kegiatan,
 });
-
 const optionTerusan = computed(() => {
     if (props.terusan && Array.isArray(props.terusan)) {
         return props.terusan.map((item) => ({
@@ -602,6 +607,28 @@ const optionTerusan = computed(() => {
 watch(optionTerusan, (newVal) => {
     console.log("Options Terusan:", newVal);
 });
+
+const handleFileUploadUndangan = (event) => {
+    form.foto_kegiatan = event.target.files[0];
+};
+const handleFileUpload = (event) => {
+    form.media = event.target.files[0];
+};
+
+watch(
+    () => form.media,
+    (newVal) => {
+        if (newVal) {
+            form.old_media = null;
+        }
+    }
+);
+const updateArsip = () => {
+    form.post(route("procurement.surat.update", props.arsip.id), {
+        preserveState: true,
+        preserveScroll: true,
+    });
+};
 const optionJenisSurat = [
     { value: "Peraturan Daerah", label: "Peraturan Daerah" },
     { value: "Peraturan Gubernur", label: "Peraturan Gubernur" },
@@ -630,7 +657,6 @@ const optionJenisSurat = [
     { value: "Perjanjian Kerja Sama", label: "Perjanjian Kerja Sama" },
     { value: "Surat Keterangan", label: "Surat Keterangan" },
     { value: "Surat Kuasa", label: "Surat Kuasa" },
-    { value: "Surat Permohonan", label: "Surat Permohonan" },
     { value: "Berita Acara", label: "Berita Acara" },
     { value: "Pengumuman", label: "Pengumuman" },
     { value: "Surat Pengantar", label: "Surat Pengantar" },
@@ -649,7 +675,10 @@ const optionJenisSurat = [
         label: "Surat Keterangan Melaksanakan Tugas",
     },
     { value: "Rekomendasi", label: "Rekomendasi" },
-    { value: "Lain-lain", label: "Lain-lain" },
+];
+const optionTingkatPerkembangan = [
+    { value: "Copy", label: "Copy" },
+    { value: "Asli", label: "Asli" },
 ];
 
 const optionBulan = [
@@ -667,19 +696,9 @@ const optionBulan = [
     { value: "Desember", label: "Desember" },
 ];
 
-const optionTingkatPerkembangan = [
-    { value: "Copy", label: "Copy" },
-    { value: "Asli", label: "Asli" },
-];
-
 const optionKeterangan = [
     { value: "Surat Masuk", label: "Surat Masuk" },
     { value: "Surat Keluar", label: "Surat Keluar" },
-];
-
-const optionKotak = [
-    { value: "A", label: "A" },
-    { value: "B", label: "B" },
 ];
 
 const optionJenisMedia = [
@@ -688,31 +707,12 @@ const optionJenisMedia = [
     { value: "Audio", label: "Audio" },
     { value: "Vidio", label: "Vidio" },
 ];
-
-const handleFileUpload = (event) => {
-    form.media = event.target.files[0];
-};
-const handleFileUploadUndangan = (event) => {
-    form.foto_kegiatan = event.target.files[0];
-};
-
-const submitForm = () => {
-    const formData = new FormData();
-    Object.keys(form).forEach((key) => {
-        formData.append(key, form[key]);
-    });
-
-    if (form.media) {
-        formData.append("media", form.media);
-    }
-
-    form.post(route("arsip.store"), {
-        data: formData,
-        forceFormData: true,
-        onSuccess: () => {
-            // Reset form setelah sukses menyimpan data
-            form.reset();
-        },
-    });
-};
+const optionKotak = [
+    { value: "A", label: "A" },
+    { value: "B", label: "B" },
+];
 </script>
+
+<style scoped>
+/* Tambahkan gaya kustom di sini */
+</style>

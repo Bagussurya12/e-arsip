@@ -1,10 +1,10 @@
 <template>
-    <Head title="Tambah Data Arsip" />
+    <Head title="Tambah Data Surat" />
 
     <AuthenticatedLayout class="w-full">
         <template #header>
             <h2 class="font-semibold text-lg text-gray-800 leading-tight">
-                Tambah Data Arsip
+                Tambah Data Surat
             </h2>
         </template>
 
@@ -13,10 +13,10 @@
                 <section>
                     <header class="m-6 space-y-6">
                         <h2 class="text-lg font-medium text-gray-900">
-                            Tambah Data Arsip
+                            Tambah Data Surat
                         </h2>
                         <p class="mt-1 text-sm text-gray-600">
-                            Tambah Data Arsip Untuk Menyimpan Data Arsip Agar
+                            Tambah Data Surat Untuk Menyimpan Data Arsip Agar
                             Selalu Konsisten ✨
                         </p>
                         <div
@@ -99,11 +99,7 @@
                             </div>
                         </div>
 
-<<<<<<< HEAD
-                        <div
-=======
                          <div
->>>>>>> 33864e9a59e456cf74bf25dbb97d3a747782dc6e
                             class="mb-4 flex flex-wrap md:flex-nowrap md:space-x-6 mt-5"
                         >
                             <!-- TANGGAL -->
@@ -425,11 +421,6 @@
                         ></div>
 
                         <div v-if="form.jenis_surat === 'Surat Undangan'">
-                            <div class="items-center m-20 text-center">
-                                <h1 class="text-2xl font-bold text-Biru">
-                                    Dokumentasi Kegiatan Acara
-                                </h1>
-                            </div>
                             <div
                                 class="mb-4 flex flex-wrap md:flex-nowrap md:space-x-6 mt-5"
                             >
@@ -457,10 +448,10 @@
                                     class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
                                 >
                                     <InputLabel for="notulen" value="Notulen" />
-                                    <textarea
+                                    <TextInput
                                         id="notulen"
                                         type="text"
-                                        class="mt-1 block w-full rounded-lg border-gray-300 focus:ring-Dark focus:border-Dark"
+                                        class="mt-1 block w-full"
                                         v-model="form.notulen"
                                         autocomplete="on"
                                         placeholder="Masukan Notulen"
@@ -557,6 +548,10 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { defineProps, computed, watch, reactive } from "vue";
 
 const props = defineProps({
+    procurement_id: {
+        type: Number,
+        required: true,
+    },
     terusan: Array,
 });
 
@@ -564,6 +559,7 @@ const props = defineProps({
 // console.log("Props Terusan on Init:", props.terusan);
 
 const form = useForm({
+    procurement_id: props.procurement_id,
     keterangan: "",
     jenis_surat: "",
     asal_surat: "",
@@ -706,7 +702,7 @@ const submitForm = () => {
         formData.append("media", form.media);
     }
 
-    form.post(route("arsip.store"), {
+    form.post(route("procurement.surat.store"), {
         data: formData,
         forceFormData: true,
         onSuccess: () => {
