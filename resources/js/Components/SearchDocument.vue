@@ -90,7 +90,7 @@
                     </div>
                     <!-- Input Tahun -->
                     <div
-                        class="w-full md:w-full lg:w-1/12 bg-white text-sm rounded-r-lg border-transparent border-none px-2 mb-5"
+                        class="w-full md:w-full lg:w-1/12 bg-white text-sm rounded-r-lg border-transparent border-0 sm:px-2 mb-5"
                     >
                         <input
                             type="number"

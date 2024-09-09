@@ -75,7 +75,7 @@
 
                                 <button
                                     type="submit"
-                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                    class="bg-Biru hover:bg-Orange text-white font-bold py-2 px-4 rounded"
                                 >
                                     Update Tema
                                 </button>

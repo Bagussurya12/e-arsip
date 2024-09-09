@@ -4,7 +4,7 @@
     <AuthenticatedLayout>
         <template #header>
             <h3 class="font-semibold text-lg text-Dark leading-tight">
-                Daftar Data Pengadaan
+                Daftar Data Pengadaan Barang dan Jasa
             </h3>
         </template>
         <div class="py-12">
@@ -42,7 +42,7 @@
                             <div class="flex justify-between items-center mb-10">
                                 <div class="flex items-center">
                                     <label class="mr-2">
-                                        Total Data Pengadaan: {{ procurements.length ?? '-' }}
+                                        Total Data Pengadaan: {{ procurements.total ?? '0'  }}
                                     </label>
                                 </div>
                                 <Link

@@ -302,14 +302,14 @@
                                     target="_blank"
                                     class="bg-Biru text-white font-bold py-2 px-4 rounded mr-4 hover:bg-Orange"
                                 >
-                                    Lihat Foto
+                                    Lihat Dokumen
                                 </a>
                                 <a
                                     :href="`/storage/${arsip.nota_dinas.foto}`"
                                     download
                                     class="bg-Orange text-white font-bold py-2 px-4 rounded hover:bg-Biru"
                                 >
-                                    Unduh Foto
+                                    Unduh Dokumen
                                 </a>
                                 <Link
                                     :href="
