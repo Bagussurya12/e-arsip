@@ -99,7 +99,11 @@
                             </div>
                         </div>
 
+<<<<<<< HEAD
+                        <div
+=======
                          <div
+>>>>>>> 33864e9a59e456cf74bf25dbb97d3a747782dc6e
                             class="mb-4 flex flex-wrap md:flex-nowrap md:space-x-6 mt-5"
                         >
                             <!-- TANGGAL -->
@@ -421,6 +425,11 @@
                         ></div>
 
                         <div v-if="form.jenis_surat === 'Surat Undangan'">
+                            <div class="items-center m-20 text-center">
+                                <h1 class="text-2xl font-bold text-Biru">
+                                    Dokumentasi Kegiatan Acara
+                                </h1>
+                            </div>
                             <div
                                 class="mb-4 flex flex-wrap md:flex-nowrap md:space-x-6 mt-5"
                             >
@@ -448,10 +457,10 @@
                                     class="w-full md:w-1/2 flex flex-col space-y-2 mt-5"
                                 >
                                     <InputLabel for="notulen" value="Notulen" />
-                                    <TextInput
+                                    <textarea
                                         id="notulen"
                                         type="text"
-                                        class="mt-1 block w-full"
+                                        class="mt-1 block w-full rounded-lg border-gray-300 focus:ring-Dark focus:border-Dark"
                                         v-model="form.notulen"
                                         autocomplete="on"
                                         placeholder="Masukan Notulen"

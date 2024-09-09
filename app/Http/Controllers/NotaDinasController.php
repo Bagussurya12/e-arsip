@@ -29,7 +29,7 @@ class NotaDinasController extends Controller
     public function create($id)
     {
         $arsip = Arsip::find($id); // Menggunakan '::' untuk metode statis
-        // Anda tidak perlu `dd($id)` jika Anda ingin melanjutkan eksekusi
+        // dd($arsip);
         return Inertia::render('NotaDinas/Create', [
             'arsip' => $arsip,
             'arsip_id' => $arsip->id,  // Arsip ID yang diteruskan ke frontend
