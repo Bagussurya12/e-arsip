@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// Update Format Surat
+// Update Format
 use App\Models\FormatSurat;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
