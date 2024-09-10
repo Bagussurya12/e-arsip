@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+// Update Format Surat
 use App\Models\FormatSurat;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
@@ -12,20 +13,20 @@ class FormatSuratController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-    
+
         $format_surat = FormatSurat::query()
             ->when($search, function ($query, $search) {
                 return $query->where('title', 'like', "%{$search}%");
             })
             ->orderBy('id', 'DESC')
             ->get();
-    
+
         return Inertia('Format/Index', [
             'format_surat' => $format_surat,
             'search' => $search,
         ]);
     }
-    
+
 
 
     public function create()
@@ -80,7 +81,7 @@ class FormatSuratController extends Controller
     public function destroy($id)
     {
         $format = FormatSurat::findOrFail($id);
-        
+
         if ($format->file_surat) {
             Storage::delete($format->file_surat);
         }
@@ -92,14 +93,14 @@ class FormatSuratController extends Controller
     public function indexForUser(Request $request)
     {
         $search = $request->input('search');
-    
+
         $format_surat = FormatSurat::query()
             ->when($search, function ($query, $search) {
                 return $query->where('title', 'like', "%{$search}%");
             })
             ->orderBy('id', 'DESC')
             ->get();
-    
+
         return Inertia('Format/User/Index', [
             'format_surat' => $format_surat,
             'search' => $search,
