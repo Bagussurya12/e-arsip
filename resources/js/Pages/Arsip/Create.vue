@@ -98,19 +98,10 @@
                                 />
                             </div>
                         </div>
-
-<<<<<<< HEAD
-                        <div
-=======
-                         <div
->>>>>>> 33864e9a59e456cf74bf25dbb97d3a747782dc6e
-                            class="mb-4 flex flex-wrap md:flex-nowrap md:space-x-6 mt-5"
-                        >
+                        <div  class="mb-4 flex flex-wrap md:flex-nowrap md:space-x-6 mt-5">
                             <!-- TANGGAL -->
-                            <div
-                                class="w-full md:w-1/3 flex flex-col space-y-2 mt-5"
-                            >
-                                <InputLabel for="tanggal" value="Tanggal" />
+                            <div class="w-full md:w-1/3 flex flex-col space-y-2 mt-5">
+                                <InputLabel for="bulan" value="Bulan" />
                                 <TextInput
                                     id="tanggal"
                                     type="number"
